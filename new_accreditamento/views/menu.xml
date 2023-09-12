@@ -1,0 +1,43 @@
+<odoo>
+    <menuitem id="main_accreditamento_menu" name="Accreditamento (strutture sanitarie)" sequence="10" web_icon="new_accreditamento,static/description/icon.png"/>
+    
+    <record id="action_accreditation" model="ir.actions.act_window">
+        <field name="name">Pratiche</field>
+        <field name="res_model">hospital.accreditation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Non sono state create ancora pratiche.
+            </p>
+        </field>
+
+    </record>
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+        <field name="name">Strutture Sanitarie</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_struttura_sanitaria', '=', True), ('is_company', '=', True)]</field>
+        <field name="context">{'search_default_is_struttura_sanitaria': 1}</field>
+    </record>
+        
+
+
+        <!-- <record id="action_struttura_sanitaria" model="ir.actions.act_window">
+        <field name="name">Strutture Sanitarie</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_struttura_sanitaria', '=', True), ('is_company', '=', True)]</field>
+        <field name="context">{'search_default_is_struttura_sanitaria': 1}</field> -->
+
+
+    <record id="action_tipologia_pratica" model="ir.actions.act_window">
+        <field name="name">Tipologie pratiche</field>
+        <field name="res_model">hospital.tipologia_pratica</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10"/>
+    <menuitem id="menu_accreditamento_strutture_sanitarie" name="Strutture sanitarie" parent="main_accreditamento_menu" action="base.action_partner_form"  sequence="20"/>
+    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30"/>
+</odoo>
+

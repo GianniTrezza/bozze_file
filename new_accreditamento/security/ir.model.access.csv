@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_accreditation,hospital.accreditation,model_hospital_accreditation,base.group_user,1,1,1,1
+access_hospital_tipologia_pratica,hospital.tipologia_pratica,model_hospital_tipologia_pratica,base.group_user,1,1,1,1
