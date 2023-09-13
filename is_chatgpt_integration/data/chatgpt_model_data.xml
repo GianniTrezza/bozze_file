@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="model_tabella_fatture" model="ir.model">
+            <field name="name">tabella_fatture</field>
+            <field name="model">tabella_fatture</field>
+        </record>
+        <!-- <record id="cliente_sequence" model="ir.sequence">
+            <field name="name">Cliente ID Sequence</field>
+            <field name="code">tabella.fatture.sequence</field>
+            <field name="padding">6</field>
+            <field name="prefix">CLI_</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_increment">1</field>
+        </record> -->
+        <record id="chatgpt_model_text_davinci_001" model="chatgpt.model">
+            <field name="name">text-davinci-001</field>
+        </record>
+        <record id="chatgpt_model_text_davinci_002" model="chatgpt.model">
+            <field name="name">text-davinci-002</field>
+        </record>
+        <record id="chatgpt_model_text_davinci_003" model="chatgpt.model">
+            <field name="name">text-davinci-003</field>
+        </record>
+        <record id="chatgpt_model_gpt_3_5_turbo_0301" model="chatgpt.model">
+            <field name="name">gpt-3.5-turbo-0301</field>
+        </record>
+        <record id="chatgpt_model_gpt_3_5_turbo_0613" model="chatgpt.model">
+            <field name="name">gpt-3.5-turbo-0613</field>
+        </record>
+        <record id="chatgpt_model_gpt_3_5_turbo_16k" model="chatgpt.model">
+            <field name="name">gpt-3.5-turbo-16k</field>
+        </record>
+        <record id="chatgpt_model_gpt_3_5_turbo_16k_0613" model="chatgpt.model">
+            <field name="name">gpt-3.5-turbo-16k-0613</field>
+        </record>
+        <record id="chatgpt_model_gpt_3_5_turbo" model="chatgpt.model">
+            <field name="name">gpt-3.5-turbo</field>
+        </record>
+        <record id="chatgpt_model_gpt_4" model="chatgpt.model">
+            <field name="name">gpt-4</field>
+        </record>
+        <record id="chatgpt_model_gpt_4_0613" model="chatgpt.model">
+            <field name="name">gpt-4-0613</field>
+        </record>
+        <record id="chatgpt_model_gpt_4_32k" model="chatgpt.model">
+            <field name="name">gpt-4-32k</field>
+        </record>
+        <record id="chatgpt_model_gpt_4_32k_0613" model="chatgpt.model">
+            <field name="name">gpt-4-32k-0613</field>
+        </record>
+    </data>
+</odoo>
