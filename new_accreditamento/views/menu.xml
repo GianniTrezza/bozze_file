@@ -1,5 +1,5 @@
 <odoo>
-    <menuitem id="main_accreditamento_menu" name="Accreditamento (strutture sanitarie)" sequence="10" web_icon="new_accreditamento,static/description/icon.png"/>
+    <menuitem id="main_accreditamento_menu" name="Accreditamento (Strutture Sanitarie)" sequence="10" web_icon="new_accreditamento,static/description/icon.png"/>
     
     <record id="action_accreditation" model="ir.actions.act_window">
         <field name="name">Pratiche</field>

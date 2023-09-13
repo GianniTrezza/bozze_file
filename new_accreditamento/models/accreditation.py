@@ -69,14 +69,37 @@ class HospitalAccreditation(models.Model):
         self.write({'state': 'to_be_approved'})
         return True
     
-
     def action_approve(self):
         self.write({'state': 'approved'})
-        return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
-
+        for record in self:
+            if record.struttura_da_accreditare_id:
+                record.struttura_da_accreditare_id.write({
+                    'is_company': True, 
+                    'e_accreditata': True 
+                })
+        return self.env.ref('new_accreditamento.action_accreditation').read()[0]
     def action_refuse(self):
         self.write({'state': 'refused'})
-        return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
+        for record in self:
+            if record.struttura_da_accreditare_id:
+                record.struttura_da_accreditare_id.write({
+                    'is_company': True,
+                    'e_accreditata': False
+                })
+        return self.env.ref('new_accreditamento.action_accreditation').read()[0]
+
+
+    
+
+    
+#Codice precedente
+    # def action_approve(self):
+    #     self.write({'state': 'approved'})
+    #     return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
+
+    # def action_refuse(self):
+    #     self.write({'state': 'refused'})
+    #     return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
 
     def action_forward(self):
         self.write({'state': 'in_progress'})
@@ -101,11 +124,7 @@ class HospitalAccreditation(models.Model):
 
 # 5) Page accreditamento solo per le company; On working
 
-# 6) La modificabilità riguarda solo in compilazione. Fatto
-
-# 7) Raggruppamento per tipologia ed anno; Fatto
-
-# 8) Quando clicco su Individual, il record non deve essere contrassegnata come struttura sanitaria. Fatto
+# La modificabilità riguarda solo in compilazione; Raggruppamento per tipologia ed anno; Quando clicco su Individual, il record non deve essere contrassegnata come struttura sanitaria.
 
 # 9) E’ un struttura sanitaria, solo se accedo alla sezione “Strutture Sanitarie”: non deve comparire nei contacts. 
 
