@@ -25,7 +25,7 @@ class HospitalAccreditation(models.Model):
     descrizione = fields.Html(string='Descrizione')
     state = fields.Selection([
         ('draft', 'In Compilazione'),
-        ('in_progress', 'In Progress'),
+        # ('in_progress', 'In Progress'),
         ('to_be_approved', 'Da Approvare'),
         ('approved', 'Approvato'),
         ('refused', 'Rifiutato'),
@@ -74,59 +74,39 @@ class HospitalAccreditation(models.Model):
         for record in self:
             if record.struttura_da_accreditare_id:
                 record.struttura_da_accreditare_id.write({
-                    'is_company': True, 
                     'e_accreditata': True 
                 })
-        return self.env.ref('new_accreditamento.action_accreditation').read()[0]
+        # return self.env.ref('new_accreditamento.action_accreditation').read()[0]
     def action_refuse(self):
         self.write({'state': 'refused'})
         for record in self:
             if record.struttura_da_accreditare_id:
                 record.struttura_da_accreditare_id.write({
-                    'is_company': True,
                     'e_accreditata': False
                 })
-        return self.env.ref('new_accreditamento.action_accreditation').read()[0]
-
-
-    
-
-    
-#Codice precedente
-    # def action_approve(self):
-    #     self.write({'state': 'approved'})
-    #     return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
-
-    # def action_refuse(self):
-    #     self.write({'state': 'refused'})
-    #     return self.env.ref ('new_accreditamento.action_accreditation').read()[0]
+        # return self.env.ref('new_accreditamento.action_accreditation').read()[0]
 
     def action_forward(self):
-        self.write({'state': 'in_progress'})
+        self.write({'state': 'to_be_approved'})
         return True
-
     def action_backward(self):
-        self.ensure_one()
-        states_order = ['draft', 'in_progress', 'to_be_approved', 'approved', 'refused']
-        current_index = states_order.index(self.state)
-        if current_index > 0:
-            self.state = states_order[current_index - 1]
+        self.state== "draft"
+        return True
+    
+    # Vecchio codice
+    # def action_backward(self):
+    #     self.write({'state': ['draft', 'in_progress', 'to_be_approved', 'approved', 'refused']})
+    #     return True
+    
+#FIX DA FARE
+# 1) Gestione dei duplicate: in particolare, ottenere, premendo Duplicate, la pratica nello stato "In compilazione", con i seguenti records già compilati:
+# richiedente, codice pratica e autore registrazione: quelli da compilarsi devono essere solo descrizione e Struttura sanitaria
+# 2) Elimininazione del flag "è una struttura sanitaria" dalla lista delle "Strutture Sanitarie"
+# 3) ripristinare ir_sequence_data.xml
+# 4) Far sì che il numero della pratica compaia all'interno del sheet
+# 5) Togliere tasto "Da approvare" ed "In progress"
+    
 
-
-# Fix da fare
-# 1) Sistemare logica stati, senza passare da wizard; Fatto
-
-# 2) Visualizzare come nome pratica codice; Fatto
-
-# 3) Prevedere che una struttura sanitaria creata dalla pratica sia contrassegnata non come individual, ma come company e struttura sanitaria; Fatto
-
-# 4) Prevedere accreditamento di strutture non ancora accreditate; Fatto
-
-# 5) Page accreditamento solo per le company; On working
-
-# La modificabilità riguarda solo in compilazione; Raggruppamento per tipologia ed anno; Quando clicco su Individual, il record non deve essere contrassegnata come struttura sanitaria.
-
-# 9) E’ un struttura sanitaria, solo se accedo alla sezione “Strutture Sanitarie”: non deve comparire nei contacts. 
 
 
 

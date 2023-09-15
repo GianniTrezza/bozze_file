@@ -4,23 +4,19 @@
         <field name="model">hospital.accreditation</field>
         <field name="arch" type="xml">
             <form>
-            <!-- <label for="codice_pratica" class="oe_edit_only"/> -->
                 <label for="codice_pratica" class="oe_edit_only"/>
-                <h1><field name="codice_pratica" class="oe_inline"/></h1>
-                <!-- <h1><field name="codice_pratica" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/></h1> -->
+                <!-- <h1><field name="codice_pratica" class="oe_inline"/></h1> -->
                 <header>
                     <button string="Avanti" type="object" name="action_forward" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-                    <button string="Indietro" type="object" name="action_backward" attrs="{'invisible': [('state', '!=', 'in_progress')]}"/>
-                    <button string="Da Approvare" type="object" name="action_to_be_approved" class="oe_highlight btn-warning oe_stat_button" attrs="{'invisible': [('state', '!=', 'in_progress')]}"/>
-                    <!-- <button string="Approva" type="object" name="action_approve" class="oe_highlight btn-success oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/>
-                    <button string="Rifiuta" type="object" name="action_refuse" class="oe_highlight btn-danger oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/> -->
+                    <button string="Indietro" type="object" name="action_backward" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/>
                     <button string="Approva" type="object" name="action_approve" class="oe_highlight btn-success oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler approvare questa pratica?" />
                     <button string="Rifiuta" type="object" name="action_refuse" class="oe_highlight btn-danger oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler rifiutare questa pratica?" />
 
                     <field name="state" widget="statusbar" statusbar_visible="draft, to_be_approved, approved, refused" />
-                </header>
+                </header> 
                 <sheet>
                     <field name="state" invisible="1"/>
+                    <h1><field name="codice_pratica" class="oe_inline"/></h1>
                     <group>
                         <group>
                             <field name="name" invisible="1"/>
@@ -45,7 +41,6 @@
         <field name="model">hospital.accreditation</field>
         <field name="arch" type="xml">
             <tree decoration-info="state=='draft'" 
-                decoration-muted="state=='in_progress'" 
                 decoration-warning="state=='to_be_approved'" 
                 decoration-success="state=='approved'"
                 decoration-danger="state=='refused'">
@@ -60,7 +55,6 @@
         </field>
     </record>
     
-
     <record id="action_accreditation" model="ir.actions.act_window">
         <field name="name">Accreditamenti Strutture Sanitarie</field>
         <field name="res_model">hospital.accreditation</field>
