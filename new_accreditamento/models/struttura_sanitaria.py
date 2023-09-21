@@ -4,6 +4,8 @@ class StrutturaSanitaria(models.Model):
     _inherit = 'res.partner'
 
     is_company = fields.Boolean("Nome Struttura", default=True)
-    is_struttura_sanitaria = fields.Boolean('È una struttura sanitaria', default=False)
+    is_struttura_sanitaria = fields.Boolean('È una struttura sanitaria', default=True)
     e_accreditata = fields.Boolean('Accreditata', default=False)
+
+
 

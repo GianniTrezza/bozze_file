@@ -10,15 +10,16 @@
                 Non sono state create ancora pratiche.
             </p>
         </field>
-
     </record>
-        <record id="action_struttura_sanitaria" model="ir.actions.act_window">
+
+    <record id="action_struttura_sanitaria" model="ir.actions.act_window">
         <field name="name">Strutture Sanitarie</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_struttura_sanitaria', '=', True), ('is_company', '=', True)]</field>
+        <field name="domain">[('is_company', '=', True)]</field>
         <field name="context">{'search_default_is_struttura_sanitaria': 1}</field>
     </record>
+
 
     <record id="action_tipologia_pratica" model="ir.actions.act_window">
         <field name="name">Tipologie pratiche</field>

@@ -5,7 +5,6 @@
         <field name="arch" type="xml">
             <form>
                 <label for="codice_pratica" class="oe_edit_only"/>
-                <!-- <h1><field name="codice_pratica" class="oe_inline"/></h1> -->
                 <header>
                     <button string="Avanti" type="object" name="action_forward" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                     <button string="Indietro" type="object" name="action_backward" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/>

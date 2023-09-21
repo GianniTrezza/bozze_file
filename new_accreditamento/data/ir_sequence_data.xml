@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_hospital_accreditation" model="ir.sequence">
+            <field name="name">Hospital Accreditation Sequence</field>
+            <field name="code">hospital.accreditation.sequence</field>
+            <field name="padding">5</field>
+            <field name="prefix">ACCR/%(year)s/</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

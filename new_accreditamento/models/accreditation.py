@@ -20,18 +20,18 @@ class HospitalAccreditation(models.Model):
     autore_reg_id = fields.Many2one('res.users', string='Autore Registrazione', default=_get_default_user, readonly=True)
     tipologia_pratica_id = fields.Many2one('hospital.tipologia_pratica', string='Tipologia Pratica', required=True)
     richiedente_id = fields.Many2one('res.partner', string='Richiedente', domain=[('is_company', '=', False), ('is_struttura_sanitaria', '=', False)], required=True)
-    struttura_da_accreditare_id = fields.Many2one('res.partner', string='Struttura da Accreditare', domain=[('is_company', '=', True), ('is_struttura_sanitaria', '=', True), ('e_accreditata', '=', False)], required=True)
+    struttura_da_accreditare_id = fields.Many2one('res.partner', string='Struttura da Accreditare', domain=[('is_company', '=', True), ('is_struttura_sanitaria', '=', True), ('e_accreditata', '=', False)])
 
     descrizione = fields.Html(string='Descrizione')
     state = fields.Selection([
         ('draft', 'In Compilazione'),
-        # ('in_progress', 'In Progress'),
         ('to_be_approved', 'Da Approvare'),
         ('approved', 'Approvato'),
         ('refused', 'Rifiutato'),
     ], default='draft', readonly= True, track_visibility='onchange')
-    Incremento = fields.Integer('Incremento', default=1)
+
     year_from_code = fields.Char(string='Anno dal codice pratica', compute='_compute_year_from_code', store=True)
+    acc_number = fields.Char(string='Accreditation Number', readonly=True)
 
     @api.depends('codice_pratica')
     def _compute_year_from_code(self):
@@ -40,20 +40,54 @@ class HospitalAccreditation(models.Model):
                 rec.year_from_code = rec.codice_pratica.split('/')[1]
             else:
                 rec.year_from_code = False
-
-
     @api.model
     def create(self, vals):
-        if not vals.get('Incremento'):
-            max_incremento = self.search([], order="Incremento desc", limit=1)
-            new_incremento = max_incremento.Incremento + 1 if max_incremento else 1
-            vals['Incremento'] = new_incremento
+        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
+        if sequence:
+            next_accr = sequence.get_next_char(sequence.number_next_actual)
+            sequence.sudo().write({'number_next': sequence.number_next + 1})
+        else:
+            next_accr = _('Nuova pratica')
 
-        nome_formattato = f'ACCR/{fields.Date.today().year}/{str(vals["Incremento"]).zfill(5)}'
-        vals['name'] = nome_formattato
-        vals['codice_pratica'] = nome_formattato
+        vals['name'] = next_accr
+        vals['codice_pratica'] = next_accr
 
         return super(HospitalAccreditation, self).create(vals)
+
+    def copy(self, default=None):
+        default = dict(default or {})
+        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
+        if sequence:
+            next_accr = sequence.get_next_char(sequence.number_next_actual)
+            # sequence.sudo().write({'number_next': sequence.number_next + 1})
+        else:
+            next_accr = _('Nuova pratica')
+
+        default.update({
+            'name': next_accr,
+            'codice_pratica': next_accr,
+            'state': 'draft',
+            'descrizione': False,
+            'struttura_da_accreditare_id': False,
+        })
+
+        return super(HospitalAccreditation, self).copy(default)
+    def unlink(self):
+        sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
+        if sequence:
+            # Controlla quanti record ci sono nella tabella delle pratiche
+            record_count = self.search_count([])
+
+            # Se stai cercando di eliminare tutti i record, reimposta il contatore a 1
+            if record_count <= len(self):
+                sequence.sudo().write({'number_next': 1})
+            else:
+                # Altrimenti, verifica se la pratica che stai eliminando è l'ultima nella sequenza
+                last_pratica = self.search([], order='name desc', limit=1)
+                if last_pratica and any(record.name == last_pratica.name for record in self):
+                    sequence.sudo().write({'number_next': sequence.number_next - len(self)})
+        return super(HospitalAccreditation, self).unlink()
+
     def action_recorded(self):
         self.ensure_one()
         return {
@@ -61,7 +95,6 @@ class HospitalAccreditation(models.Model):
             'res_model': 'hospital.accreditation',
             'view_mode': 'form',
             'view_id': self.env.ref('new_accreditamento.view_accreditation_form').id,
-
             'res_id': self.id,
         }
 
@@ -76,7 +109,8 @@ class HospitalAccreditation(models.Model):
                 record.struttura_da_accreditare_id.write({
                     'e_accreditata': True 
                 })
-        # return self.env.ref('new_accreditamento.action_accreditation').read()[0]
+        return True
+
     def action_refuse(self):
         self.write({'state': 'refused'})
         for record in self:
@@ -84,27 +118,25 @@ class HospitalAccreditation(models.Model):
                 record.struttura_da_accreditare_id.write({
                     'e_accreditata': False
                 })
-        # return self.env.ref('new_accreditamento.action_accreditation').read()[0]
+        return True
 
     def action_forward(self):
         self.write({'state': 'to_be_approved'})
         return True
+
     def action_backward(self):
-        self.state== "draft"
+        self.write({'state': 'draft'})
         return True
-    
-    # Vecchio codice
-    # def action_backward(self):
-    #     self.write({'state': ['draft', 'in_progress', 'to_be_approved', 'approved', 'refused']})
-    #     return True
+
+
     
 #FIX DA FARE
-# 1) Gestione dei duplicate: in particolare, ottenere, premendo Duplicate, la pratica nello stato "In compilazione", con i seguenti records già compilati:
-# richiedente, codice pratica e autore registrazione: quelli da compilarsi devono essere solo descrizione e Struttura sanitaria
+# 1) Gestione dei duplicate: in particolare, quando premo Duplicate, la pratica, nel tornare allo stato "In compilazione", deve avere i seguenti records già compilati:
+# richiedente, codice pratica e autore registrazione: quelli da compilarsi devono essere solo la descrizione, la Struttura sanitaria ed il nome della pratica deve avanzare di uno grazie all'utilizzo
+# di un ir_sequence_data.xml
 # 2) Elimininazione del flag "è una struttura sanitaria" dalla lista delle "Strutture Sanitarie"
 # 3) ripristinare ir_sequence_data.xml
-# 4) Far sì che il numero della pratica compaia all'interno del sheet
-# 5) Togliere tasto "Da approvare" ed "In progress"
+
     
 
 
