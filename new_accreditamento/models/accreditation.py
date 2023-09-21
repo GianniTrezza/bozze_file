@@ -53,7 +53,7 @@ class HospitalAccreditation(models.Model):
         vals['codice_pratica'] = next_accr
 
         return super(HospitalAccreditation, self).create(vals)
-
+#Funzione sottostante per gestire il tasto DUPLICATE
     def copy(self, default=None):
         default = dict(default or {})
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
@@ -72,21 +72,54 @@ class HospitalAccreditation(models.Model):
         })
 
         return super(HospitalAccreditation, self).copy(default)
+#Funzione sottostante per gestire il tasto DELETE: inoltre, che gestisce anche la seguente casistica:
+# Ho due pratiche legate alla stessa struttura sanitaria, di cui una approvata e l'altra rifiutata. 
+# Sulla base del fatto che almeno una delle due è accettata, la struttura sanitaria è accreditata.
+# Supponiamo, però, che io decida di eliminare una pratica approvata e che, quindi, resti solo quella rifiutata: 
+# Questa logica fa sì che la struttura sanitaria resti tale, ma non sia più accreditata.
     def unlink(self):
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
+        struttura_ids_to_check = []  # Lista delle strutture sanitarie da verificare dopo l'eliminazione
+
+        
+        for record in self:
+            if record.state == 'approved' and record.struttura_da_accreditare_id:
+                struttura_ids_to_check.append(record.struttura_da_accreditare_id.id)
         if sequence:
-            # Controlla quanti record ci sono nella tabella delle pratiche
             record_count = self.search_count([])
 
-            # Se stai cercando di eliminare tutti i record, reimposta il contatore a 1
             if record_count <= len(self):
                 sequence.sudo().write({'number_next': 1})
             else:
-                # Altrimenti, verifica se la pratica che stai eliminando è l'ultima nella sequenza
                 last_pratica = self.search([], order='name desc', limit=1)
                 if last_pratica and any(record.name == last_pratica.name for record in self):
                     sequence.sudo().write({'number_next': sequence.number_next - len(self)})
-        return super(HospitalAccreditation, self).unlink()
+
+        result = super(HospitalAccreditation, self).unlink()
+
+        for struttura_id in struttura_ids_to_check:
+            other_approved_pratiche = self.search([
+                ('struttura_da_accreditare_id', '=', struttura_id),
+                ('state', '=', 'approved')
+            ])
+            if not other_approved_pratiche: 
+                struttura = self.env['res.partner'].browse(struttura_id)
+                struttura.write({'e_accreditata': False})
+
+        return result
+# Questa funzione va bene, si comporta correttamente: ma voglio gestire la casistica legata alle strutture sanitarie, vista poc'anzi
+    # def unlink(self):
+    #     sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
+    #     if sequence:
+    #         record_count = self.search_count([])
+
+    #         if record_count <= len(self):
+    #             sequence.sudo().write({'number_next': 1})
+    #         else:
+    #             last_pratica = self.search([], order='name desc', limit=1)
+    #             if last_pratica and any(record.name == last_pratica.name for record in self):
+    #                 sequence.sudo().write({'number_next': sequence.number_next - len(self)})
+    #     return super(HospitalAccreditation, self).unlink()
 
     def action_recorded(self):
         self.ensure_one()
@@ -129,13 +162,6 @@ class HospitalAccreditation(models.Model):
         return True
 
 
-    
-#FIX DA FARE
-# 1) Gestione dei duplicate: in particolare, quando premo Duplicate, la pratica, nel tornare allo stato "In compilazione", deve avere i seguenti records già compilati:
-# richiedente, codice pratica e autore registrazione: quelli da compilarsi devono essere solo la descrizione, la Struttura sanitaria ed il nome della pratica deve avanzare di uno grazie all'utilizzo
-# di un ir_sequence_data.xml
-# 2) Elimininazione del flag "è una struttura sanitaria" dalla lista delle "Strutture Sanitarie"
-# 3) ripristinare ir_sequence_data.xml
 
     
 
