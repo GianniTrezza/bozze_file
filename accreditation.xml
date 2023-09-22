@@ -1,0 +1,68 @@
+<odoo>
+    <record id="view_accreditation_form" model="ir.ui.view">
+        <field name="name">hospital.accreditation.form</field>
+        <field name="model">hospital.accreditation</field>
+        <field name="arch" type="xml">
+            <form>
+                <label for="codice_pratica" class="oe_edit_only"/>
+                <header>
+                    <button string="Avanti" type="object" name="action_forward" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button string="Indietro" type="object" name="action_backward" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/>
+                    <button string="Approva" type="object" name="action_approve" class="oe_highlight btn-success oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler approvare questa pratica?" />
+                    <button string="Rifiuta" type="object" name="action_refuse" class="oe_highlight btn-danger oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler rifiutare questa pratica?" />
+                    <button string="Stampa" type="object" name="print_report" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approved')]}"  confirm="Capitano, mio, capitano, vuoi procedere con la stampa della pratica approvata?" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft, to_be_approved, approved, refused" />
+                </header> 
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <h1><field name="codice_pratica" class="oe_inline"/></h1>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="autore_reg_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="tipologia_pratica_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="richiedente_id" context="{'default_is_company': False, 'default_is_struttura_sanitaria': False}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="struttura_da_accreditare_id" context="{'default_is_company': True, 'default_is_struttura_sanitaria': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="descrizione" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_accreditation_tree" model="ir.ui.view">
+        <field name="name">hospital.accreditation.tree</field>
+        <field name="model">hospital.accreditation</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='draft'" 
+                decoration-warning="state=='to_be_approved'" 
+                decoration-success="state=='approved'"
+                decoration-danger="state=='refused'">
+                <field name="name" invisible="1"/>
+                <field name="codice_pratica" attrs="{'readonly': [('state', '!=', 'recorded')]}"/>
+                <field name="autore_reg_id"/>
+                <field name="tipologia_pratica_id"/>
+                <field name="richiedente_id" context="{'default_is_company': False, 'default_is_struttura_sanitaria': False}" />
+                <field name="struttura_da_accreditare_id" context="{'default_is_company': True, 'default_is_struttura_sanitaria': True}"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="action_accreditation" model="ir.actions.act_window">
+        <field name="name">Accreditamenti Strutture Sanitarie</field>
+        <field name="res_model">hospital.accreditation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">main</field>
+        <field name="context">{'search_default_state': 'draft'}</field>
+    </record>
+
+    <menuitem id="menu_accreditation" name="Accreditamenti" parent="base.menu_administration" sequence="10" action="action_accreditation"/>
+</odoo>
+
+
