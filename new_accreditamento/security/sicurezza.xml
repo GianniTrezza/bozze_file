@@ -1,6 +1,1 @@
-<odoo>
-    <record id="group_hospital_accreditation_user" model="res.groups">
-        <field name="name">Hospital Accreditation User</field>
-        <field name="category_id" ref="base.module_category_human_resources_recruitment"/>
-    </record>
-</odoo>
+

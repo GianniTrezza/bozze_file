@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_hospital_accreditation_details">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Dettagli Accreditamento Struttura Sanitaria</h2>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Nome:</strong></td>
+                                    <td><t t-esc="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Codice Pratica:</strong></td>
+                                    <td><t t-esc="o.codice_pratica"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Autore Registrazione:</strong></td>
+                                    <td><t t-esc="o.autore_reg_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tipologia Pratica:</strong></td>
+                                    <td><t t-esc="o.tipologia_pratica_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Richiedente:</strong></td>
+                                    <td><t t-esc="o.richiedente_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Struttura da Accreditare:</strong></td>
+                                    <td><t t-esc="o.struttura_da_accreditare_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Descrizione:</strong></td>
+                                    <td><t t-esc="o.descrizione"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_hospital_accreditation" model="ir.actions.report">
+        <field name="name">Accreditation Report</field>
+        <field name="model">hospital.accreditation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">new_accreditamento.report_hospital_accreditation_details</field>
+        <field name="report_file">new_accreditamento.report_hospital_accreditation_details</field>
+        <field name="print_report_name">'Accreditation Report - %s' % (object.name)</field>
+    </record>
+
+</odoo>

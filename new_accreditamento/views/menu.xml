@@ -26,10 +26,13 @@
         <field name="res_model">hospital.tipologia_pratica</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10" groups="new_accreditamento.group_hospital_accreditation_user,new_accreditamento.group_hospital_accreditation_manager"/>
+    <menuitem id="menu_accreditamento_strutture_sanitarie" name="Strutture sanitarie" parent="main_accreditamento_menu" action="action_struttura_sanitaria" sequence="20" groups="new_accreditamento.group_hospital_accreditation_manager"/>
+    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30" groups="new_accreditamento.group_hospital_accreditation_manager"/>
 
-    <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10"/>
+    <!-- <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10"/>
     <menuitem id="menu_accreditamento_strutture_sanitarie" name="Strutture sanitarie" parent="main_accreditamento_menu" action="action_struttura_sanitaria"  sequence="20"/>
-    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30"/>
+    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30"/> -->
 </odoo>
 
 <!-- Se volessi vedere le strutture sanitarie come se fossero dei contacts, al posto di usare action_struttura_sanitaria, uso l'action sottostante -->

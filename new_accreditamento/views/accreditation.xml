@@ -1,4 +1,5 @@
 <odoo>
+
     <record id="view_accreditation_form" model="ir.ui.view">
         <field name="name">hospital.accreditation.form</field>
         <field name="model">hospital.accreditation</field>
@@ -10,8 +11,8 @@
                     <button string="Indietro" type="object" name="action_backward" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"/>
                     <button string="Approva" type="object" name="action_approve" class="oe_highlight btn-success oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler approvare questa pratica?" />
                     <button string="Rifiuta" type="object" name="action_refuse" class="oe_highlight btn-danger oe_stat_button" attrs="{'invisible': [('state', '!=', 'to_be_approved')]}"  confirm="Sei proprio sicuro di voler rifiutare questa pratica?" />
-
-                    <field name="state" widget="statusbar" statusbar_visible="draft, to_be_approved, approved, refused" />
+                    <button string="Stampa" type="object" name="print_report" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approved')]}"  confirm="Capitano, mio, capitano, vuoi procedere con la stampa della pratica approvata?" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft, to_be_approved, approved, refused" groups="new_accreditamento.group_hospital_accreditation_manager"/>
                 </header> 
                 <sheet>
                     <field name="state" invisible="1"/>
@@ -62,7 +63,9 @@
         <field name="context">{'search_default_state': 'draft'}</field>
     </record>
 
+
     <menuitem id="menu_accreditation" name="Accreditamenti" parent="base.menu_administration" sequence="10" action="action_accreditation"/>
+
 </odoo>
 
 
