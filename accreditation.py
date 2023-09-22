@@ -122,11 +122,15 @@ class HospitalAccreditation(models.Model):
             'acc_number': self.env['ir.sequence'].next_by_code('hospital.accreditation.accnumber'),
         })
         self.struttura_da_accreditare_id.write({'e_accreditata': True})
+        body_approved = _("La tua pratica %s è stata approvata.") % (self.name)
+        self._notify_user_thread(body_approved)
 
     def action_refuse(self):
         if not self.user_has_groups('new_accreditamento.group_hospital_accreditation_manager'):
             raise UserError(_("Solo i manager possono rifiutare la pratica."))
         self.write({'state': 'refused'})
+        body_refused = _("La tua pratica %s è stata rifiutata.") % (self.name)
+        self._notify_user_thread(body_refused)
 
     def action_reset_to_draft(self):
         if not self.user_has_groups('new_accreditamento.group_hospital_accreditation_manager'):
@@ -145,6 +149,9 @@ class HospitalAccreditation(models.Model):
     def print_report(self):
         if not self.user_has_groups('new_accreditamento.group_hospital_accreditation_manager'):
             raise UserError(_("Solo i manager possono stampare il report: capitoH??!!!!??"))
+        if self.state != 'approved':
+            raise UserError(_("Solo le pratiche approvate possono essere stampate."))
+
 
     def _notify_user_thread(self, body):
         for record in self:
