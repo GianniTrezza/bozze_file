@@ -16,7 +16,12 @@
                 <field name="imposta"/>
                 <field name="totale"/>
                 <field name="importo_dovuto"/>
-                <field name="stato_efattura" widget="statusbar" statusbar_visible="draft,open,paid,cancelled" readonly="1"/>
+                <!-- <field name="is_draft" widget="boolean_toggle"/>
+                <field name="is_open" widget="boolean_toggle"/>
+                <field name="is_paid" widget="boolean_toggle"/>
+                <field name="is_cancelled" widget="boolean_toggle"/> -->
+                <!-- <field name="stato_efattura" widget="statusbar" statusbar_visible="draft,open,paid,cancelled" readonly="1"/> -->
+                <field name="stato_efattura"/>
             </tree>
         </field>
     </record>
@@ -39,6 +44,11 @@
                         <field name="imposta"/>
                         <field name="totale"/>
                         <field name="importo_dovuto"/>
+                        <!-- <field name="is_draft" widget="boolean_toggle"/>
+                        <field name="is_open" widget="boolean_toggle"/>
+                        <field name="is_paid" widget="boolean_toggle"/>
+                        <field name="is_cancelled" widget="boolean_toggle"/> -->
+
                         <field name="stato_efattura"/>
                     </group>
                 </sheet>
@@ -65,17 +75,6 @@
     </record>
 
     <!-- Main menu and submenus -->
-    
-
-    <!-- Importa Fatture Action -->
-    <record id="action_import_fatture_wizard" model="ir.actions.act_window">
-        <field name="name">Importa Fatture</field>
-        <field name="res_model">tabella.fatture</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_tabella_fatture_import_wizard_form"/>
-        <field name="target">new</field>
-    </record>
-
 
 
     <record id="action_fatturazione" model="ir.actions.act_window">
@@ -85,9 +84,16 @@
         <field name="view_id" ref="view_tabella_fatture_tree"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
-                Non esistono ancora fatture
+                Non esistono ancora fatture: importale
             </p>
         </field>
+    </record>
+    <record id="action_import_fatture_wizard" model="ir.actions.act_window">
+        <field name="name">Importa Fatture</field>
+        <field name="res_model">tabella.fatture</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_tabella_fatture_import_wizard_form"/>
+        <field name="target">new</field>
     </record>
 
     <menuitem id="main_fatturazione_menu" name="Fatturazione" sequence="10" web_icon="fatturazione,static/description/icon.png"/>

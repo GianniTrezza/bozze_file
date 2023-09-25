@@ -1,0 +1,329 @@
+2023-09-15 10:52:25,982 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Tresol S.r.l, ID: 000001 
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Innovaway S.p.A., ID: 000002 
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Arpes S.r.l., ID: 000003
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: FonARCom - Fondo Paritetico Interprofessionale, ID: 000004        
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Vi.Sa. S.r.l., ID: 000005
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: DMCOMMERCE Srl, ID: 000006
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: BeInnovative2020 S.r.l., ID: 000007
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: DOT-IT S.r.l., ID: 000008
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Carmisciano Cosmo, ID: 000009
+2023-09-15 10:52:25,986 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Allcore Spa, ID: 000010
+2023-09-15 10:52:25,994 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: International School of Languages S.r.l., ID: 000011
+2023-09-15 10:52:25,994 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Nitech S.r.l., ID: 000012
+2023-09-15 10:52:25,994 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C., ID: 000013
+2023-09-15 10:52:25,994 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Kreston Consulting S.r.l., ID: 000014
+2023-09-15 10:52:25,994 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Jolie S.r.l., ID: 000015
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: FIVEN S.p.A., ID: 000016
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Maire Tecnimont S.p.A., ID: 000017
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: A2Z WORLD SRL, ID: 000018
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Kiranet s.r.l., ID: 000019
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Next Generation Diagnostics, ID: 000020
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Health Pixel s.r.l., ID: 000021
+2023-09-15 10:52:26,002 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale, ID: 000022
+2023-09-15 10:52:26,010 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Vertical srl, ID: 000023 
+2023-09-15 10:52:26,010 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Next Generation Diagnostics S.r.l., ID: 000024
+2023-09-15 10:52:26,010 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Redomino S.r.l., ID: 000025
+2023-09-15 10:52:26,010 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Aloschi Bros S.r.l., ID: 000026
+2023-09-15 10:52:26,010 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: ePrice Operations S.r.l., ID: 000027
+2023-09-15 10:52:26,014 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Abstract S.R.L A SOCIO UNICO, ID: 000028
+2023-09-15 10:52:26,014 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Abstract-Technology GmbH, ID: 000029
+2023-09-15 10:52:26,014 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Setera Italia S.r.l., ID: 000030
+2023-09-15 10:52:26,014 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Fondazione Telethon, ID: 000031
+2023-09-15 10:52:26,022 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Odoo S.A., ID: 000032 
+2023-09-15 10:52:26,022 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: LIMITLESS SRL, ID: 000033
+2023-09-15 10:52:26,022 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: INFORMATICA SERVICE di Eduardo Pasquale, ID: 000034
+2023-09-15 10:52:26,022 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C. S.a.s., ID: 000035
+2023-09-15 10:52:26,022 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Gft Italia S.r.l., ID: 000036
+2023-09-15 10:52:26,030 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Caponetti Impianti Srl, ID: 000037
+2023-09-15 10:52:26,030 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: NEYROZ-FEROLI S.R.L., ID: 000038
+2023-09-15 10:52:26,030 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Six Feet Up srl, ID: 000039
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Allure S.r.l., ID: 000040
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: INCNEX S.r.l., ID: 000041
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Unit One srl, ID: 000042
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Tea Web S.A.S. Di Tomaso Evolvi & C., ID: 000043
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: ITDM srl, ID: 000044
+2023-09-15 10:52:26,038 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: FAMA PROGRESS S.r.l., ID: 000045
+2023-09-15 10:52:26,046 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Maulini Srl, ID: 000046 
+2023-09-15 10:52:26,049 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Tecnodid S.r.l., ID: 000047
+2023-09-15 10:52:26,060 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: HT System S.r.l., ID: 000048 
+2023-09-15 10:52:26,060 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: CHORALLY S.R.L., ID: 000049
+2023-09-15 10:52:26,060 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Mini Caseificio Costanzo Srl, ID: 000050
+2023-09-15 10:52:26,060 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Vincenzo Barone, ID: 000051
+2023-09-15 10:52:26,060 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: INTELLIDIO S.R.L., ID: 000052
+2023-09-15 10:52:26,066 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: CANARBINO S.P.A., ID: 000053
+2023-09-15 10:52:26,066 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Sofiter Tech S.r.l., ID: 000054
+2023-09-15 10:52:26,066 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Automazione Piemonte Tech S.r.l., ID: 000055 
+2023-09-15 10:52:26,078 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Ferguson Lynch LCC, ID: 000056
+2023-09-15 10:52:26,078 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Modaimpresa S.r.l., ID: 000057
+2023-09-15 10:52:26,078 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Fifth Beat S.r.l., ID: 000058
+2023-09-15 10:52:26,078 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Lanni SRL, ID: 000059
+2023-09-15 10:52:26,082 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: International Tours S.r.l., ID: 000060 
+2023-09-15 10:52:26,082 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Caravel Innovation SLU, ID: 000061
+2023-09-15 10:52:26,082 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Universita' degli Studi di Udine - DISO, ID: 000062
+2023-09-15 10:52:26,091 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: Ulisse S.r.l. unipersonale, ID: 000063
+2023-09-15 10:52:26,091 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: InnovaVector S.r.l., ID: 000064
+2023-09-15 10:52:26,091 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: FONDAZIONE TELETHON, ID: 000065
+2023-09-15 10:52:26,091 10604 INFO Trezza odoo.addons.is_chatgpt_integration.models.fatturazione: Client: CERTY S.r.l., ID: 0000662023-09-15 11:00:34,440 - Client: International School of Languages S.r.l., ID: 000001
+2023-09-15 11:00:34,440 - Client: Next Generation Diagnostics, ID: 000002
+2023-09-15 11:00:34,440 - Client: Abstract-Technology GmbH, ID: 000003
+2023-09-15 11:00:34,440 - Client: Caravel Innovation SLU, ID: 000004
+2023-09-15 11:00:34,440 - Client: Tresol S.r.l, ID: 000005
+2023-09-15 11:00:34,440 - Client: Innovaway S.p.A., ID: 000006
+2023-09-15 11:00:34,440 - Client: Arpes S.r.l., ID: 000007
+2023-09-15 11:00:34,440 - Client: International Tours S.r.l., ID: 000008
+2023-09-15 11:00:34,440 - Client: Unit One srl, ID: 000009
+2023-09-15 11:00:34,452 - Client: Gft Italia S.r.l., ID: 000010
+2023-09-15 11:00:34,452 - Client: Universita' degli Studi di Udine - DISO, ID: 000011
+2023-09-15 11:00:34,452 - Client: Setera Italia S.r.l., ID: 000012
+2023-09-15 11:00:34,452 - Client: BeInnovative2020 S.r.l., ID: 000013
+2023-09-15 11:00:34,452 - Client: FonARCom - Fondo Paritetico Interprofessionale, ID: 000014
+2023-09-15 11:00:34,452 - Client: Odoo S.A., ID: 000015
+2023-09-15 11:00:34,460 - Client: Six Feet Up srl, ID: 000016
+2023-09-15 11:00:34,460 - Client: INFORMATICA SERVICE di Eduardo Pasquale, ID: 000017
+2023-09-15 11:00:34,462 - Client: Maulini Srl, ID: 000018
+2023-09-15 11:00:34,462 - Client: Next Generation Diagnostics S.r.l., ID: 000019
+2023-09-15 11:00:34,462 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C., ID: 000020
+2023-09-15 11:00:34,462 - Client: INCNEX S.r.l., ID: 000021
+2023-09-15 11:00:34,462 - Client: Kiranet s.r.l., ID: 000022
+2023-09-15 11:00:34,462 - Client: Redomino S.r.l., ID: 000023
+2023-09-15 11:00:34,462 - Client: Vi.Sa. S.r.l., ID: 000024
+2023-09-15 11:00:34,462 - Client: DMCOMMERCE Srl, ID: 000025
+2023-09-15 11:00:34,476 - Client: FIVEN S.p.A., ID: 000026
+2023-09-15 11:00:34,476 - Client: DOT-IT S.r.l., ID: 000027
+2023-09-15 11:00:34,476 - Client: Fifth Beat S.r.l., ID: 000028
+2023-09-15 11:00:34,476 - Client: FONDAZIONE TELETHON, ID: 000029
+2023-09-15 11:00:34,476 - Client: NEYROZ-FEROLI S.R.L., ID: 000030
+2023-09-15 11:00:34,476 - Client: Automazione Piemonte Tech S.r.l., ID: 000031
+2023-09-15 11:00:34,476 - Client: Kreston Consulting S.r.l., ID: 000032
+2023-09-15 11:00:34,476 - Client: ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale, ID: 000033
+2023-09-15 11:00:34,476 - Client: CANARBINO S.P.A., ID: 000034
+2023-09-15 11:00:34,476 - Client: Ferguson Lynch LCC, ID: 000035
+2023-09-15 11:00:34,476 - Client: HT System S.r.l., ID: 000036
+2023-09-15 11:00:34,492 - Client: Carmisciano Cosmo, ID: 000037
+2023-09-15 11:00:34,492 - Client: Health Pixel s.r.l., ID: 000038
+2023-09-15 11:00:34,492 - Client: Vincenzo Barone, ID: 000039
+2023-09-15 11:00:34,492 - Client: Fondazione Telethon, ID: 000040
+2023-09-15 11:00:34,492 - Client: CHORALLY S.R.L., ID: 000041
+2023-09-15 11:00:34,492 - Client: Allcore Spa, ID: 000042
+2023-09-15 11:00:34,492 - Client: Tea Web S.A.S. Di Tomaso Evolvi & C., ID: 000043
+2023-09-15 11:00:34,492 - Client: Allure S.r.l., ID: 000044
+2023-09-15 11:00:34,510 - Client: Nitech S.r.l., ID: 000045
+2023-09-15 11:00:34,510 - Client: Vertical srl, ID: 000046
+2023-09-15 11:00:34,510 - Client: Modaimpresa S.r.l., ID: 000047
+2023-09-15 11:00:34,510 - Client: Ulisse S.r.l. unipersonale, ID: 000048
+2023-09-15 11:00:34,510 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C. S.a.s., ID: 000049
+2023-09-15 11:00:34,522 - Client: CERTY S.r.l., ID: 000050
+2023-09-15 11:00:34,530 - Client: Caponetti Impianti Srl, ID: 000051
+2023-09-15 11:00:34,530 - Client: Tecnodid S.r.l., ID: 000052
+2023-09-15 11:00:34,530 - Client: Mini Caseificio Costanzo Srl, ID: 000053
+2023-09-15 11:00:34,530 - Client: Lanni SRL, ID: 000054
+2023-09-15 11:00:34,530 - Client: InnovaVector S.r.l., ID: 000055
+2023-09-15 11:00:34,530 - Client: LIMITLESS SRL, ID: 000056
+2023-09-15 11:00:34,530 - Client: Sofiter Tech S.r.l., ID: 000057
+2023-09-15 11:00:34,530 - Client: Abstract S.R.L A SOCIO UNICO, ID: 000058
+2023-09-15 11:00:34,530 - Client: ePrice Operations S.r.l., ID: 000059
+2023-09-15 11:00:34,530 - Client: A2Z WORLD SRL, ID: 000060
+2023-09-15 11:00:34,530 - Client: Maire Tecnimont S.p.A., ID: 000061
+2023-09-15 11:00:34,530 - Client: INTELLIDIO S.R.L., ID: 000062
+2023-09-15 11:00:34,538 - Client: Aloschi Bros S.r.l., ID: 000063
+2023-09-15 11:00:34,538 - Client: FAMA PROGRESS S.r.l., ID: 000064
+2023-09-15 11:00:34,538 - Client: Jolie S.r.l., ID: 000065
+2023-09-15 11:00:34,538 - Client: ITDM srl, ID: 000066
+2023-09-15 11:03:55,525 - Client: Ferguson Lynch LCC, ID: 000001
+2023-09-15 11:03:55,525 - Client: Kreston Consulting S.r.l., ID: 000002
+2023-09-15 11:03:55,525 - Client: Jolie S.r.l., ID: 000003
+2023-09-15 11:03:55,525 - Client: Allure S.r.l., ID: 000004
+2023-09-15 11:03:55,525 - Client: ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale, ID: 000005
+2023-09-15 11:03:55,525 - Client: FAMA PROGRESS S.r.l., ID: 000006
+2023-09-15 11:03:55,525 - Client: Next Generation Diagnostics S.r.l., ID: 000007
+2023-09-15 11:03:55,525 - Client: Nitech S.r.l., ID: 000008
+2023-09-15 11:03:55,525 - Client: Next Generation Diagnostics, ID: 000009
+2023-09-15 11:03:55,534 - Client: Ulisse S.r.l. unipersonale, ID: 000010
+2023-09-15 11:03:55,534 - Client: Tecnodid S.r.l., ID: 000011
+2023-09-15 11:03:55,534 - Client: Arpes S.r.l., ID: 000012
+2023-09-15 11:03:55,534 - Client: HT System S.r.l., ID: 000013
+2023-09-15 11:03:55,534 - Client: Universita' degli Studi di Udine - DISO, ID: 000014
+2023-09-15 11:03:55,534 - Client: DMCOMMERCE Srl, ID: 000015
+2023-09-15 11:03:55,534 - Client: Sofiter Tech S.r.l., ID: 000016
+2023-09-15 11:03:55,542 - Client: Abstract-Technology GmbH, ID: 000017
+2023-09-15 11:03:55,542 - Client: DOT-IT S.r.l., ID: 000018
+2023-09-15 11:03:55,542 - Client: Automazione Piemonte Tech S.r.l., ID: 000019
+2023-09-15 11:03:55,548 - Client: International Tours S.r.l., ID: 000020
+2023-09-15 11:03:55,548 - Client: Tresol S.r.l, ID: 000021
+2023-09-15 11:03:55,548 - Client: Fifth Beat S.r.l., ID: 000022
+2023-09-15 11:03:55,548 - Client: Lanni SRL, ID: 000023
+2023-09-15 11:03:55,548 - Client: Fondazione Telethon, ID: 000024
+2023-09-15 11:03:55,548 - Client: BeInnovative2020 S.r.l., ID: 000025
+2023-09-15 11:03:55,548 - Client: INCNEX S.r.l., ID: 000026
+2023-09-15 11:03:55,548 - Client: International School of Languages S.r.l., ID: 000027
+2023-09-15 11:03:55,555 - Client: Caravel Innovation SLU, ID: 000028
+2023-09-15 11:03:55,555 - Client: Mini Caseificio Costanzo Srl, ID: 000029
+2023-09-15 11:03:55,555 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C., ID: 000030
+2023-09-15 11:03:55,563 - Client: CANARBINO S.P.A., ID: 000031
+2023-09-15 11:03:55,563 - Client: ITDM srl, ID: 000032
+2023-09-15 11:03:55,563 - Client: Redomino S.r.l., ID: 000033
+2023-09-15 11:03:55,563 - Client: FonARCom - Fondo Paritetico Interprofessionale, ID: 000034
+2023-09-15 11:03:55,563 - Client: Odoo S.A., ID: 000035
+2023-09-15 11:03:55,563 - Client: Maulini Srl, ID: 000036
+2023-09-15 11:03:55,563 - Client: Tea Web S.A.S. Di Tomaso Evolvi & C., ID: 000037
+2023-09-15 11:03:55,571 - Client: FIVEN S.p.A., ID: 000038
+2023-09-15 11:03:55,571 - Client: Caponetti Impianti Srl, ID: 000039
+2023-09-15 11:03:55,571 - Client: Innovaway S.p.A., ID: 000040
+2023-09-15 11:03:55,579 - Client: CHORALLY S.R.L., ID: 000041
+2023-09-15 11:03:55,579 - Client: Gft Italia S.r.l., ID: 000042
+2023-09-15 11:03:55,579 - Client: Health Pixel s.r.l., ID: 000043
+2023-09-15 11:03:55,579 - Client: Setera Italia S.r.l., ID: 000044
+2023-09-15 11:03:55,579 - Client: Six Feet Up srl, ID: 000045
+2023-09-15 11:03:55,579 - Client: InnovaVector S.r.l., ID: 000046
+2023-09-15 11:03:55,579 - Client: Allcore Spa, ID: 000047
+2023-09-15 11:03:55,579 - Client: Aloschi Bros S.r.l., ID: 000048
+2023-09-15 11:03:55,587 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C. S.a.s., ID: 000049
+2023-09-15 11:03:55,587 - Client: CERTY S.r.l., ID: 000050
+2023-09-15 11:03:55,595 - Client: Kiranet s.r.l., ID: 000051
+2023-09-15 11:03:55,595 - Client: Vertical srl, ID: 000052
+2023-09-15 11:03:55,595 - Client: FONDAZIONE TELETHON, ID: 000053
+2023-09-15 11:03:55,595 - Client: ePrice Operations S.r.l., ID: 000054
+2023-09-15 11:03:55,595 - Client: Vincenzo Barone, ID: 000055
+2023-09-15 11:03:55,603 - Client: NEYROZ-FEROLI S.R.L., ID: 000056
+2023-09-15 11:03:55,603 - Client: Abstract S.R.L A SOCIO UNICO, ID: 000057
+2023-09-15 11:03:55,603 - Client: Maire Tecnimont S.p.A., ID: 000058
+2023-09-15 11:03:55,607 - Client: Vi.Sa. S.r.l., ID: 000059
+2023-09-15 11:03:55,607 - Client: INFORMATICA SERVICE di Eduardo Pasquale, ID: 000060
+2023-09-15 11:03:55,615 - Client: Unit One srl, ID: 000061
+2023-09-15 11:03:55,616 - Client: Modaimpresa S.r.l., ID: 000062
+2023-09-15 11:03:55,616 - Client: INTELLIDIO S.R.L., ID: 000063
+2023-09-15 11:03:55,616 - Client: A2Z WORLD SRL, ID: 000064
+2023-09-15 11:03:55,616 - Client: LIMITLESS SRL, ID: 000065
+2023-09-15 11:03:55,616 - Client: Carmisciano Cosmo, ID: 000066
+2023-09-15 11:12:53,586 - Client: Maire Tecnimont S.p.A., ID: 000001
+2023-09-15 11:12:53,586 - Client: CANARBINO S.P.A., ID: 000002
+2023-09-15 11:12:53,586 - Client: Abstract-Technology GmbH, ID: 000003
+2023-09-15 11:12:53,586 - Client: InnovaVector S.r.l., ID: 000004
+2023-09-15 11:12:53,586 - Client: Gft Italia S.r.l., ID: 000005
+2023-09-15 11:12:53,586 - Client: Nitech S.r.l., ID: 000006
+2023-09-15 11:12:53,586 - Client: BeInnovative2020 S.r.l., ID: 000007
+2023-09-15 11:12:53,601 - Client: FAMA PROGRESS S.r.l., ID: 000008
+2023-09-15 11:12:53,601 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C. S.a.s., ID: 000009
+2023-09-15 11:12:53,604 - Client: Unit One srl, ID: 000010
+2023-09-15 11:12:53,604 - Client: Automazione Piemonte Tech S.r.l., ID: 000011
+2023-09-15 11:12:53,604 - Client: Carmisciano Cosmo, ID: 000012
+2023-09-15 11:12:53,607 - Client: Tea Web S.A.S. Di Tomaso Evolvi & C., ID: 000013
+2023-09-15 11:12:53,607 - Client: Tresol S.r.l, ID: 000014
+2023-09-15 11:12:53,607 - Client: Fondazione Telethon, ID: 000015
+2023-09-15 11:12:53,607 - Client: ePrice Operations S.r.l., ID: 000016
+2023-09-15 11:12:53,607 - Client: Arpes S.r.l., ID: 000017
+2023-09-15 11:12:53,614 - Client: INFORMATICA SERVICE di Eduardo Pasquale, ID: 000018
+2023-09-15 11:12:53,617 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C., ID: 000019
+2023-09-15 11:12:53,617 - Client: Abstract S.R.L A SOCIO UNICO, ID: 000020
+2023-09-15 11:12:53,628 - Client: ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale, ID: 000021
+2023-09-15 11:12:53,628 - Client: CHORALLY S.R.L., ID: 000022
+2023-09-15 11:12:53,628 - Client: Fifth Beat S.r.l., ID: 000023
+2023-09-15 11:12:53,628 - Client: Ferguson Lynch LCC, ID: 000024
+2023-09-15 11:12:53,633 - Client: NEYROZ-FEROLI S.R.L., ID: 000025
+2023-09-15 11:12:53,633 - Client: Six Feet Up srl, ID: 000026
+2023-09-15 11:12:53,633 - Client: FIVEN S.p.A., ID: 000027
+2023-09-15 11:12:53,633 - Client: Vincenzo Barone, ID: 000028
+2023-09-15 11:12:53,641 - Client: CERTY S.r.l., ID: 000029
+2023-09-15 11:12:53,641 - Client: Allure S.r.l., ID: 000030
+2023-09-15 11:12:53,641 - Client: HT System S.r.l., ID: 000031
+2023-09-15 11:12:53,641 - Client: Caravel Innovation SLU, ID: 000032
+2023-09-15 11:12:53,641 - Client: Tecnodid S.r.l., ID: 000033
+2023-09-15 11:12:53,641 - Client: Odoo S.A., ID: 000034
+2023-09-15 11:12:53,641 - Client: Kreston Consulting S.r.l., ID: 000035
+2023-09-15 11:12:53,649 - Client: Kiranet s.r.l., ID: 000036
+2023-09-15 11:12:53,649 - Client: Maulini Srl, ID: 000037
+2023-09-15 11:12:53,649 - Client: Innovaway S.p.A., ID: 000038
+2023-09-15 11:12:53,657 - Client: Vi.Sa. S.r.l., ID: 000039
+2023-09-15 11:12:53,657 - Client: Setera Italia S.r.l., ID: 000040
+2023-09-15 11:12:53,657 - Client: INCNEX S.r.l., ID: 000041
+2023-09-15 11:12:53,657 - Client: LIMITLESS SRL, ID: 000042
+2023-09-15 11:12:53,665 - Client: Aloschi Bros S.r.l., ID: 000043
+2023-09-15 11:12:53,665 - Client: Modaimpresa S.r.l., ID: 000044
+2023-09-15 11:12:53,665 - Client: Sofiter Tech S.r.l., ID: 000045
+2023-09-15 11:12:53,673 - Client: FONDAZIONE TELETHON, ID: 000046
+2023-09-15 11:12:53,673 - Client: Caponetti Impianti Srl, ID: 000047
+2023-09-15 11:12:53,673 - Client: ITDM srl, ID: 000048
+2023-09-15 11:12:53,673 - Client: Jolie S.r.l., ID: 000049
+2023-09-15 11:12:53,673 - Client: Next Generation Diagnostics S.r.l., ID: 000050
+2023-09-15 11:12:53,673 - Client: Universita' degli Studi di Udine - DISO, ID: 000051
+2023-09-15 11:12:53,681 - Client: DOT-IT S.r.l., ID: 000052
+2023-09-15 11:12:53,683 - Client: International School of Languages S.r.l., ID: 000053
+2023-09-15 11:12:53,683 - Client: Allcore Spa, ID: 000054
+2023-09-15 11:12:53,692 - Client: INTELLIDIO S.R.L., ID: 000055
+2023-09-15 11:12:53,692 - Client: Mini Caseificio Costanzo Srl, ID: 000056
+2023-09-15 11:12:53,692 - Client: Vertical srl, ID: 000057
+2023-09-15 11:12:53,692 - Client: DMCOMMERCE Srl, ID: 000058
+2023-09-15 11:12:53,699 - Client: FonARCom - Fondo Paritetico Interprofessionale, ID: 000059
+2023-09-15 11:12:53,699 - Client: Next Generation Diagnostics, ID: 000060
+2023-09-15 11:12:53,699 - Client: Redomino S.r.l., ID: 000061
+2023-09-15 11:12:53,707 - Client: Ulisse S.r.l. unipersonale, ID: 000062
+2023-09-15 11:12:53,707 - Client: Lanni SRL, ID: 000063
+2023-09-15 11:12:53,707 - Client: Health Pixel s.r.l., ID: 000064
+2023-09-15 11:12:53,707 - Client: International Tours S.r.l., ID: 000065
+2023-09-15 11:12:53,707 - Client: A2Z WORLD SRL, ID: 000066
+2023-09-25 08:21:41,841 - Client: ePrice Operations S.r.l., ID: 000001
+2023-09-25 08:21:41,846 - Client: Automazione Piemonte Tech S.r.l., ID: 000002
+2023-09-25 08:21:41,846 - Client: Sofiter Tech S.r.l., ID: 000003
+2023-09-25 08:21:41,846 - Client: Tea Web S.A.S. Di Tomaso Evolvi & C., ID: 000004
+2023-09-25 08:21:41,849 - Client: NEYROZ-FEROLI S.R.L., ID: 000005
+2023-09-25 08:21:41,849 - Client: Lanni SRL, ID: 000006
+2023-09-25 08:21:41,849 - Client: Tecnodid S.r.l., ID: 000007
+2023-09-25 08:21:41,851 - Client: InnovaVector S.r.l., ID: 000008
+2023-09-25 08:21:41,851 - Client: Abstract-Technology GmbH, ID: 000009
+2023-09-25 08:21:41,851 - Client: Redomino S.r.l., ID: 000010
+2023-09-25 08:21:41,853 - Client: CANARBINO S.P.A., ID: 000011
+2023-09-25 08:21:41,854 - Client: Setera Italia S.r.l., ID: 000012
+2023-09-25 08:21:41,855 - Client: Aloschi Bros S.r.l., ID: 000013
+2023-09-25 08:21:41,856 - Client: Tresol S.r.l, ID: 000014
+2023-09-25 08:21:41,856 - Client: Vi.Sa. S.r.l., ID: 000015
+2023-09-25 08:21:41,857 - Client: Nitech S.r.l., ID: 000016
+2023-09-25 08:21:41,858 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C. S.a.s., ID: 000017
+2023-09-25 08:21:41,859 - Client: Abstract S.R.L A SOCIO UNICO, ID: 000018
+2023-09-25 08:21:41,860 - Client: Modaimpresa S.r.l., ID: 000019
+2023-09-25 08:21:41,860 - Client: Allcore Spa, ID: 000020
+2023-09-25 08:21:41,862 - Client: Ferguson Lynch LCC, ID: 000021
+2023-09-25 08:21:41,863 - Client: INCNEX S.r.l., ID: 000022
+2023-09-25 08:21:41,864 - Client: Next Generation Diagnostics, ID: 000023
+2023-09-25 08:21:41,865 - Client: Vertical srl, ID: 000024
+2023-09-25 08:21:41,865 - Client: FonARCom - Fondo Paritetico Interprofessionale, ID: 000025
+2023-09-25 08:21:41,866 - Client: Kreston Consulting S.r.l., ID: 000026
+2023-09-25 08:21:41,867 - Client: FONDAZIONE TELETHON, ID: 000027
+2023-09-25 08:21:41,867 - Client: Farmacie Lago Patria Varcaturo del Dot. G.Micillo e C., ID: 000028
+2023-09-25 08:21:41,869 - Client: Caponetti Impianti Srl, ID: 000029
+2023-09-25 08:21:41,870 - Client: Odoo S.A., ID: 000030
+2023-09-25 08:21:41,870 - Client: Carmisciano Cosmo, ID: 000031
+2023-09-25 08:21:41,871 - Client: BeInnovative2020 S.r.l., ID: 000032
+2023-09-25 08:21:41,871 - Client: CERTY S.r.l., ID: 000033
+2023-09-25 08:21:41,871 - Client: Arpes S.r.l., ID: 000034
+2023-09-25 08:21:41,871 - Client: Maulini Srl, ID: 000035
+2023-09-25 08:21:41,871 - Client: Mini Caseificio Costanzo Srl, ID: 000036
+2023-09-25 08:21:41,871 - Client: DOT-IT S.r.l., ID: 000037
+2023-09-25 08:21:41,871 - Client: Ulisse S.r.l. unipersonale, ID: 000038
+2023-09-25 08:21:41,871 - Client: Universita' degli Studi di Udine - DISO, ID: 000039
+2023-09-25 08:21:41,879 - Client: Fondazione Telethon, ID: 000040
+2023-09-25 08:21:41,881 - Client: LIMITLESS SRL, ID: 000041
+2023-09-25 08:21:41,882 - Client: INTELLIDIO S.R.L., ID: 000042
+2023-09-25 08:21:41,883 - Client: Gft Italia S.r.l., ID: 000043
+2023-09-25 08:21:41,884 - Client: Maire Tecnimont S.p.A., ID: 000044
+2023-09-25 08:21:41,885 - Client: Allure S.r.l., ID: 000045
+2023-09-25 08:21:41,886 - Client: CHORALLY S.R.L., ID: 000046
+2023-09-25 08:21:41,887 - Client: Unit One srl, ID: 000047
+2023-09-25 08:21:41,887 - Client: HT System S.r.l., ID: 000048
+2023-09-25 08:21:41,888 - Client: Jolie S.r.l., ID: 000049
+2023-09-25 08:21:41,889 - Client: INFORMATICA SERVICE di Eduardo Pasquale, ID: 000050
+2023-09-25 08:21:41,890 - Client: DMCOMMERCE Srl, ID: 000051
+2023-09-25 08:21:41,891 - Client: FIVEN S.p.A., ID: 000052
+2023-09-25 08:21:41,892 - Client: Caravel Innovation SLU, ID: 000053
+2023-09-25 08:21:41,892 - Client: Kiranet s.r.l., ID: 000054
+2023-09-25 08:21:41,893 - Client: FAMA PROGRESS S.r.l., ID: 000055
+2023-09-25 08:21:41,895 - Client: Next Generation Diagnostics S.r.l., ID: 000056
+2023-09-25 08:21:41,896 - Client: A2Z WORLD SRL, ID: 000057
+2023-09-25 08:21:41,898 - Client: International School of Languages S.r.l., ID: 000058
+2023-09-25 08:21:41,899 - Client: ITDM srl, ID: 000059
+2023-09-25 08:21:41,901 - Client: Fifth Beat S.r.l., ID: 000060
+2023-09-25 08:21:41,904 - Client: ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale, ID: 000061
+2023-09-25 08:21:41,906 - Client: International Tours S.r.l., ID: 000062
+2023-09-25 08:21:41,919 - Client: Vincenzo Barone, ID: 000063
+2023-09-25 08:21:41,920 - Client: Innovaway S.p.A., ID: 000064
+2023-09-25 08:21:41,922 - Client: Six Feet Up srl, ID: 000065
+2023-09-25 08:21:41,923 - Client: Health Pixel s.r.l., ID: 000066

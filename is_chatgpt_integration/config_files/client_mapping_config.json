@@ -1,0 +1,6 @@
+{
+    "project_name": "Client_Mapping_Project",
+    "logs": {
+        "debug": "./logs/client_mapping.log"
+    }
+}
