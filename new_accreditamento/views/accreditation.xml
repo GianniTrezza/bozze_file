@@ -77,6 +77,29 @@
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('new_accreditamento.group_hospital_accreditation_manager'))]"/>
     </record>
+    <!-- Gli utenti non possono cancellare -->
+    <record id="rule_hospital_accreditation_unlink_user" model="ir.rule">
+        <field name="name">Accreditamento: Users Cannot Delete</field>
+        <field name="model_id" ref="model_hospital_accreditation"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_unlink">0</field>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="groups" eval="[(4, ref('new_accreditamento.group_hospital_accreditation_user'))]"/>
+    </record>
+    <!-- Solo i manager possono cancellare -->
+    <record id="rule_hospital_accreditation_unlink_manager" model="ir.rule">
+        <field name="name">Accreditamento: Solo i Manager possono cancellare</field>
+        <field name="model_id" ref="model_hospital_accreditation"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_unlink">1</field>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="groups" eval="[(4, ref('new_accreditamento.group_hospital_accreditation_manager'))]"/>
+    </record>
+
 
     <menuitem id="menu_accreditation" name="Accreditamenti" parent="base.menu_administration" sequence="10" action="action_accreditation"/>
 

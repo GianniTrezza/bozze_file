@@ -82,6 +82,10 @@ class HospitalAccreditation(models.Model):
         return super(HospitalAccreditation, self).copy(default)
 
     def unlink(self):
+        manager_group = 'new_accreditamento.group_hospital_accreditation_manager'
+        if not self.user_has_groups(manager_group):
+            raise UserError(_("Attenzione: solo i manager possono eliminare le pratiche."))
+        
         sequence = self.env['ir.sequence'].sudo().search([('code', '=', 'hospital.accreditation.sequence')], limit=1)
         struttura_ids_to_check = []        
         for record in self:
