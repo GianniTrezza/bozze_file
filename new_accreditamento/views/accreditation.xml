@@ -54,7 +54,8 @@
             </tree>
         </field>
     </record>
-    
+
+    <!-- Vecchio codice -->
     <record id="action_accreditation" model="ir.actions.act_window">
         <field name="name">Accreditamenti Strutture Sanitarie</field>
         <field name="res_model">hospital.accreditation</field>
@@ -62,7 +63,20 @@
         <field name="target">main</field>
         <field name="context">{'search_default_state': 'draft'}</field>
     </record>
-
+    <!-- Solo gli utenti possono vedere le pratiche create da loro -->
+    <record id="rule_hospital_accreditation_user" model="ir.rule">
+        <field name="name">Accreditamento: L'utente può vedere solo le sue pratiche</field>
+        <field name="model_id" ref="model_hospital_accreditation"/>
+        <field name="domain_force">[('autore_reg_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('new_accreditamento.group_hospital_accreditation_user'))]"/>
+    </record>
+    <!-- I manager possono vedere tutto -->
+    <record id="rule_hospital_accreditation_manager" model="ir.rule">
+        <field name="name">Accreditamento: Il manager può vedere tutto</field>
+        <field name="model_id" ref="model_hospital_accreditation"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('new_accreditamento.group_hospital_accreditation_manager'))]"/>
+    </record>
 
     <menuitem id="menu_accreditation" name="Accreditamenti" parent="base.menu_administration" sequence="10" action="action_accreditation"/>
 
