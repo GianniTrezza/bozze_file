@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_prenotazione_stanze_form" model="ir.ui.view">
+        <field name="name">prenotazione.stanze.form</field>
+        <field name="model">prenotazione.stanze</field>
+        <field name="arch" type="xml">
+            <form>
+                <label for="refer" class="oe_edit_only"/>
+                    <header>
+                        <field name="status" widget="statusbar" statusbar_visible="pending, confirmed, cancelled"/>
+                    </header> 
+                <sheet>
+                    <div class="oe_title">
+                        <group>
+                            <field name="refer" placeholder="ID Prenotazione"/>
+                        </group>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="checkin"/>
+                            <field name="checkout"/>
+                            <field name="Name"/>
+                            <field name="channelNotes"/>
+                        </group>
+                        <group>
+                            <field name="createTime"/>
+                            <field name="updateTime"/>
+                            <field name="totalPaid"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Informazioni Stanza">
+                            <group>
+                                <group>
+                                    <field name="product" />
+                                    <field name="roomName"/>
+                                    <field name="rooms" />
+                                    <field name="data_ingresso"/>
+                                    <field name="data_uscita"/>
+                                </group>
+                                <group>
+                                    <field name="children" />
+                                    <field name="infants"/>
+                                    <field name="totalChildren" />
+                                    <field name="totalnfants"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Costi">
+                            <group>
+                                <group>
+                                    <field name="status"/>
+                                    <field name="paymentStatus"/>
+                                    <field name="roomGross" />
+                                    <field name="touristTax"/>
+                                    <field name="totalGross"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+    <record id="view_prenotazione_stanze_tree" model="ir.ui.view">
+        <field name="name">prenotazione.stanze.tree</field>
+        <field name="model">prenotazione.stanze</field>
+        <field name="arch" type="xml">
+            <tree string="Bookings">
+                <field name="createTime"/>
+                <field name="soggiorno_input"/>
+                <field name="Name"/>
+                <field name="refer"/>
+                <field name="structure_name"/>
+                <field name="totalGuest"/>
+                <field name="roomName"/>
+                <field name="display_status"/>
+                <field name="totalGross"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="main_booking_menu" name="Bookings" sequence="10"/>
+    <menuitem id="submenu_booking" name="Prenotazioni" parent="main_booking_menu" sequence="10"/>
+    <record id="action_prenotazione_stanze" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">prenotazione.stanze</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_prenotazione_stanze" name="Prenotazioni" action="action_prenotazione_stanze" parent="submenu_booking" sequence="10"/>
+</odoo>
+
+<!-- <field name="structure_name"/>
+                        <field name="bookingtime"/>
+                        <field name="checkin"/>
+                        
+                        <field name="checkout"/>
+                        <field name="soggiorno_input"/>
+                        <field name="createTime"/>
+                        <field name="updateTime"/>
+                        <field name="channelNotes"/>
+                        <field name="children"/>
+                        <field name="infants"/>
+                        <field name="phone"/>
+                        <field name="roomGross"/>
+                        <field name="totalGross"/>
+                        <field name="totalGuest"/>
+                    </group>
+                    <group>
+                        <field name="arrivalTime"/>
+                        <field name="channelName"/>
+                        <field name="currency"/>
+                        
+                        <field name="guestMailAddress"/>
+                        <field name="id"/>
+                        <field name="paymentStatus"/>
+                        <field name="paymentType"/>
+                        <field name="product"/>
+                        <field name="roomName"/>
+                        <field name="rooms"/>
+                        <field name="totalChildren"/>
+                        <field name="totalnfants"/>
+                        <field name="totalPaid"/>
+                        <field name="touristTax"/>
+                        <field name="display_status"/> -->
