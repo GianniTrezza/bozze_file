@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Form View for Room Bookings -->
+    <record id="view_room_booking_form" model="ir.ui.view">
+        <field name="name">room.booking.form</field>
+        <field name="model">room.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,confirmed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="refer" class="oe_edit_only"/>
+                        <h1><field name="refer" placeholder="ID Prenotazione"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="checkin"/>
+                            <field name="checkout"/>
+                            <field name="firstName"/>
+                            <field name="channelNotes"/>
+                        </group>
+                        <group>
+                            <field name="createTime"/>
+                            <field name="updateTime"/>
+                            <field name="totalPaid"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Room Information">
+                            <group>
+                                <group>
+                                    <field name="product" />
+                                    <field name="roomName"/>
+                                    <field name="rooms" />
+                                    <!-- Assuming you meant checkin and checkout for data_ingresso and data_uscita -->
+                                    <field name="checkin" string="Data Ingresso"/>
+                                    <field name="checkout" string="Data Uscita"/>
+                                </group>
+                                <group>
+                                    <field name="children" />
+                                    <field name="infants"/>
+                                    <field name="totalChildren" />
+                                    <field name="totalInfants"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Costs">
+                            <group>
+                                <group>
+                                    <field name="paymentStatus"/>
+                                    <field name="roomGross" />
+                                    <field name="touristTax"/>
+                                    <field name="totalGross"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Room Bookings -->
+    <record id="view_room_booking_tree" model="ir.ui.view">
+        <field name="name">room.booking.tree</field>
+        <field name="model">room.booking</field>
+        <field name="arch" type="xml">
+            <tree string="Bookings">
+                <field name="createTime"/>
+                <!-- Assuming "soggiorno_input" was a mistake as it was not provided earlier -->
+                <!-- <field name="soggiorno_input"/> -->
+                <field name="firstName" string="Name"/>
+                <field name="refer"/>
+                <!-- Assuming "structure_name" and "display_status" were mistakes as they were not provided earlier -->
+                <!-- <field name="structure_name"/> -->
+                <field name="totalGuest"/>
+                <field name="roomName"/>
+                <field name="status"/>
+                <field name="totalGross"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="main_booking_menu" name="Bookings" sequence="10"/>
+    <menuitem id="submenu_booking" name="Prenotazioni" parent="main_booking_menu" sequence="20"/>
+
+    <!-- Action to Open Room Bookings -->
+    <record id="action_room_booking" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">room.booking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item Linked to the Action -->
+    <menuitem id="menu_room_booking" name="Prenotazioni" action="action_room_booking" parent="submenu_booking" sequence="10"/>
+</odoo>
