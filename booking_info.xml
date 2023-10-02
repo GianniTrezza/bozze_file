@@ -1,0 +1,86 @@
+<odoo>
+
+    <record id="view_account_move_booking_form" model="ir.ui.view">
+        <field name="name">account.move.booking.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="partner_id" position="before">
+                    <field name="bb_booking_view" invisible="0"/>  
+                </field>
+                
+                <field name="partner_id" position="before">
+                    <group class="classe_de_novo">
+                        <field name="checkin" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                        <field name="checkout" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                        <field name="firstName" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                        <field name="channelNotes" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                    </group>
+                    <group>
+                    </group>
+                    <group>
+                    </group>
+                    <group>
+                    </group>
+                    <group>
+                    </group>
+                    <group>
+                        <field name="createTime" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                        <field name="updateTime" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                        <field name="totalPaid" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                    </group>
+                </field>
+                
+                <notebook position="inside">
+                    <page string="Informazioni generali della prenotazione" attrs="{'invisible': [('bb_booking_view', '!=', True)]}">
+
+                        <group>
+                            <group>
+                                <field name="refer" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="checkin" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="checkout" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="createTime" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="updateTime" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="phone" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="roomGross" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="totalGross" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="status" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="channelNotes" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="children" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="infants" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="totalGuest" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Altre informazioni di prenotazione" attrs="{'invisible': [('bb_booking_view', '!=', True)]}">
+                        <group>
+                            <group>
+                                <field name="arrivalTime" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="channelName" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="currency" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="firstName" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="lastName" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="booking_id" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="guestMailAddress" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="paymentStatus" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="paymentType" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="product_id" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="roomName" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="rooms" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="totalChildren" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="totalInfants" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="totalPaid" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                                <field name="touristTax" attrs="{'invisible': [('bb_booking_view', '!=', True)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </data>
+        </field>
+    </record>
+</odoo>

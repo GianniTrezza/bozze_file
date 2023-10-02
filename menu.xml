@@ -1,45 +1,20 @@
 <odoo>
-    <menuitem id="main_accreditamento_menu" name="Accreditamento (Sanitary Structures)" sequence="10" web_icon="new_accreditamento,static/description/icon.png"/>
-    
-    <record id="action_accreditation" model="ir.actions.act_window">
-        <field name="name">Pratiche</field>
-        <field name="res_model">hospital.accreditation</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_empty_folder">
-                Non sono state create ancora pratiche.
-            </p>
-        </field>
+
+     <record id="prenotazione_action" model="ir.actions.act_window">
+            <field name="name">Fatturazione BB</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'bb_booking_view': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Nuova record
+                </p>
+            </field>
     </record>
 
-    <record id="action_struttura_sanitaria" model="ir.actions.act_window">
-        <field name="name">Strutture Sanitarie</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_company', '=', True)]</field>
-        <field name="context">{'search_default_is_struttura_sanitaria': 1}</field>
-    </record>
-
-
-    <record id="action_tipologia_pratica" model="ir.actions.act_window">
-        <field name="name">Tipologie pratiche</field>
-        <field name="res_model">hospital.tipologia_pratica</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10" groups="new_accreditamento.group_hospital_accreditation_user,new_accreditamento.group_hospital_accreditation_manager"/>
-    <menuitem id="menu_accreditamento_strutture_sanitarie" name="Strutture sanitarie" parent="main_accreditamento_menu" action="action_struttura_sanitaria" sequence="20" groups="new_accreditamento.group_hospital_accreditation_manager"/>
-    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30" groups="new_accreditamento.group_hospital_accreditation_manager"/>
-
-    <!-- <menuitem id="menu_accreditamento_pratiche" name="Pratiche" parent="main_accreditamento_menu" action="action_accreditation" sequence="10"/>
-    <menuitem id="menu_accreditamento_strutture_sanitarie" name="Strutture sanitarie" parent="main_accreditamento_menu" action="action_struttura_sanitaria"  sequence="20"/>
-    <menuitem id="menu_accreditamento_tipologie_pratiche" name="Tipologie pratiche" parent="main_accreditamento_menu" action="action_tipologia_pratica" sequence="30"/> -->
+    <menuitem id="test_model_menu"
+              name="Fatturazione Bed and breakfast"
+              action="prenotazione_action"
+              sequence="1"/>
 </odoo>
-
-<!-- Se volessi vedere le strutture sanitarie come se fossero dei contacts, al posto di usare action_struttura_sanitaria, uso l'action sottostante -->
-        <!-- <record id="base.action_partner_form" model="ir.actions.act_window">
-        <field name="name">Strutture Sanitarie</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_struttura_sanitaria', '=', True), ('is_company', '=', True)]</field>
-        <field name="context">{'search_default_is_struttura_sanitaria': 1}</field> -->
-
