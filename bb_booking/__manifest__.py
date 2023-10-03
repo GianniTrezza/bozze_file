@@ -7,7 +7,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/booking_info.xml',
-        'views/booking_control.xml',
         'views/menu.xml',
     ],
     'application': True

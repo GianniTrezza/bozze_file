@@ -14,6 +14,6 @@
     </record>
 
     <menuitem id="test_model_menu" name="Prenotazione Bed and breakfast" action="prenotazione_action" sequence="1"/>
-    <menuitem id="menu_roombooking" name="Integrazione Octorate" parent="test_model_menu" action="action_roombooking" sequence="10"/>
+    <!-- <menuitem id="menu_roombooking" name="Integrazione Octorate" parent="test_model_menu" action="action_roombooking" sequence="10"/> -->
 
 </odoo>
