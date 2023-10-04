@@ -10,6 +10,53 @@
                 <field name="createTime"/>
             </field>
 
+            <field name="invoice_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <label for="invoice_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
+
+            <field name="invoice_date_due" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <label for="invoice_date_due" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
+
+
+            <!-- <filter name="late" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+
+            <filter name="invoice_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+
+            <filter name="due_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter> -->
+
+
+
+            <field name="createTime" position="after">
+                <field name="updateTime"/>
+            </field>
+
+            <field name="partner_id" position="after">
+                <field name="checkout"/>
+            </field>
+
+            <field name="partner_id" position="after">
+                <field name="checkin"/>
+            </field>
+            
+            <field name="partner_id" position="after">
+                <field name="booking_id"/>
+            </field>
+
             <!-- Prima page: Dettagli prenotazione -->
 
             <xpath expr="//page/field[@name='invoice_line_ids']/.." position="attributes">
@@ -32,17 +79,130 @@
                 <field name="roomGross"/>
             </xpath>
         
-            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='tax_ids']" position="replace">
-                <field name="touristTax"/>
-            </xpath>
+            
             <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="replace">
                 <field name="totalPaid"/>
             </xpath>
             <!-- Seconda page: Informazioni generali -->
-            
             <xpath expr="//page[3]" position="attributes">
                 <attribute name="string">Informazioni generali</attribute>
             </xpath>
+
+             <!-- Informazioni Stanza e campi -->
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']" position="attributes">
+                <attribute name="string">Informazioni Stanza</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='ref']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='invoice_user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='partner_bank_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='team_id']" position="replace">
+                <field name="children"/>
+            </xpath> -->
+
+            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='ref']" position="replace"> -->
+
+            <!-- Informazioni Cliente e campi -->
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']" position="attributes">
+                <attribute name="string">Informazioni Cliente</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='company_id']" position="replace">
+                <field name="children"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='invoice_incoterm_id']" position="replace">
+                <field name="infants"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='fiscal_position_id']" position="replace">
+                <field name="totalChildren"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='auto_post']" position="replace">
+                <field name="totalInfants"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='accounting_info_group']/field[@name='to_check']" position="replace">
+                <field name="totalGuest"/>
+            </xpath>
+
+            <!-- Al posto di marketing, Info Pagamento: pseudocode -->
+            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='marketing_info_group']" position="attributes">
+                <attribute name="string">Informazioni Pagamento</attribute>
+            </xpath> -->
+
+            <!-- <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+        </field>
+    </record>
+    <!-- Idee per nascondere i fields legati a Marketing (campaign_id) -->
+
+    <!-- <record id="utm_campaign_view_form_inherit_from_bb_booking" model="ir.ui.view">
+        <field name="name">utm.campaign.view.form.inherit.from.bb_booking</field>
+        <field name="model">utm.campaign</field>
+        <field name="inherit_id" ref="utm.utm_campaign_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+</odoo>
+
+            <!-- <page id="other_tab" string="Other Info" name="other_info"
+                            attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}">
+                        <group id="other_tab_group">
+                            <group string="Invoice"
+                                    name="sale_info_group"
+                                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}">
+                                <label for="ref" string="Customer Reference" />
+                                <field name="ref" nolabel="1"/>
+                                <field name="user_id" invisible="1" force_save="1"/>
+                                <field name="invoice_user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"/>
+                                <field name="invoice_origin" string="Source Document" force_save="1" invisible="1"/>
+                                <field name="partner_bank_id"
+                                        context="{'default_partner_id': bank_partner_id}"
+                                        domain="[('partner_id', '=', bank_partner_id)]"
+                                        attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="qr_code_method"
+                                        attrs="{'invisible': [('display_qr_code', '=', False)]}"/>
+                            </group>
+                            <group string="Accounting"
+                                    name="accounting_info_group"
+                                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}">
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="invoice_incoterm_id"/>
+                                <field name="fiscal_position_id"/>
+                                <field name="invoice_cash_rounding_id" groups="account.group_cash_rounding"/>
+                                <field name="invoice_source_email"
+                                        widget="email"
+                                        attrs="{'invisible': ['|', ('move_type', 'not in', ('in_invoice', 'in_refund')), ('invoice_source_email', '=', False)]}"/>
+                                <field name="auto_post"
+                                        attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="auto_post_until"
+                                        attrs="{'invisible': [('auto_post', 'in', ('no', 'at_date'))],
+                                                'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="to_check"/>
+                            </group>
+                        </group>
+                    </page> -->
         
             
             <!-- <xpath expr="//page[@name='Informazioni generali']/group[1]" position="attributes">
@@ -59,16 +219,6 @@
                 <attribute name="string">Info pagamento</attribute>
             </xpath> -->
 
-
-
-
-            
-
-
-
-        </field>
-    </record>
-</odoo>
 
 
 <!-- 1) status al posto di state -->

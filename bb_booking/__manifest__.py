@@ -3,7 +3,7 @@
     'version': '1.0',
     'author': 'Gianni',
     'description': 'Prenotazione stanze: integrazione con Octorate ',
-    'depends': ['base','account', 'web'],
+    'depends': ['base', 'utm', 'account', 'web'],
     'data': [
         'security/ir.model.access.csv',
         'views/booking_info.xml',
