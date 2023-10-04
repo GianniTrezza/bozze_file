@@ -27,6 +27,22 @@
             </label>
 
 
+            <!-- Set the 'late' filter as invisible
+            <filter name="late" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+
+            
+            <filter name="invoice_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+
+            <filter name="due_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter> -->
+
+
+
             <!-- <filter name="late" position="attributes">
                 <attribute name="invisible">1</attribute>
             </filter>
@@ -151,6 +167,21 @@
             </xpath> -->
         </field>
     </record>
+<!-- Per domani parti da questo codice per nascondere i filtri correlati a due date -->
+    <!-- <record id="view_account_move_search_inherit" model="ir.ui.view">
+        <field name="name">account.move.search.inherit.from.booking.info</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <filter name="duedate" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+        </field>
+    </record> -->
+
+    
+    
+</odoo>
     <!-- Idee per nascondere i fields legati a Marketing (campaign_id) -->
 
     <!-- <record id="utm_campaign_view_form_inherit_from_bb_booking" model="ir.ui.view">
@@ -163,8 +194,14 @@
             </xpath>
         </field>
     </record> -->
+    
 
-</odoo>
+
+
+
+
+
+
 
             <!-- <page id="other_tab" string="Other Info" name="other_info"
                             attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}">

@@ -42,7 +42,7 @@ class roombooking(models.Model):
     ], string='Stato del Pagamento')
     
     paymentType = fields.Char(string='Metodo di Pagamento')
-    product_id = fields.Many2one('product.product', string='Prodotto')
+    # product_id = fields.Many2one('product.product', string='Prodotto')
     # rooms = fields.Integer(string='Numero di Stanze')
     # roomName = fields.Char(string='Nome Stanza')
     totalChildren = fields.Integer(string='Totali Ragazzi')
@@ -84,7 +84,7 @@ class prenotadettagli(models.Model):
 
     _inherit = "account.move.line"
 
-    roomName = fields.Char(string='Nome Stanza')
+    roomName = fields.Many2one ('product.product', string='Nome Stanza')
     channelNotes = fields.Text(string='Note del Canale')
     data_ingresso = fields.Date(string='Data di Ingresso', compute='_compute_date')
     data_uscita = fields.Date(string="Data d'Uscita", compute='_compute_date')
