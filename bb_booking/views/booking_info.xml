@@ -26,37 +26,6 @@
                 <attribute name="invisible">1</attribute>
             </label>
 
-
-            <!-- Set the 'late' filter as invisible
-            <filter name="late" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter>
-
-            
-            <filter name="invoice_date" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter>
-
-            <filter name="due_date" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter> -->
-
-
-
-            <!-- <filter name="late" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter>
-
-            <filter name="invoice_date" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter>
-
-            <filter name="due_date" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </filter> -->
-
-
-
             <field name="createTime" position="after">
                 <field name="updateTime"/>
             </field>
@@ -75,30 +44,19 @@
 
             <!-- Prima page: Dettagli prenotazione -->
 
-            <xpath expr="//page/field[@name='invoice_line_ids']/.." position="attributes">
+            <!-- <xpath expr="//page/field[@name='invoice_line_ids']/.." position="attributes">
                 <attribute name="string">Dettagli Prenotazione</attribute>
             </xpath>
             
             <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="replace">
                 <field name="roomName"/>
-            </xpath>
+            </xpath> -->
             
-            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='name']" position="replace">
-                <field name="channelNotes"/>
-            </xpath>
-
-            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="replace">
+            <!-- <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="replace">
                 <field name="rooms"/>
-            </xpath>
+            </xpath> -->
             
-            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="replace">
-                <field name="roomGross"/>
-            </xpath>
         
-            
-            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="replace">
-                <field name="totalPaid"/>
-            </xpath>
             <!-- Seconda page: Informazioni generali -->
             <xpath expr="//page[3]" position="attributes">
                 <attribute name="string">Informazioni generali</attribute>
@@ -110,9 +68,29 @@
                 <attribute name="string">Informazioni Stanza</attribute>
             </xpath>
 
+
+            <!-- Rendere invisibile l'etichetta "Customer Reference" -->
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/label[@for='ref']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
             <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='ref']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+
+            <!-- Rendere invisibile l'etichetta "Sales Team" -->
+
+            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/label[@for='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+            <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+
+
 
             <xpath expr="//page[@name='other_info']/group/group[@name='sale_info_group']/field[@name='invoice_user_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -157,17 +135,21 @@
                 <field name="totalGuest"/>
             </xpath>
 
-            <!-- Al posto di marketing, Info Pagamento: pseudocode -->
-            <!-- <xpath expr="//page[@name='other_info']/group/group[@name='marketing_info_group']" position="attributes">
-                <attribute name="string">Informazioni Pagamento</attribute>
-            </xpath> -->
-
-            <!-- <xpath expr="//field[@name='tag_ids']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath> -->
+            <xpath expr="//notebook/page[3]" position="after">
+                <page string="Informazioni Pagamento">
+                    <group>
+                        <field name="paymentStatus"/>
+                        <field name="paymentType"/>
+                    </group>
+                </page>
+            </xpath>
+    
+            
         </field>
     </record>
-<!-- Per domani parti da questo codice per nascondere i filtri correlati a due date -->
+</odoo>
+
+<!-- Per domani parti da questo codice per nascondere i filtri correlati a due date: ricercare nelle views quelle che facciano le Search -->
     <!-- <record id="view_account_move_search_inherit" model="ir.ui.view">
         <field name="name">account.move.search.inherit.from.booking.info</field>
         <field name="model">account.move</field>
@@ -179,9 +161,7 @@
         </field>
     </record> -->
 
-    
-    
-</odoo>
+
     <!-- Idee per nascondere i fields legati a Marketing (campaign_id) -->
 
     <!-- <record id="utm_campaign_view_form_inherit_from_bb_booking" model="ir.ui.view">
