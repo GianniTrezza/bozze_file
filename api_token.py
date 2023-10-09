@@ -144,25 +144,20 @@ if accommodations:
     print(f"Risposta dall'aggiunta del webhook: {response}")
 else:
     print("Nessun accomodation disponibile")
+# ERRORI PRESENTI PER QUANTO IL FLUSSO SIA CORRETTO:
+# A)Errore nel recupero delle prenotazioni: 403 - {"message":"errNoResourcesForIdentity","nested":[],"type":"ApiSecurityException"}
+# Reservations per l'accomodation 557782: []
+# B) Scegli un evento per configurare il webhook:
+# 1. RESERVATION_CREATED
+# 2. RESERVATION_CHANGE
+# 3. RESERVATION_CANCELLED
+# 4. RESERVATION_CONFIRMED
+# 5. CONTENT_NOTIFICATION
+# 6. CONTENT_PUSH
+# 7. PORTAL_SUBSCRIPTION_CALENDAR
+# 8. XXX_NOT_USED_PORTAL_PROCESS_FAILED
+# 9. CHAT_MESSAGE_RECEIVED
+# Inserisci il numero corrispondente all'evento: 2
+# Errore nell'aggiunta del webhook: 400 - {"element":"Prevalidation of Content","message":" Even though the call is technically correct, the content registered inside the system cannot be validated agaist the criteria","nested":[{"human_name":"Typology","machine_name":"type","message":"Typology: Validation Error: Length is greater than allowable maximum of '1' (You have submitted: 2)","type":"RejectLenght"}],"type":"ApiValidationFailed"}
+# Risposta dall'aggiunta del webhook: None
 
-# FUNZIONE SIMONE
-
-# # URL corretto per il webhook
-# url_webhook = "https://webhook.site/https://webhook.site/#!/e2e61afa-8888-487d-a8d6-4c79156487dd"
-# token = get_access_token()
-# print(f"Token ottenuto: {token}")
-# accommodations = fetch_accommodations(token)
-# # Utilizziamo il primo accomodation automaticamente
-# if accommodations:
-#   accommodation_id = accommodations[0].get("id")
-#   print(f"Ho scelto automaticamente l'accomodation con ID: {accommodation_id}")
-#   reservations = fetch_reservations(token, accommodation_id)
-#   print(f"Reservations per l'accomodation {accommodation_id}: {reservations}")
-#   webhooks = fetch_webhooks(token)
-#   print(f"Webhooks attualmente configurati: {webhooks}")
-#   # Sostituisci 'EVENT' con l'evento desiderato
-#   EVENT = "RESERVATION_CREATED"
-#   response = add_webhook(token, EVENT, url_webhook)
-#   print(f"Risposta dall'aggiunta del webhook: {response}")
-# else:
-#   print("Nessun accomodation disponibile.")
