@@ -40,14 +40,14 @@ def choose_accommodation(accommodations):
         print(f"{index}. {accommodation.get('name', 'Nome non disponibile')} (ID: {accommodation.get('id', 'ID non disponibile')})")
     choice = int(input("Inserisci il numero corrispondente all'accommodation: "))
     return accommodations[choice-1].get("id")
-# SENZA FILTRI
+# PRELIEVO DELLE RESERVATIONS SENZA FILTRI
 def fetch_reservations(token, accommodation_id):
     endpoint = f"https://api.octorate.com/connect/rest/v1/reservation/{accommodation_id}"
     headers = {"accept": "application/json", "Authorization": f"Bearer {token}"}
     response = requests.get(endpoint, headers=headers)
     return response.json()
 
-# CON FILTRI
+#PRELIEVO DELLE RESERVATIONS CON FILTRI
 # def fetch_reservations(token, accommodation_id):
 #     endpoint = f"https://api.octorate.com/connect/rest/v1/reservation/{accommodation_id}"
 #     headers = {"accept": "application/json", "Authorization": f"Bearer {token}"}
@@ -120,6 +120,7 @@ def fetch_webhooks(access_token_full):
         return []
 
     return response.json()
+# FUNZIONE CHE TI CONSENTE DI SCEGLIERE TRA GLI EVENTS COSICCHé TU POSSA MANDARE I DATI RELATIVI AL WEBHOOK CIASCUN EVENT ALLA VOLTA
 # def choose_event():
 #     EVENTS = [
 #         "RESERVATION_CREATED", "RESERVATION_CHANGE", "RESERVATION_CANCELLED", "RESERVATION_CONFIRMED",
