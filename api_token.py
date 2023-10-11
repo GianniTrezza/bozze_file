@@ -1,5 +1,13 @@
-import requests
+# import requests
+# from odoo import http, models, fields, api
+# from odoo.http import request
 import json
+# from odoo import http
+
+from odoo import http
+from odoo.http import request
+import requests
+import logging
 
 CLIENT_ID = "public_a3a3b3c2278b4deabd9108e74c5e8af2"
 CLIENT_SECRET = "secret_47ff49e5533047a994869a012a94eecfTOIUDRGXYK"
@@ -18,7 +26,7 @@ def get_access_token_full():
     payload = {
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
-        "code": "4a3295fa5cca4ac19c68c831cff66758181a723114f24a5d82fb2bdf03dbecbb",
+        "code": "d2137ad53d6648bab1e62d88b0586ef09514ccb644344b44a8dd4ba748f5d6a9",
         "grant_type": "authorization_code",
         "redirect_uri": "https://api.octorate.com/connect/docs/oauth2-redirect.html"
     }
@@ -144,15 +152,193 @@ print(f"Ecco una lista di possibili webhook:{webhooks}")
 # event_to_add = choose_event()
 
 # print(event_to_add)
-url_to_add = "https://webhook.site/#!/e2e61afa-8888-487d-a8d6-4c79156487dd"
+# url_to_add = "https://webhook.site/#!/e2e61afa-8888-487d-a8d6-4c79156487dd"
 
 # Invia i dati al webhook
-for webhook_data in webhooks:
-    response = requests.post(webhook_url, json=webhook_data)
-    if response.status_code == 200:
-        print(f"Dati inviati con successo al webhook: {webhook_url}")
-    else:
-        print(f"Errore nell'invio dei dati al webhook: {response.status_code} - {response.text}")
+# for webhook_data in webhooks:
+#     response = requests.post(webhook_url, json=webhook_data)
+#     if response.status_code == 200:
+#         print(f"Dati inviati con successo al webhook: {webhook_url}")
+#     else:
+#         print(f"Errore nell'invio dei dati al webhook: {response.status_code} - {response.text}")
+
+# SPUNTI PER DOMANI
+# ODOO_WEBHOOK_URL = "http://localhost:8069/room_booking/webhook"
+
+# for reservation in reservations:
+#     requests.post(ODOO_WEBHOOK_URL, json=reservation)
+
+
+# QUESTO SNIPPET FUNZIONA NELL'INVIARE I DATI DI PRENOTAZIONE AL WEBHOOK, MA NON è INTEGRATO CON ODOO
+class RoomBookingController(http.Controller):
+
+    @http.route('/room_booking/webhook', type='json', auth='public', methods=['POST'])
+    def receive_data(self, **kw):
+        data = request.jsonrequest
+        event_type = data.get('type')  # Corretto da 'eventType' a 'type'
+        webhook_url = "https://webhook.site/e2e61afa-8888-487d-a8d6-4c79156487dd"
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        response_message = {"message": "Event not supported"}
+
+        if event_type == "RESERVATION_CREATED":
+            # Logica per la gestione della creazione di una nuova prenotazione.
+            reservation = request.env['bb_booking.roombooking'].sudo().create({
+                'refer': data.get('reservation_id'),
+                # 'checkin': data.get('checkin'),
+                # 'checkout': data.get('checkout'),
+                # 'totalChildren': data.get('totalChildren'),
+                # 'totalInfants': data.get('totalInfants'),
+                # 'totalGuest': data.get('totalGuest'),
+                # 'roomGross': data.get('roomGross'),
+                # 'totalGross': data.get('totalGross'),
+                # Aggiungi altri campi qui se necessario
+            })
+
+            # Invia i dati al webhook
+            try:
+                response = requests.post(webhook_url, json=data, headers=headers)  # Qui includiamo gli headers
+                if response.status_code == 200:
+                    response_message = {"message": "Reservation created and data sent to webhook"}
+                else:
+                    response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+            except requests.RequestException as e:
+                response_message = {"message": f"Request failed: {str(e)}"}
+
+        elif event_type == "RESERVATION_CANCELLED":
+            # Trova il record di prenotazione corrispondente e aggiorna il campo 'refer'
+            reservation_id = data.get('reservation_id')
+            # reservation = request.env['bb_booking.roombooking'].sudo().search([('id', '=', reservation_id)])
+            reservation = request.env['bb_booking.roombooking'].sudo().search([('refer', '=', reservation_id)])
+
+            if reservation:
+                # Aggiorna il campo 'refer' a "Cancellato"
+                # reservation.write({'refer': 'Cancellato'})
+                reservation.write({'status': 'Cancellato'})
+
+                # Invia i dati al webhook
+                try:
+                    response = requests.post(webhook_url, json=data, headers=headers)  # Qui includiamo gli headers
+                    if response.status_code == 200:
+                        response_message = {"message": "Reservation cancelled and data sent to webhook"}
+                    else:
+                        response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+                except requests.RequestException as e:
+                    response_message = {"message": f"Request failed: {str(e)}"}
+
+        elif event_type == "RESERVATION_CONFIRMED":
+            # Trova il record di prenotazione corrispondente e aggiorna il campo 'refer'
+            reservation_id = data.get('reservation_id')
+            # reservation = request.env['bb_booking.roombooking'].sudo().search([('id', '=', reservation_id)])
+            reservation = request.env['bb_booking.roombooking'].sudo().search([('refer', '=', reservation_id)])
+
+            if reservation:
+                # Aggiorna il campo 'refer' a "Confermato"
+                # reservation.write({'refer': 'Confermato'})
+                reservation.write({'status': 'Confermato'})
+
+                # Invia i dati al webhook
+                try:
+                    response = requests.post(webhook_url, json=data, headers=headers)  # Qui includiamo gli headers
+                    if response.status_code == 200:
+                        response_message = {"message": "Reservation confirmed and data sent to webhook"}
+                    else:
+                        response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+                except requests.RequestException as e:
+                    response_message = {"message": f"Request failed: {str(e)}"}
+
+        return response_message
+
+
+
+# _logger = logging.getLogger(__name__)
+# _logger.info("Un messaggio informativo")
+# _logger.error("Messaggio di errore")
+
+# # 'checkin': data.get('checkin'),
+# #                 # 'checkout': data.get('checkout'),
+
+
+
+# class RoomBookingController(http.Controller):
+#     @http.route('/room_booking/webhook', type='json', auth='public', methods=['POST'])
+#     def receive_data(self, **kw):
+#         data = request.jsonrequest
+#         event_type = data.get('type')  # Corretto da 'eventType' a 'type'
+#         webhook_url = "https://webhook.site/e2e61afa-8888-487d-a8d6-4c79156487dd"
+
+#         headers = {
+#             'Content-Type': 'application/json'
+#         }
+
+#         response_message = {"message": "Event not supported"}
+
+#         if event_type == "RESERVATION_CREATED":
+#             # Logica per la gestione della creazione di una nuova prenotazione.
+#             try:
+#                 reservation = request.env['bb_booking.roombooking'].sudo().create({
+#                     'checkin': data.get('checkin'),
+#                     'checkout': data.get('checkout'),
+#                     # 'refer': data.get('reservation_id'),
+#                     # Aggiungi altri campi qui se necessario
+#                 })
+
+#                 # Invia i dati al webhook
+#                 response = requests.post(webhook_url, json=data, headers=headers)
+#                 if response.status_code == 200:
+#                     response_message = {"message": "Reservation created and data sent to webhook"}
+#                 else:
+#                     response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+#             except Exception as e:
+#                 response_message = {"message": f"Request failed: {str(e)}"}
+
+#         elif event_type == "RESERVATION_CANCELLED":
+#             reservation_id = data.get('reservation_id')
+#             reservation = request.env['bb_booking.roombooking'].sudo().search([('refer', '=', reservation_id)])
+
+#             if reservation:
+#                 try:
+#                     # Aggiorna il campo 'status' a "Cancellato"
+#                     reservation.write({'status': 'Cancellato'})
+
+#                     # Invia i dati al webhook
+#                     response = requests.post(webhook_url, json=data, headers=headers)
+#                     _logger.info(f"Data received: {data}")
+#                     if response.status_code == 200:
+#                         response_message = {"message": "Reservation cancelled and data sent to webhook"}
+#                     else:
+#                         response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+#                 except Exception as e:
+#                     response_message = {"message": f"Request failed: {str(e)}"}
+
+#         elif event_type == "RESERVATION_CONFIRMED":
+#             # Trova il record di prenotazione corrispondente e aggiorna il campo 'status'
+#             reservation_id = data.get('reservation_id')
+#             reservation = request.env['bb_booking.roombooking'].sudo().search([('refer', '=', reservation_id)])
+
+#             if reservation:
+#                 try:
+#                     # Aggiorna il campo 'status' a "Confermato"
+#                     reservation.write({'status': 'Confermato'})
+
+#                     # Invia i dati al webhook
+#                     response = requests.post(webhook_url, json=data, headers=headers)
+#                     if response.status_code == 200:
+#                         response_message = {"message": "Reservation confirmed and data sent to webhook"}
+#                     else:
+#                         response_message = {"message": f"Failed to send data to webhook: {response.status_code} - {response.text}"}
+#                 except Exception as e:
+#                     response_message = {"message": f"Request failed: {str(e)}"}
+
+#         return response_message
+
+
+
+
+
  
 
 # def get_refreshed_token(refresh_token):
@@ -177,5 +363,4 @@ for webhook_data in webhooks:
 # refresh_token = "2acf003360ea4ebca6871b5d7e56efe2"
 # new_access_token = get_refreshed_token(refresh_token)
 # print(f"Nuovo token di accesso: {new_access_token}")
-
 
