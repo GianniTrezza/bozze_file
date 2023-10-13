@@ -1,1 +1,1 @@
-from . import booking_control
+from . import api_token, odoo_api

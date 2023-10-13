@@ -50,9 +50,11 @@ class RoomBookingController(http.Controller):
     # Caso uno: assenza di fitri
     def fetch_bookings(self, **kw):
         # Assenza di filtri
-        accommodations_url = "https://api.octorate.com/connect/accommodations"
+        accommodations_url = "https://api.octorate.com/connect/accommodations" 
+        # /rest/v1/accommodation
         accommodations_response = requests.get(accommodations_url) 
         accommodations_data = accommodations_response.json()
+        
     
 
 
@@ -110,8 +112,11 @@ class SoltHttpTest(models.Model):
     @api.multi
     def add_accommodation(self, accommodation_data):
         for test in self:
-            endpoint = "URL_OCTORATE/rest/accommodation" # Sostituisci con il tuo endpoint
+            endpoint = "URL_OCTORATE/rest/v1/accommodation"
+            # Oppure
+            endpoint = "URL_OCTORATE/rest/accommodation" 
             # Esempio di endpoint = "https://api.octorate.example.com/rest/accommodation"
+            # endpoint = "https://api.octorate.com/rest/v1/accommodation" 
             headers = {
                 'Content-Type': 'application/json', 
                 'Authorization': 'Basic YOUR_BASE64_CREDENTIALS', # Sostituisci con le tue credenziali base64
@@ -184,60 +189,44 @@ print(base64_credentials)
 # }
 
 # C) Integrazione della sottostante funzione nel metodo add_accommodation(self, accommodation_data):
-import requests
-import json
-
-endpoint_accommodation = "https://api.octorate.example.com/rest/accommodation"
-headers_accommodation = {
-    "Content-Type": "application/json",
-    "Authorization": "Basic YOUR_BASE64_ENCODED_CREDENTIALS",
-    "key": "YOUR_API_KEY"
-}
-data_accommodation = {
-    "website": "www.mycompany.com",
-    "zipCode": "00199",
-    "city": "Roma",
-    "given_name": "Oscar",
-    "family_name": "Slim Dogg T",
-    "name": "Surf House Lisboa",
-    "latitude": 41.1212,
-    "longitude": 40.3232,
-    "email": "myname@mycompany.com",
-    "phone": "+393347608861",
-    "address": "Avenida da Liberdade 12",
-    "isoCountry": "IT",
-    "isoCurrency": "EUR"
-}
-
-response_accommodation = requests.post(endpoint_accommodation, json=data_accommodation, headers=headers_accommodation)
-accommodation_data = response_accommodation.json()
-# accommodation_id = accommodation_data.get('codice')[0]
-accommodation_id = accommodation_data.get('codice')
-
-endpoint_reservations = f"https://api.octorate.com/connect/reservations?accommodation_id={accommodation_id}"
-
-response_reservations = requests.get(endpoint_reservations)
-reservations_data = response_reservations.json()
-
-print(reservations_data)
-
-
-# 3) CREAZIONE DEL JSON CONTENENTE I RESERVATIONS_DATA 
 # import json
+# import requests
 
-# # Supponiamo che reservations_data sia il tuo dizionario
-# reservations_data = response_reservations.json()
+# def manage_bookings(accommodation_id, new_refer):
+#     headers = {'Content-Type': 'application/json', 'Accept': 'application/json',}
 
-# # Scrivere i dati in un file JSON
-# with open('reservations_data.json', 'w') as json_file:
-#     json.dump(reservations_data, json_file, indent=4)
+#     # Recupera le prenotazioni esistenti
+#     get_url = f"https://api.octorate.com/connect/rest/v1/reservations?accommodation_id={accommodation_id}"
+#     get_response = requests.get(get_url, headers=headers)
+
+#     if get_response.status_code != 200:
+#         print(f"Errore nel recupero delle prenotazioni: {get_response.status_code}")
+#         return None
+
+#     bookings = get_response.json()  # adatta questa parte in base al formato della risposta dell'API
+
+#     # Crea una nuova prenotazione
+#     post_url = f"https://api.octorate.com/connect/rest/v1/reservation/{accommodation_id}"
+#     new_booking_data = {"content": json.dumps({"refer": new_refer,})}
+
+#     post_response = requests.post(post_url, headers=headers, data=json.dumps(new_booking_data))
+
+#     if post_response.status_code == 200:  # o un altro codice appropriato per il tuo caso
+#         new_booking = post_response.json()  # adatta questa parte in base al formato della risposta dell'API
+#         bookings.append(new_booking)
+#     else:
+#         print(f"Errore durante la creazione della nuova prenotazione: {post_response.status_code}")
+
+#     return bookings
+
+# # Esempio di utilizzo:
+# accommodation_id, new_refer = choose_accommodation()  # questa funzione restituisce l'ID dell'alloggio e il refer
+# updated_bookings = manage_bookings(accommodation_id, new_refer)
 
 
 
 
 
 
-# Uso di uno dei seguenti filtri
-# \"accommodation\":{\"address\":\"via filippo caruso\",\"checkinEnd\":20,\"checkinStart\":12,\"checkout\":12,\"city\":\"ROMA\",\"currency\":\"EUR\",\"id\":\"557782\",\"latitude\":41.8489657,\"longitude\":12.5764685,\"name\":\"OdooERP  Test Api Building L.A.\",\"phoneNumber\":\"+3906060606\",\"timeZone\":\"Europe/Rome\",\"timeZoneOffset\":\"+01:00\",\"zipCode\":\"00173\"}
 
 

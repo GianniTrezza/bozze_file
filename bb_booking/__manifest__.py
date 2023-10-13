@@ -6,8 +6,8 @@
     'depends': ['base', 'utm', 'account', 'web'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/booking_info.xml',
-        'views/menu.xml',
     ],
     'application': True
 
