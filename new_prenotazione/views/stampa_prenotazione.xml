@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_stanze_prenotate_details">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Dettagli Prenotazione Stanze</h2>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Tassa di soggiorno:</strong></td>
+                                    <td><t t-esc="o.tassa_soggiorno"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Costo Pernotto:</strong></td>
+                                    <td><t t-esc="o.costo_pernotto"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_stanze_prenotate" model="ir.actions.report">
+        <field name="name">Ricevuta Prenotazione</field>
+        <field name="model">stanze.prenotate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">new_prenotazione.report_stanze_prenotate_details</field>
+        <field name="report_file">new_accreditamento.report_stanze_prenotate_details</field>
+        <field name="print_report_name">'Accreditation Report - %s' % (object)</field>
+    </record>
+
+</odoo>

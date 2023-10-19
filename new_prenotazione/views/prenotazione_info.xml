@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stanze_prenotate_form" model="ir.ui.view">
+        <field name="name">stanze.prenotate.form</field>
+        <field name="model">stanze.prenotate</field>
+        <field name="arch" type="xml">
+            <form string="Prenotazione Stanze">
+                <header>
+                    <button name="button_confirm_and_print" string="Conferma e Stampa Fattura" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="refer"/>
+                        <field name="checkin"/>
+                        <field name="checkout"/>
+                        <field name="totalGuest"/>
+                        <field name="totalChildren"/>
+                        <field name="totalInfants"/>
+                    </group>
+                    <group>
+                        <field name="rooms"/>
+                        <field name="roomGross"/>
+                        <field name="state"/>
+                    </group>
+                    <notebook>
+                        <page string="Informazioni prenotazione">
+                            <group>
+                                <field name="tassa_soggiorno"/>
+                                <field name="costo_pernotto"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stanze_prenotate_tree" model="ir.ui.view">
+        <field name="name">stanze.prenotate.tree</field>
+        <field name="model">stanze.prenotate</field>
+        <field name="arch" type="xml">
+            <tree string="Prenotazione Stanze">
+                <field name="refer"/>
+                <field name="checkin"/>
+                <field name="checkout"/>
+                <field name="totalGuest"/>
+                <field name="totalChildren"/>
+                <field name="totalInfants"/>
+                <field name="rooms"/>
+                <field name="roomGross"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    
+    <record id="action_stanze_prenotate" model="ir.actions.act_window">
+        <field name="name">Prenotazioni Stanze</field>
+        <field name="res_model">stanze.prenotate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gestione delle prenotazioni
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="stanze_prenotate_menu" name="Prenotazioni Stanze" action="action_stanze_prenotate" sequence="10"/>
+    
+</odoo>

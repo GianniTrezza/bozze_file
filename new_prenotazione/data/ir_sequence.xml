@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="stanze_prenotate_octorate" model="ir.sequence">
+            <field name="name">Stanze Prenotate: Octorate vs Odoo</field>
+            <field name="code">stanze.prenotate.sequence</field>
+            <field name="padding">5</field>
+            <field name="prefix">FATT/%(year)s/</field>
+        </record>
+    </data>
+</odoo>
