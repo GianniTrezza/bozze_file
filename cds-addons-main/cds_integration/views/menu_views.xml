@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    <!-- ******************************* ACTIONS ******************************* -->
+
+        <record id="cds_transition_path_action" model="ir.actions.act_window">
+            <field name="name">Percorsi transizione</field>
+            <field name="res_model">cds.transition.path</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_service_type_action" model="ir.actions.act_window">
+            <field name="name">Tipo servizio/offerta</field>
+            <field name="res_model">cds.service.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_technological_area_action" model="ir.actions.act_window">
+            <field name="name">Aree tecnologiche</field>
+            <field name="res_model">cds.technological.area</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_application_scope_action" model="ir.actions.act_window">
+            <field name="name">Ambiti applicazione</field>
+            <field name="res_model">cds.application.scope</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_application_sector_action" model="ir.actions.act_window">
+            <field name="name">Settori applicazione</field>
+            <field name="res_model">cds.application.sector</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_ris3_area_action" model="ir.actions.act_window">
+            <field name="name">Aree specializzazione RIS3</field>
+            <field name="res_model">cds.ris3.area</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="cds_trl_data_action" model="ir.actions.act_window">
+            <field name="name">Dati TRL</field>
+            <field name="res_model">cds.trl.data</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    <!-- ******************************* MENU ******************************* -->
+
+        <!-- under crm configuration -->
+        <menuitem id="cds_general_menu"
+            name="Dati CDS"
+            parent="crm.crm_menu_config"
+            sequence="50"/>
+
+        <menuitem id="cds_transition_path_menu"
+            name="Percorsi transizione"
+            parent="cds_general_menu"
+            action="cds_transition_path_action"
+            sequence="5"/>
+
+        <menuitem id="cds_service_type_menu"
+            name="Tipo servizio/offerta"
+            parent="cds_general_menu"
+            action="cds_service_type_action"
+            sequence="10"/>
+
+        <menuitem id="cds_technological_area_menu"
+            name="Aree tecnologiche"
+            parent="cds_general_menu"
+            action="cds_technological_area_action"
+            sequence="15"/>
+
+        <menuitem id="cds_application_scope_menu"
+            name="Ambiti applicazione"
+            parent="cds_general_menu"
+            action="cds_application_scope_action"
+            sequence="20"/>
+
+        <menuitem id="cds_application_sector_menu"
+            name="Settori applicazione"
+            parent="cds_general_menu"
+            action="cds_application_sector_action"
+            sequence="25"/>
+
+        <menuitem id="cds_ris3_area_menu"
+            name="Aree specializzazione RIS3"
+            parent="cds_general_menu"
+            action="cds_ris3_area_action"
+            sequence="30"/>
+
+        <menuitem id="cds_trl_data_menu"
+            name="Dati TRL"
+            parent="cds_general_menu"
+            action="cds_trl_data_action"
+            sequence="35"/>
+
+    </data>
+</odoo>

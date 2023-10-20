@@ -1,0 +1,9 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+access_cds_transition_path_all,cds.transition.path,model_cds_transition_path,,1,1,1,1
+access_cds_service_type_all,cds.service.type,model_cds_service_type,,1,1,1,1
+access_cds_technological_area_all,cds.technological.area,model_cds_technological_area,,1,1,1,1
+access_cds_application_scope_all,cds.application.scope,model_cds_application_scope,,1,1,1,1
+access_cds_application_sector_all,cds.application.sector,model_cds_application_sector,,1,1,1,1
+access_cds_ris3_area_all,cds.ris3.area,model_cds_ris3_area,,1,1,1,1
+access_cds_trl_data_all,cds.trl.data,model_cds_trl_data,,1,1,1,1

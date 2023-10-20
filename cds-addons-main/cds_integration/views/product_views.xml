@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO product.template ********************** -->
+        <!-- form view inherit -->
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="cds_page_data_for_product" string="CDS data">
+                        <group string="Fornitore">
+                            <group>
+                                <field name="supplier_id"/>
+                            </group>
+                        </group>
+                        <group string="Benefici">
+                            <field name="cds_service_benefits"/>
+                        </group>
+                        <group string="Tipo servizio">
+                            <group>
+                                <field name="cds_service_type_id" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <group string="Aree tecnologiche">
+                            <field name="cds_technological_area_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="Ambiti di applicazione">
+                            <field name="cds_application_scope_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="Settori">
+                            <field name="cds_application_sector_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="Aree di Specializzazione RIS3">
+                            <field name="cds_ris3_area_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="TRL">
+                            <field name="cds_trl_data_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

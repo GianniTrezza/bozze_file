@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO cds.transition.path ********************** -->
+        <!-- form view -->
+        <record id="cds_transition_path_form_view" model="ir.ui.view">
+            <field name="name">cds.transition.path.form.view</field>
+            <field name="model">cds.transition.path</field>
+            <field name="arch" type="xml">
+                <form string="Cds transition path form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_transition_path_tree_view" model="ir.ui.view">
+            <field name="name">cds.transition.path.tree.view</field>
+            <field name="model">cds.transition.path</field>
+            <field name="arch" type="xml">
+                <tree string="Cds transition path tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO cds.service.type ********************** -->
+        <!-- form view -->
+        <record id="cds_service_type_form_view" model="ir.ui.view">
+            <field name="name">cds.service.type.form.view</field>
+            <field name="model">cds.service.type</field>
+            <field name="arch" type="xml">
+                <form string="Cds service type form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_service_type_tree_view" model="ir.ui.view">
+            <field name="name">cds.service.type.tree.view</field>
+            <field name="model">cds.service.type</field>
+            <field name="arch" type="xml">
+                <tree string="Cds service type tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO cds.technological.area ********************** -->
+        <!-- form view -->
+        <record id="cds_technological_area_form_view" model="ir.ui.view">
+            <field name="name">cds.technological.area.form.view</field>
+            <field name="model">cds.technological.area</field>
+            <field name="arch" type="xml">
+                <form string="Cds technological area form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_technological_area_tree_view" model="ir.ui.view">
+            <field name="name">cds.technological.area.tree.view</field>
+            <field name="model">cds.technological.area</field>
+            <field name="arch" type="xml">
+                <tree string="Cds technological area tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO cds.application.scope ********************** -->
+        <!-- form view -->
+        <record id="cds_application_scope_form_view" model="ir.ui.view">
+            <field name="name">cds.application.scope.form.view</field>
+            <field name="model">cds.application.scope</field>
+            <field name="arch" type="xml">
+                <form string="Cds application scope form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_application_scope_tree_view" model="ir.ui.view">
+            <field name="name">cds.application.scope.tree.view</field>
+            <field name="model">cds.application.scope</field>
+            <field name="arch" type="xml">
+                <tree string="Cds application scope tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <!-- ********************** MODELLO cds.application.sector ********************** -->
+        <!-- form view -->
+        <record id="cds_application_sector_form_view" model="ir.ui.view">
+            <field name="name">cds.application.sector.form.view</field>
+            <field name="model">cds.application.sector</field>
+            <field name="arch" type="xml">
+                <form string="Cds application sector form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_application_sector_tree_view" model="ir.ui.view">
+            <field name="name">cds.application.sector.tree.view</field>
+            <field name="model">cds.application.sector</field>
+            <field name="arch" type="xml">
+                <tree string="Cds application sector tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO cds.ris3.area ********************** -->
+        <!-- form view -->
+        <record id="cds_ris3_area_form_view" model="ir.ui.view">
+            <field name="name">cds.ris3.area.form.view</field>
+            <field name="model">cds.ris3.area</field>
+            <field name="arch" type="xml">
+                <form string="Cds ris3 area form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_ris3_area_tree_view" model="ir.ui.view">
+            <field name="name">cds.ris3.area.tree.view</field>
+            <field name="model">cds.ris3.area</field>
+            <field name="arch" type="xml">
+                <tree string="Cds ris3 area tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO cds.trl.data ********************** -->
+        <!-- form view -->
+        <record id="cds_trl_data_form_view" model="ir.ui.view">
+            <field name="name">cds.trl.data.form.view</field>
+            <field name="model">cds.trl.data</field>
+            <field name="arch" type="xml">
+                <form string="Cds trl data form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="cds_trl_data_tree_view" model="ir.ui.view">
+            <field name="name">cds.trl.data.tree.view</field>
+            <field name="model">cds.trl.data</field>
+            <field name="arch" type="xml">
+                <tree string="Cds trl data tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

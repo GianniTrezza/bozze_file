@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO crm.lead ********************** -->
+        <!-- form view inherit -->
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.view.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lead']" position="after">
+                    <page name="cds_page_fabbisogno" string="CDS fabbisogno">
+                        <group string="La tua azienda intende perseguire il seguente percorso per la transizione 4.0">
+                            <group>
+                                <field name="cds_transition_path_id" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <group string="A quale dei seguenti servizi per la transizione 4.0 sei interessato?">
+                            <group>
+                                <field name="cds_service_type_id" options="{'no_create': True}"/>
+                            </group>   
+                        </group>
+                        <group string="Rispetto a quali delle seguenti aree tecnologiche per la transizione 4.0 sono richiesti i servizi per la transizione 4.0?">
+                            <field name="cds_technological_area_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="Rispetto a quale dei seguenti ambiti di applicazione per la transizione 4.0 ricade la soluzione da sviluppare/adottare?">
+                            <field name="cds_application_scope_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="A quali dei seguenti settori è rivolta la soluzione da te proposta?">
+                            <field name="cds_application_sector_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="Aree di Specializzazione RIS3">
+                            <field name="cds_ris3_area_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                        <group string="TRL soluzioni oggetto di valutazione e testing">
+                            <field name="cds_trl_data_ids" nolabel="1" options="{'no_create': True}" colspan="2"/>
+                        </group>
+                    </page>
+                    <page name="cds_page_match" string="CDS Match">
+                        <button string="⇒ Service matching" type="object" name="action_service_matching" class="oe_link"/>
+                        <group string="Servizi matchati">
+                            <field name="product_matched_ids" nolabel="1" options="{'no_create': True}" colspan="2">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="supplier_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
