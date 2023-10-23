@@ -1,1 +1,2 @@
-from . import api_token, odoo_api
+from . import external_api
+from . import api_key

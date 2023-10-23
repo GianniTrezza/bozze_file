@@ -3,7 +3,7 @@ from odoo import models, fields, api
 class roombooking(models.Model):
     _inherit = "account.move"
 
-    refer = fields.Char(string='ID Prenotazione')
+    refer = fields.Char(string='ID')
     checkin = fields.Date(string='Data di Check-in')
     checkout = fields.Date(string='Data di Check-out')
     totalGuest = fields.Integer(string='Ospiti Totali')
@@ -12,12 +12,18 @@ class roombooking(models.Model):
     soggiorno_input = fields.Html(string='Soggiorno', compute='_compute_soggiorno_input', sanitize=False, store=False)
     rooms = fields.Float(string='Numero stanza')
     roomGross = fields.Float(string='Costo stanza')
-
+    state = fields.Selection(selection=[
+        ('draft', 'Draft'),
+        ('posted', 'Posted'),
+        ('cancel', 'Cancelled'),
+    ], string='Stato', default='draft', readonly=True)
+    partner_id = fields.Many2one('res.partner', string='Partner', store=True, readonly=False, required=False)
     seq_fatt = fields.Char("sequenza fattura")
-    @api.model
-    def create(self, vals):
-        vals["seq_fatt"] = self.env["ir.sequence"].next_by_code("account.move")
-        return super(roombooking, self).create(vals)
+
+    # @api.model
+    # def create(self, vals):
+    #     vals["seq_fatt"] = self.env["ir.sequence"].next_by_code("account.move")
+    #     return super(roombooking, self).create(vals)
 
     @api.depends('checkin', 'checkout', 'totalGuest')
     def _compute_soggiorno_input(self):
@@ -41,7 +47,6 @@ class prenotadettagli(models.Model):
 
     name = fields.Char(string="Descrizione")
     #price_unit = fields.Float(string="Prezzo unitario")
-
 
 
     @api.onchange('product_id')
@@ -70,6 +75,10 @@ class prenotadettagli(models.Model):
                         record.name = name
                         record.quantity = quantity
                         record.price_unit = price_unit
+
+# NEW CODE SENZA account.move.line
+
+
 
 
 
