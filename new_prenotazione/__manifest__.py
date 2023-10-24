@@ -7,7 +7,6 @@
     'data': [
         'data/ir_sequence.xml',
         'security/ir.model.access.csv',  
-        'views/stampa_prenotazione.xml', 
         'views/prenotazione_info.xml',
     ],
 

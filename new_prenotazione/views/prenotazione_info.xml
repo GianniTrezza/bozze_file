@@ -24,10 +24,12 @@
                     </group>
                     <notebook>
                         <page string="Informazioni prenotazione">
-                            <group>
-                                <field name="tassa_soggiorno"/>
-                                <field name="costo_pernotto"/>
-                            </group>
+                            <field name="dettaglio_line_ids" mode="tree">
+                                <tree editable="bottom">
+                                    <field name="tassa_soggiorno"/>
+                                    <field name="costo_pernotto"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -53,7 +55,6 @@
         </field>
     </record>
 
-    
     <record id="action_stanze_prenotate" model="ir.actions.act_window">
         <field name="name">Prenotazioni Stanze</field>
         <field name="res_model">stanze.prenotate</field>
@@ -66,5 +67,4 @@
     </record>
 
     <menuitem id="stanze_prenotate_menu" name="Prenotazioni Stanze" action="action_stanze_prenotate" sequence="10"/>
-    
 </odoo>

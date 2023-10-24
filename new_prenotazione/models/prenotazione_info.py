@@ -1,8 +1,31 @@
 from odoo import models, fields, api, _
 
+class DettaglioPrenotazione(models.Model):
+    _name = 'dettaglio.prenotazione'
+    _description = 'Dettaglio Prenotazione'
+
+    tassa_soggiorno = fields.Float(string='Tassa di Soggiorno', compute='_calcolo_tassa_soggiorno', store=True)
+    costo_pernotto = fields.Float(string='Costo Pernotto', compute='_calcolo_costo_pernotto', store=True)
+    prenotazione_id = fields.Many2one('stanze.prenotate', string='Prenotazione')
+
+    @api.depends('prenotazione_id.checkin', 'prenotazione_id.checkout', 'prenotazione_id.totalGuest')
+    def _calcolo_tassa_soggiorno(self):
+        for record in self:
+            if record.prenotazione_id.checkin and record.prenotazione_id.checkout and record.prenotazione_id.totalGuest:
+                checkin_date = fields.Date.from_string(record.prenotazione_id.checkin)
+                checkout_date = fields.Date.from_string(record.prenotazione_id.checkout)
+                delta = checkout_date - checkin_date
+                num_notti = delta.days
+                record.tassa_soggiorno = 2 * num_notti * record.prenotazione_id.totalGuest
+
+    @api.depends('prenotazione_id.rooms', 'prenotazione_id.roomGross')
+    def _calcolo_costo_pernotto(self):
+        for record in self:
+            if record.prenotazione_id.rooms and record.prenotazione_id.roomGross:
+                record.costo_pernotto = record.prenotazione_id.rooms * record.prenotazione_id.roomGross
 
 
-class stanzeprenotate(models.Model):
+class StanzePrenotate(models.Model):
     _name = 'stanze.prenotate'
     _description = 'Prenotazione stanze'
 
@@ -20,10 +43,7 @@ class stanzeprenotate(models.Model):
         ('cancel', 'Cancellato'),
     ], string='Stato', default='draft', readonly=False)
 
-    tassa_soggiorno = fields.Float(string='Tassa di Soggiorno', compute='_calcolo_tassa_soggiorno', store=True)
-    costo_pernotto = fields.Float(string='Costo Pernotto', compute='_calcolo_costo_pernotto', store=True)
-    
-    # seq_fatt = fields.Char("sequenza fattura")
+    dettaglio_line_ids = fields.One2many('dettaglio.prenotazione', 'prenotazione_id', string='Dettagli Prenotazione')
 
     @api.model
     def create(self, vals):
@@ -34,28 +54,8 @@ class stanzeprenotate(models.Model):
         else:
             next_accr = _('Nuova pratica')
         vals['refer'] = next_accr
-        return super(stanzeprenotate, self).create(vals)
-    
+        return super(StanzePrenotate, self).create(vals)
 
     def button_confirm_and_print(self):
         self.ensure_one()
         return self.env.ref('new_prenotazione.action_report_stanze_prenotate').report_action(self)
-
-
-    
-    @api.depends('checkin', 'checkout', 'totalGuest')
-    def _calcolo_tassa_soggiorno(self):
-        for record in self:
-            if record.checkin and record.checkout and record.totalGuest:
-                checkin_date = fields.Date.from_string(record.checkin)
-                checkout_date = fields.Date.from_string(record.checkout)
-                delta = checkout_date - checkin_date
-                num_notti = delta.days
-                record.tassa_soggiorno = 2 * num_notti * record.totalGuest
-
-
-    @api.depends('rooms', 'roomGross')
-    def _calcolo_costo_pernotto(self):
-        for record in self:
-            if record.rooms and record.roomGross:
-                record.costo_pernotto = record.rooms * record.roomGross

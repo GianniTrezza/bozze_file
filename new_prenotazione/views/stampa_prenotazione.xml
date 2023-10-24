@@ -28,7 +28,7 @@
         <field name="model">stanze.prenotate</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">new_prenotazione.report_stanze_prenotate_details</field>
-        <field name="report_file">new_accreditamento.report_stanze_prenotate_details</field>
+        <field name="report_file">new_prenotazione.report_stanze_prenotate_details</field>
         <field name="print_report_name">'Accreditation Report - %s' % (object)</field>
     </record>
 
