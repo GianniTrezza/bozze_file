@@ -82,7 +82,7 @@ def refresh_token():
 
    payload = {
                 "grant_type": "authorization_code",
-                "code": "cc4a0b29064f4b36992e1203acdbf613eb0eda5cd36c43bab2c687820d4c8e79",
+                "code": "503f2ac0499943cdab59b3eab796b5c3b62db49ff34146ff842abd685d77b73d",
                "client_id": CLIENT_ID,  # Assicurati di aver definito CLIENT_ID
                "client_secret": CLIENT_SECRET,  # Assicurati di aver definito CLIENT_SECRET
                 "redirect_uri": "https://api.octorate.com/connect/docs/oauth2-redirect.html",
@@ -302,3 +302,6 @@ def fetch_webhooks(access_token_a):
 #         }
 
 #         return Response(json.dumps(response_data), content_type='application/json')
+
+
+
