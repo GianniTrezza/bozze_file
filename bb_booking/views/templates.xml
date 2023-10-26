@@ -3,19 +3,19 @@
     <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Partner')]" position="replace">
-            <th>Product</th>
+            <th>Prodotto</th>
         </xpath>
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Analytic Account')]" position="replace">
-            <th>Quantity</th>
+            <th>Numero stanze</th>
         </xpath>
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Debit')]" position="replace">
-            <th>Taxes</th>
+            <th>Tasse</th>
         </xpath>
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Credit')]" position="replace">
-            <th>Subtotal</th>
+            <th>Subtotale</th>
         </xpath>
 
 

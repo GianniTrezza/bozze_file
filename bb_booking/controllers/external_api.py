@@ -510,10 +510,6 @@ from odoo import http
 from odoo.http import request, Response
 import json
 import datetime
-import logging
-
-
-_logger = logging.getLogger(__name__)
 
 
 class RoomBookingController(http.Controller):
@@ -578,6 +574,21 @@ class RoomBookingController(http.Controller):
         }
 
     def create_invoice(self, reservation_data, invoice_details):
+        # INIZIO RETTIFICA
+        pernotto_product = request.env['product.product'].sudo().search([('name', '=', 'Pernotto')], limit=1)
+        if not pernotto_product:
+            pernotto_product = request.env['product.product'].sudo().create({
+                'name': 'Pernotto',
+                'type': 'service',
+            })
+
+        tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
+        if not tassa_soggiorno_product:
+            tassa_soggiorno_product = request.env['product.product'].sudo().create({
+                'name': 'Tassa di Soggiorno',
+                'type': 'service',
+            })
+        # FINE RETTIFICA
         # Using the reservation_data to create the main invoice
         invoice_values = {
             # 'partner_id': 1, # Example partner_id. In reality, this should be taken from reservation_data or elsewhere.
@@ -598,6 +609,7 @@ class RoomBookingController(http.Controller):
         # Create booking detail line
         booking_line_values = {
             'move_id': invoice_record.id,
+            'product_id': pernotto_product.id,
             'name': invoice_details['Identificativo della prenotazione'],
             'quantity': invoice_details['Numero stanze'],
             'price_unit': invoice_details['Costo stanza'],
@@ -608,16 +620,13 @@ class RoomBookingController(http.Controller):
         # Create tourist tax line
         tourist_tax_line_values = {
             'move_id': invoice_record.id,
+            'product_id': tassa_soggiorno_product.id,
             'name': "Tassa soggiorno",
             'quantity': 1,  # Assuming the tax is a fixed amount per reservation
             'price_unit': invoice_details['Valore tassa turistica'],
             'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
-        try:
-            request.env['account.move.line'].sudo().create(booking_line_values)
-        except Exception as e:
-            _logger.error(f"Error creating booking line: {str(e)}")
-
+        request.env['account.move.line'].sudo().create(tourist_tax_line_values)
 
 
 

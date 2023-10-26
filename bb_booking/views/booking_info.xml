@@ -37,6 +37,7 @@
                 <field name="product_id"/>
             </xpath>
 
+
             <xpath expr="//page[@name='aml_tab']/field[@name='line_ids']/tree/field[@name='analytic_distribution']" position="replace">
                 <field name="quantity"/>
             </xpath>
@@ -88,6 +89,13 @@
             </xpath> -->
         </field>
     </record>
+    <!-- <record id="product_pernotto" model="product.product">
+        <field name="name">Pernotto</field>
+    </record> -->
+
+    <!-- <record id="product_tassa_soggiorno" model="product.product">
+        <field name="name">Tassa di Soggiorno</field>
+    </record> -->
 
 
 

@@ -17,7 +17,7 @@ class roombooking(models.Model):
         ('posted', 'Posted'),
         ('cancel', 'Cancelled'),
     ], string='Stato', default='draft', readonly=True)
-    partner_id = fields.Many2one('res.partner', string='Partner', store=True, readonly=False, required=True)
+    partner_id = fields.Many2one('res.partner', string='Partner', store=True, readonly=False, required=False)
     seq_fatt = fields.Char("sequenza fattura")
 
     # @api.model
@@ -43,6 +43,7 @@ class prenotadettagli(models.Model):
     move_id = fields.Many2one('account.move', string='Fattura')
 
     name = fields.Char(string="Descrizione")
+    product_id = fields.Many2one('product.product', string='Prodotto')
 
 
     # @api.onchange('product_id')
