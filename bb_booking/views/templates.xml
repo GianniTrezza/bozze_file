@@ -1,336 +1,47 @@
- <!-- Prova ad aggiungere i nuovi dati alla fine del documento, invece di cercare un preciso punto di inserimento -->
-<!-- <odoo>
-    <template id="report_invoice_with_additional_details" inherit_id="account.report_invoice_document">
-        
-        <xpath expr="/*" position="inside">
-            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-            <div class="article o_report_layout_standard">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Dettaglio</th>
-                            <th>Importo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Tassa di Soggiorno:</strong></td>
-                            <td><span t-field="o.tassa_soggiorno"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Costo Pernotto:</strong></td>
-                            <td><span t-field="o.costo_pernotto"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </xpath>
-    </template>
-</odoo> -->
-<!-- 
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_invoice_with_additional_details" inherit_id="account.report_invoice_document">
-        <xpath expr="/*" position="inside">
-            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-           
-            <div class="article o_report_layout_standard" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Dettaglio</th>
-                            <th>Importo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Tassa di Soggiorno:</strong></td>
-                            <td><span t-field="o.tassa_soggiorno"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Costo Pernotto:</strong></td>
-                            <td><span t-field="o.costo_pernotto"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
+
+        <xpath expr="//table/thead/tr/th[contains(text(), 'Partner')]" position="replace">
+            <th>Product</th>
         </xpath>
-    </template>
-</odoo> -->
 
-<!-- DOMANDA DA FARE A CHATGPT4 -->
-<!-- L' xml di sopra, chiamato report_templates.xml, è un file custom presente nelle views di un addon chiamato web: 
-partendo da questa considerazione, nel mio modulo, io voglio che, ai campi di default, si aggiungano nella fattura risultante i campi definiti dal seguente xml -->
-
-<!-- report_templates presente nelle views del modulo web -->
-
-<!-- <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-
-
-    <template id="report_layout" name="Report layout">&lt;!DOCTYPE html&gt;
-        <html t-att-lang="lang and lang.replace('_', '-')"
-              t-att-data-report-margin-top="data_report_margin_top"
-              t-att-data-report-header-spacing="data_report_header_spacing"
-              t-att-data-report-dpi="data_report_dpi"
-              t-att-data-report-landscape="data_report_landscape"
-              t-att-web-base-url="web_base_url">
-            <head>
-                <meta charset="utf-8"/>
-                <meta name="viewport" content="initial-scale=1"/>
-                <title><t t-esc="title or 'Odoo Report'"/></title>
-                <t t-call-assets="web.report_assets_common" t-js="false"/>
-                <script type="text/javascript">
-                    window.odoo = {};
-                    window.odoo.__session_info__ = {is_report: true};
-                </script>
-                <t t-call-assets="web.assets_common" t-css="false"/>
-                <t t-call-assets="web.report_assets_common" t-css="false"/>
-            </head>
-            <body t-att-class="'container' if not full_width else 'container-fluid'">
-                <div id="wrapwrap">
-                    <main>
-                        <t t-out="0"/>
-                    </main>
-                </div>
-            </body>
-        </html>
-    </template>
-
-    <template id="report_preview_layout" name="Report layout">&lt;!DOCTYPE html&gt;
-        <html t-att-lang="lang and lang.replace('_', '-')"
-              t-att-data-report-margin-top="data_report_margin_top"
-              t-att-data-report-header-spacing="data_report_header_spacing"
-              t-att-data-report-dpi="data_report_dpi"
-              t-att-data-report-landscape="data_report_landscape"
-              t-att-web-base-url="web_base_url"
-        >
-            <head>
-                <meta charset="utf-8"/>
-                <meta name="viewport" content="initial-scale=1"/>
-                <title><t t-esc="title or 'Odoo Report'"/></title>
-                <t t-call-assets="web.report_assets_common" t-js="false"/>
-                <t t-call-assets="web.assets_common" t-css="false"/>
-                <style>
-                    <t t-out="preview_css"/>
-
-                    /**
-                        Some css is overridden as it doesn't work properly in the preview.
-                        Before generating 'real' reports, a lot of processing is applied. It is therefore quite
-                        complicated to have an almost exact replica of the pdf report.
-                        This changes down here are hacks to make the preview look as good as possible.
-                    **/
-
-                    /** The footers are not at the bottom of the page, so we push them down. **/
-                    .o_background_footer  {
-                        margin-top: 295px !important;
-                        font-size: 0.8rem
-                    }
-                    .o_standard_footer {
-                        margin-top: 200px !important;
-                        font-size: 0.8rem
-                    }
-                    .o_boxed_footer {
-                         margin-top: 270px !important;
-                         font-size: 0.8rem
-                    }
-                    .o_clean_footer {
-                         margin-top: 175px !important;
-                         font-size: 0.8rem
-                    }
-
-                    /** Avoid image overflowing and creating a scrollbar **/
-                    .o_background_header {
-                        min-width: initial !important;
-                    }
-
-                    /** This rule is overridden in web/report.scss to hack around whtml2pdf
-                        Simply set it to its default value so it works properly in preview **/
-                    .col-auto{
-                        -webkit-box-flex: 0 !important;
-                        -webkit-flex: 0 0 auto !important;
-                        flex: 0 0 auto !important;
-                        width: auto !important;
-                        max-width: 100% !important;
-                    }
-
-                </style>
-            </head>
-            <body t-att-class="'container' if not full_width else 'container-fluid'" style="overflow:hidden">
-                <div id="wrapwrap">
-                        <t t-out="0"/>
-                </div>
-            </body>
-        </html>
-    </template>
-
-    <template id="html_container">
-        <t t-set="body_classname" t-value="'container'"/>
-        <t t-call="web.report_layout">
-            <t t-out="0"/>
-        </t>
-    </template>
-
-    <template id="html_preview_container">
-        <t t-set="body_classname" t-value="'container'"/>
-        <t t-call="web.report_preview_layout">
-            <t t-out="0"/>
-        </t>
-    </template>
-
-
-    <template id="report_invoice_wizard_preview">
-        <t t-call="web.html_preview_container">
-           <t t-call="web.external_layout">
-                   <div class="address row">
-                       <div name="address" class="col-5" style="margin-left: auto">
-                           <address>
-                               <address class="mb-0" itemscope="itemscope"
-                                        itemtype="http://schema.org/Organization">
-                                   <div>
-                                       <span itemprop="name">Deco Addict</span>
-                                   </div>
-                                   <div itemprop="address" itemscope="itemscope"
-                                        itemtype="http://schema.org/PostalAddress">
-                                       <div class="d-flex align-items-baseline">
-                                           <span class="w-100 o_force_ltr" itemprop="streetAddress">77 Santa Barbara
-                                               Rd<br/>Pleasant Hill CA 94523<br/>United States</span>
-                                       </div>
-                                   </div>
-                               </address>
-                           </address>
-                       </div>
-                   </div>
-                   <div class="page mt-5">
-                       <h2>
-                           <span>Invoice</span>
-                           <span>INV/2023/00003</span>
-                       </h2>
-                       <div id="informations" class="row mt-4 mb-4">
-                           <div class="col-auto col-3 mw-100 mb-2" name="invoice_date">
-                               <strong>Invoice Date:</strong>
-                               <p class="m-0">07/08/2020</p>
-                           </div>
-                           <div class="col-auto col-3 mw-100 mb-2" name="due_date">
-                               <strong>Due Date:</strong>
-                               <p class="m-0">08/07/2020</p>
-                           </div>
-                       </div>
-                       <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
-                           <thead>
-                               <tr>
-                                   <th name="th_description" class="text-start"><span>Description</span></th>
-                                   <th name="th_quantity" class="text-end"><span>Quantity</span></th>
-                                   <th name="th_priceunit" class="text-end d-md-table-cell"><span>Unit Price</span></th>
-                                   <th name="th_taxes" class="text-start d-md-table-cell"><span>Taxes</span></th>
-                                   <th name="th_subtotal" class="text-end">
-                                       <span>Amount</span>
-                                   </th>
-                               </tr>
-                           </thead>
-                           <tbody class="invoice_tbody">
-                               <tr>
-                                   <td name="account_invoice_line_name"><span>[FURN_8999] Three-Seat Sofa<br/>
-                                       Three Seater Sofa with Lounger in Steel Grey Colour</span></td>
-                                   <td class="text-end">
-                                       <span>5.00</span>
-                                   </td>
-                                   <td class="text-end d-md-table-cell">
-                                       <span class="text-nowrap">1,500.00</span>
-                                   </td>
-                                   <td class="text-start d-md-table-cell">
-                                       <span id="line_tax_ids">Tax 15%</span>
-                                   </td>
-                                   <td class="text-end o_price_total">
-                                       <span class="text-nowrap">$ <span class="oe_currency_value">7,500.00</span></span>
-                                   </td>
-                               </tr>
-                               <tr>
-                                   <td name="account_invoice_line_name"><span>[FURN_8220] Four Person Desk<br/>
-                                       Four person modern office workstation</span></td>
-                                   <td class="text-end">
-                                       <span>5.00</span>
-                                   </td>
-                                   <td class="text-end d-md-table-cell">
-                                       <span class="text-nowrap">2,350.00</span>
-                                   </td>
-                                   <td class="text-start d-md-table-cell">
-                                       <span id="line_tax_ids">Tax 15%</span>
-                                   </td>
-                                   <td class="text-end o_price_total">
-                                       <span class="text-nowrap">$ <span class="oe_currency_value">11,750.00</span></span>
-                                   </td>
-                               </tr>
-                           </tbody>
-                       </table>
-                       <div class="clearfix">
-                           <div id="total" class="row">
-                               <div class="col-6 ms-auto">
-                                   <table class="table table-sm table-borderless" style="page-break-inside: avoid; position:relative;">
-                                       <tbody><tr class="border-black o_subtotal" style="">
-                                           <td><strong>Untaxed Amount</strong></td>
-                                           <td class="text-end">
-                                               <span>$ <span class="oe_currency_value">19,250.00</span></span>
-                                           </td>
-                                       </tr>
-                                           <tr style="">
-                                               <td><span class="text-nowrap">Tax 15%</span></td>
-                                               <td class="text-end o_price_total">
-                                                   <span class="text-nowrap">$ 2,887.50</span>
-                                               </td>
-                                           </tr>
-                                           <tr class="border-black o_total">
-                                               <td><strong>Total</strong></td>
-                                               <td class="text-end">
-                                                   <span class="text-nowrap">$ <span class="oe_currency_value">
-                                                       22,137.50</span></span>
-                                               </td>
-                                           </tr>
-                                       </tbody></table>
-                               </div>
-                           </div>
-                       </div>
-                       <p class="mt-4">
-                           Please use the following communication for your payment : <b><span>
-                           INV/2023/00003</span></b>
-                       </p>
-                       <p name="payment_term">
-                           <span>Payment terms: 30 Days</span>
-                       </p>
-                   </div>
-           </t>
-        </t>
-    </template> -->
-
-
-<odoo>
-    <template id="report_invoice_with_additional_details" inherit_id="web.report_invoice_wizard_preview">
-        <!-- Utilizziamo XPath per trovare il punto esatto in cui vogliamo inserire i nuovi dettagli. -->
-        <!-- Qui, stiamo cercando di aggiungere i nuovi dettagli alla fine del contenuto esistente del report. -->
-        <xpath expr="//div[@id='total']" position="after">
-            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-            <!-- Includi gli attributi 'data-oe-model' e 'data-oe-id' necessari qui -->
-            <div class="article o_report_layout_standard" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Dettaglio</th>
-                            <th>Importo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Tassa di Soggiorno:</strong></td>
-                            <td><span t-field="o.tassa_soggiorno"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Costo Pernotto:</strong></td>
-                            <td><span t-field="o.costo_pernotto"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <xpath expr="//table/thead/tr/th[contains(text(), 'Analytic Account')]" position="replace">
+            <th>Quantity</th>
         </xpath>
+
+        <xpath expr="//table/thead/tr/th[contains(text(), 'Debit')]" position="replace">
+            <th>Taxes</th>
+        </xpath>
+
+        <xpath expr="//table/thead/tr/th[contains(text(), 'Credit')]" position="replace">
+            <th>Subtotal</th>
+        </xpath>
+
+
+        <xpath expr="//table/tbody/t/tr/td[span/@t-field='line.partner_id.display_name']" position="replace">
+            <td>
+                <span t-field="line.product_id.display_name"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//table/tbody/t/tr/td[span/div/@t-foreach='line.analytic_distribution']" position="replace">
+            <td>
+                <span t-field="line.quantity"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//table/tbody/t/tr/td[span/@t-field='line.debit']" position="replace">
+            <td class="text-end">
+                <span t-field="line.tax_ids" t-options="{'widget': 'many2many_tags'}"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//table/tbody/t/tr/td[span/@t-field='line.credit']" position="replace">
+            <td class="text-end">
+                <span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+            </td>
+        </xpath>
+
     </template>
 </odoo>
-
-
