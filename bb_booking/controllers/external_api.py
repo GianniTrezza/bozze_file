@@ -589,8 +589,12 @@ class RoomBookingController(http.Controller):
                 'type': 'service',
             })
         # FINE RETTIFICA
-        # Using the reservation_data to create the main invoice
+        customer_invoice_journal = request.env['account.journal'].sudo().search([('type', '=', 'sale')], limit=1)
+        account_id = customer_invoice_journal.default_account_id.id if hasattr(customer_invoice_journal, 'default_account_id') else 44
+        journal_id = customer_invoice_journal.id
+        
         invoice_values = {
+            'journal_id': journal_id,
             # 'partner_id': 1, # Example partner_id. In reality, this should be taken from reservation_data or elsewhere.
             'checkin': reservation_data['checkin'],
             'checkout': reservation_data['checkout'],
@@ -599,7 +603,6 @@ class RoomBookingController(http.Controller):
             'totalChildren': reservation_data['totalChildren'],
             'rooms': reservation_data['rooms'],
             'roomGross': reservation_data['roomGross'],
-            
 
             
         }
@@ -613,7 +616,8 @@ class RoomBookingController(http.Controller):
             'name': invoice_details['Identificativo della prenotazione'],
             'quantity': invoice_details['Numero stanze'],
             'price_unit': invoice_details['Costo stanza'],
-            'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
+            'account_id': account_id
+            # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
         request.env['account.move.line'].sudo().create(booking_line_values)
 
@@ -624,7 +628,8 @@ class RoomBookingController(http.Controller):
             'name': "Tassa soggiorno",
             'quantity': 1,  # Assuming the tax is a fixed amount per reservation
             'price_unit': invoice_details['Valore tassa turistica'],
-            'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
+            'account_id': account_id
+            # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
 
