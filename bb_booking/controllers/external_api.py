@@ -507,10 +507,10 @@
 
 # ********************************************new code for generating invoices in odoo*************************************
 from odoo import http
+from odoo import _
 from odoo.http import request, Response
 import json
 import datetime
-
 
 class RoomBookingController(http.Controller):
 
@@ -593,8 +593,10 @@ class RoomBookingController(http.Controller):
         account_id = customer_invoice_journal.default_account_id.id if hasattr(customer_invoice_journal, 'default_account_id') else 44
         journal_id = customer_invoice_journal.id
         
+        
         invoice_values = {
             'journal_id': journal_id,
+            'move_type': 'out_invoice',
             # 'partner_id': 1, # Example partner_id. In reality, this should be taken from reservation_data or elsewhere.
             'checkin': reservation_data['checkin'],
             'checkout': reservation_data['checkout'],
@@ -632,6 +634,8 @@ class RoomBookingController(http.Controller):
             # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
+    
+
 
 
 

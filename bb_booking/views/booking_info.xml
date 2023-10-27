@@ -29,9 +29,9 @@
                 <field name="roomGross"/>
             </field>
 
-            <xpath expr="//page[@name='aml_tab']/field[@name='line_ids']/tree/field[@name='account_id']" position="attributes">
+            <!-- <xpath expr="//page[@name='aml_tab']/field[@name='line_ids']/tree/field[@name='account_id']" position="attributes">
                 <attribute name="optional">hide</attribute>
-            </xpath>
+            </xpath> -->
 
             <xpath expr="//page[@name='aml_tab']/field[@name='line_ids']/tree/field[@name='partner_id']" position="replace">
                 <field name="product_id"/>
@@ -96,6 +96,18 @@
     <!-- <record id="product_tassa_soggiorno" model="product.product">
         <field name="name">Tassa di Soggiorno</field>
     </record> -->
+    <!-- Ecco il pulsante che puoi aggiungere -->
+    <record id="action_post_invoice" model="ir.ui.view">
+        <field name="name">account.move.post.button</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="post_invoice" string="Post Invoice" type="object" class="oe_highlight"/>
+                </header>
+            </form>
+        </field>
+    </record>
 
 
 

@@ -36,6 +36,10 @@ class roombooking(models.Model):
                 num_notti = delta.days
                 num_ospiti = record.totalGuest
                 record.soggiorno_input = 2 * num_notti * num_ospiti
+    def post_invoice(self):
+        for record in self:
+            if record.state == 'draft':
+                record.action_post()
 
 class prenotadettagli(models.Model):
     _inherit = "account.move.line"

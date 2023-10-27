@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_inherit" inherit_id="account.report_invoice_document">
+
+        
+        <xpath expr="//p[@name='payment_communication']/b/span[@t-field='o.payment_reference']" position="replace">
+            <span t-field="o.product_id.display_name"/>
+        </xpath>
+
+        <!-- Replace narration -->
+        <xpath expr="//div[@name='comment']/span[@t-field='o.narration']" position="replace">
+            <span t-field="o.quantity"/>
+        </xpath>
+
+       
+        <xpath expr="//p[@name='note']/span[@t-field='o.fiscal_position_id.note']" position="replace">
+            <span t-field="o.tax_ids" t-options="{'widget': 'many2many_tags'}"/>
+        </xpath>
+
+       
+        <xpath expr="//p[@name='incoterm']/span[@t-field='o.invoice_incoterm_id.code']" position="replace">
+            <span t-field="o.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+        </xpath>
+
+
+
+    </template>
+</odoo>

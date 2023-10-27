@@ -8,6 +8,7 @@
         'security/ir.model.access.csv',
         'views/booking_info.xml',
         'views/templates.xml',
+        # 'views/invoice_templates.xml',
     ],
 
     'application': True
