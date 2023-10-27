@@ -550,7 +550,40 @@ class RoomBookingController(http.Controller):
             invoice_details = self.calculate_invoice_details(reservation_data)
             self.create_invoice(reservation_data, invoice_details)
             response_data.update(invoice_details)
+        elif event_type in ['RESERVATION_CANCELLED', 'RESERVATION_CONFIRMED']:
+            refer_id = reservation_data.get('refer')
+            checkout_id=reservation_data.get('checkout')
+            
+        
+            # Search for the invoice by its reference
+            invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+            if not invoice_record:
+                return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
 
+            if invoice_record.checkout != checkout_id:
+                return Response(f"Invoice found with refer: {refer_id}, but with different checkout date.", content_type='text/plain', status=400)
+
+
+            
+            new_state = 'cancel' if event_type == 'RESERVATION_CANCELLED' else 'posted'
+            invoice_record.sudo().write({'state': new_state})
+            
+            response_data = {
+                "move_id": invoice_record.id,
+                "refer": invoice_record.refer,
+                "checkin": invoice_record.checkin.strftime('%Y-%m-%d') if isinstance(invoice_record.checkin, datetime.date) else invoice_record.checkin,
+                "checkout": invoice_record.checkout.strftime('%Y-%m-%d') if isinstance(invoice_record.checkout, datetime.date) else invoice_record.checkout,
+                "totalGuest": invoice_record.totalGuest,
+                "totalChildren": invoice_record.totalChildren,
+                "totalInfants": invoice_record.totalInfants,
+                "rooms": invoice_record.rooms,
+                "roomGross": invoice_record.roomGross,
+                "state": invoice_record.state, 
+            }
+
+        else:
+            return Response("Invalid event type", content_type='text/plain', status=400)
+        
         return Response(json.dumps(response_data), content_type='application/json', status=200)
 
     def calculate_invoice_details(self, reservation_data):
@@ -582,12 +615,33 @@ class RoomBookingController(http.Controller):
                 'type': 'service',
             })
 
+        # tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
+        # if not tassa_soggiorno_product:
+        #     tassa_soggiorno_product = request.env['product.product'].sudo().create({
+        #         'name': 'Tassa di Soggiorno',
+        #         'type': 'service',
+        #     })
+
         tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
         if not tassa_soggiorno_product:
-            tassa_soggiorno_product = request.env['product.product'].sudo().create({
+            # Cerca un'imposta con tasso 0%
+            tax_0_percent = request.env['account.tax'].sudo().search([('amount_type', '=', 'percent'), ('type_tax_use', '=', 'sale'), ('amount', '=', 0)], limit=1)
+            
+            # Se non trova un'imposta al 0%, solleva un'eccezione.
+            if not tax_0_percent:
+                raise ValueError("Non esiste un'imposta al 0% nel sistema. Creala o assegnala manualmente.")
+            
+            vals = {
                 'name': 'Tassa di Soggiorno',
-                'type': 'service',
-            })
+                'type': 'service'
+            }
+            
+            if tax_0_percent:
+                vals['taxes_id'] = [(6, 0, [tax_0_percent.id])]  # Assegna l'imposta trovata al prodotto
+
+            tassa_soggiorno_product = request.env['product.product'].sudo().create(vals)
+
+    
         # FINE RETTIFICA
         customer_invoice_journal = request.env['account.journal'].sudo().search([('type', '=', 'sale')], limit=1)
         account_id = customer_invoice_journal.default_account_id.id if hasattr(customer_invoice_journal, 'default_account_id') else 44
