@@ -302,6 +302,152 @@ def fetch_webhooks(access_token_a):
 #         }
 
 #         return Response(json.dumps(response_data), content_type='application/json')
+# RETTIFICHE external_api.py
+# from odoo import http
+# from odoo import _
+# from odoo.http import request, Response
+# import json
+# import datetime
+
+# class RoomBookingController(http.Controller):
+
+#     @http.route('/api/test', cors='*', auth='public', methods=['POST'], csrf=False)
+#     def handle_custom_endpoint(self, **post):
+#         json_data = request.httprequest.data
+#         data_dict = json.loads(json_data)
+#         content = json.loads(data_dict.get("content"))
+
+#         if not content.get("refer") or not content.get("guests"):
+#             return Response("Missing required fields", content_type='text/plain', status=400)
+
+#         checkin_str = content.get("guests")[0].get("checkin")
+#         checkout_str = content.get("guests")[0].get("checkout")
+
+#         try:
+#             checkin_date = datetime.datetime.strptime(checkin_str, '%Y-%m-%d').date() if checkin_str else None
+#             checkout_date = datetime.datetime.strptime(checkout_str, '%Y-%m-%d').date() if checkout_str else None
+#         except ValueError:
+#             return Response("Invalid date format", content_type='text/plain', status=400)
+
+#         reservation_data = {
+#             'refer': content.get("refer"),
+#             'checkin': checkin_date,
+#             'checkout': checkout_date,
+#             'totalGuest': content.get("totalGuest"),
+#             'totalChildren': content.get("totalChildren"),
+#             'totalInfants': content.get("totalInfants"),
+#             'rooms': content.get("rooms"),
+#             'roomGross': content.get("roomGross")
+#         }
+
+#         event_type = data_dict.get("type")
+#         response_data = {}
+
+#         if event_type == "RESERVATION_CREATED":
+#             invoice_details = self.calculate_invoice_details(reservation_data)
+#             self.create_invoice(reservation_data, invoice_details)
+#             response_data.update(invoice_details)
+#         elif event_type == "RESERVATION_CHANGE":
+#             refer_id = reservation_data.get('refer')
+#             invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+#             if not invoice_record:
+#                 return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+#             invoice_record.sudo().write(reservation_data)
+#             response_data.update({
+#                 "move_id": invoice_record.id,
+#                 "state": invoice_record.state,
+#             })
+#         elif event_type == "RESERVATION_CONFIRMED":
+#             refer_id = reservation_data.get('refer')
+#             invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+#             if not invoice_record:
+#                 return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+#             invoice_record.sudo().write({'state': 'posted'})
+#             response_data.update({
+#                 "move_id": invoice_record.id,
+#                 "state": invoice_record.state,
+#             })
+#         elif event_type == "RESERVATION_CANCELLED":
+#             refer_id = reservation_data.get('refer')
+#             invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+#             if not invoice_record:
+#                 return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+#             invoice_record.sudo().unlink()
+#             response_data.update({"message": "Invoice cancelled"})
+#         else:
+#             return Response("Invalid event type", content_type='text/plain', status=400)
+
+#         return Response(json.dumps(response_data), content_type='application/json', status=200)
+
+#     def calculate_invoice_details(self, reservation_data):
+#         checkin_date = reservation_data['checkin']
+#         checkout_date = reservation_data['checkout']
+#         delta = checkout_date - checkin_date
+#         num_notti = delta.days
+#         num_ospiti = reservation_data['totalGuest']
+#         tourist_tax_quantity = num_notti * num_ospiti * 2
+#         booking_name = f"Prenotazione {reservation_data['refer']} dal {checkin_date} al {checkout_date}"
+#         booking_quantity = reservation_data['rooms']
+#         booking_price_unit = reservation_data['roomGross']
+#         return {
+#             "Valore tassa turistica": tourist_tax_quantity,
+#             "Identificativo della prenotazione": booking_name,
+#             "Numero stanze": booking_quantity,
+#             "Costo stanza": booking_price_unit
+#         }
+
+#     def create_invoice(self, reservation_data, invoice_details):
+#         pernotto_product = request.env['product.product'].sudo().search([('name', '=', 'Pernotto')], limit=1)
+#         if not pernotto_product:
+#             pernotto_product = request.env['product.product'].sudo().create({
+#                 'name': 'Pernotto',
+#                 'type': 'service',
+#             })
+#         tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
+#         if not tassa_soggiorno_product:
+#             tax_0_percent = request.env['account.tax'].sudo().search([('amount_type', '=', 'percent'), ('type_tax_use', '=', 'sale'), ('amount', '=', 0)], limit=1)
+#             if not tax_0_percent:
+#                 raise ValueError("Non esiste un'imposta al 0% nel sistema. Creala o assegnala manualmente.")
+#             vals = {
+#                 'name': 'Tassa di Soggiorno',
+#                 'type': 'service'
+#             }
+#             if tax_0_percent:
+#                 vals['taxes_id'] = [(6, 0, [tax_0_percent.id])]
+#             tassa_soggiorno_product = request.env['product.product'].sudo().create(vals)
+#         customer_invoice_journal = request.env['account.journal'].sudo().search([('type', '=', 'sale')], limit=1)
+#         account_id = customer_invoice_journal.default_account_id.id if hasattr(customer_invoice_journal, 'default_account_id') else 44
+#         journal_id = customer_invoice_journal.id
+#         invoice_values = {
+#             'journal_id': journal_id,
+#             'move_type': 'out_invoice',
+#             'checkin': reservation_data['checkin'],
+#             'checkout': reservation_data['checkout'],
+#             'refer': reservation_data['refer'],
+#             'totalGuest': reservation_data['totalGuest'],
+#             'totalChildren': reservation_data['totalChildren'],
+#             'rooms': reservation_data['rooms'],
+#             'roomGross': reservation_data['roomGross'],
+#         }
+#         invoice_record = request.env['account.move'].sudo().create(invoice_values)
+#         booking_line_values = {
+#             'move_id': invoice_record.id,
+#             'product_id': pernotto_product.id,
+#             'name': invoice_details['Identificativo della prenotazione'],
+#             'quantity': invoice_details['Numero stanze'],
+#             'price_unit': invoice_details['Costo stanza'],
+#             'account_id': account_id
+#         }
+#         request.env['account.move.line'].sudo().create(booking_line_values)
+#         tourist_tax_line_values = {
+#             'move_id': invoice_record.id,
+#             'product_id': tassa_soggiorno_product.id,
+#             'name': 'Tassa di Soggiorno',
+#             'quantity': invoice_details['Valore tassa turistica'],
+#             'price_unit': 1,
+#             'account_id': account_id
+#         }
+#         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
 
 
 

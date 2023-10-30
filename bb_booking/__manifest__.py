@@ -7,7 +7,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/booking_info.xml',
-        'views/templates.xml',
+        # 'views/templates.xml',
     ],
 
     'application': True

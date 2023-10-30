@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
 
@@ -45,7 +45,7 @@
 
     </template>
 
-    <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> <!-- Cambia "ID_DEL_TEMPLATE_ORIGINALE" con l'ID del template originale -->
+    <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
 
         <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
             <span>Tax 22%</span>
@@ -61,4 +61,4 @@
     </template>
 
 </odoo>
-
+ -->

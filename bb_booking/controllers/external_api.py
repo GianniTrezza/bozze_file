@@ -550,11 +550,31 @@ class RoomBookingController(http.Controller):
             invoice_details = self.calculate_invoice_details(reservation_data)
             self.create_invoice(reservation_data, invoice_details)
             response_data.update(invoice_details)
+        elif event_type == "RESERVATION_CHANGE":
+            refer_id = reservation_data.get('refer')
+            invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+            if not invoice_record:
+                return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+            invoice_record.sudo().write(reservation_data)
+            self.update_invoice_lines(invoice_record, reservation_data)
+            response_data.update({
+                "move_id": invoice_record.id,
+                "state": invoice_record.state,
+                "checkin": invoice_record.checkin.strftime('%Y-%m-%d') if isinstance(invoice_record.checkin, datetime.date) else invoice_record.checkin,
+                "checkout": invoice_record.checkout.strftime('%Y-%m-%d') if isinstance(invoice_record.checkout, datetime.date) else invoice_record.checkout,
+                "totalGuest": invoice_record.totalGuest,
+                "totalChildren": invoice_record.totalChildren,
+                "totalInfants": invoice_record.totalInfants,
+                "rooms": invoice_record.rooms,
+                "roomGross": invoice_record.roomGross,
+                "state": invoice_record.state, 
+            })
+        
+        # VECCHIO CODICE CHE GESTISCE SOLO LA CASISTICA PER CUI CAMBI l'event_type, ma non il caso in cui cambi uno dei fields
         elif event_type in ['RESERVATION_CANCELLED', 'RESERVATION_CONFIRMED']:
             refer_id = reservation_data.get('refer')
             checkout_id=reservation_data.get('checkout')
             
-        
             # Search for the invoice by its reference
             invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
             if not invoice_record:
@@ -568,18 +588,7 @@ class RoomBookingController(http.Controller):
             new_state = 'cancel' if event_type == 'RESERVATION_CANCELLED' else 'posted'
             invoice_record.sudo().write({'state': new_state})
             
-            response_data = {
-                "move_id": invoice_record.id,
-                "refer": invoice_record.refer,
-                "checkin": invoice_record.checkin.strftime('%Y-%m-%d') if isinstance(invoice_record.checkin, datetime.date) else invoice_record.checkin,
-                "checkout": invoice_record.checkout.strftime('%Y-%m-%d') if isinstance(invoice_record.checkout, datetime.date) else invoice_record.checkout,
-                "totalGuest": invoice_record.totalGuest,
-                "totalChildren": invoice_record.totalChildren,
-                "totalInfants": invoice_record.totalInfants,
-                "rooms": invoice_record.rooms,
-                "roomGross": invoice_record.roomGross,
-                "state": invoice_record.state, 
-            }
+        
 
         else:
             return Response("Invalid event type", content_type='text/plain', status=400)
@@ -688,7 +697,36 @@ class RoomBookingController(http.Controller):
             # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
-    
+    def update_invoice_lines(self, invoice_record, reservation_data):
+        for line in invoice_record.invoice_line_ids:
+            if line.product_id.name == 'Pernotto':
+                line.write({'price_unit': reservation_data['roomGross']})
+                line.write({'quantity': reservation_data['rooms']})
+            elif line.product_id.name == 'Tassa di Soggiorno':
+                # Aggiorna il campo "price_unit" se necessario.
+                pass
+
+
+
+
+# elif event_type == "RESERVATION_CONFIRMED":
+        #     refer_id = reservation_data.get('refer')
+        #     invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+        #     if not invoice_record:
+        #         return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+        #     invoice_record.sudo().write({'state': 'posted'})
+        #     response_data.update({
+        #         "move_id": invoice_record.id,
+        #         "state": invoice_record.state,
+                
+        #     })
+        # elif event_type == "RESERVATION_CANCELLED":
+        #     refer_id = reservation_data.get('refer')
+        #     invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
+        #     if not invoice_record:
+        #         return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+        #     invoice_record.sudo().unlink()
+        #     response_data.update({"message": "Invoice cancelled"})
 
 
 
