@@ -555,10 +555,13 @@ class RoomBookingController(http.Controller):
             invoice_record = request.env['account.move'].sudo().search([('refer', '=', refer_id)], limit=1)
             if not invoice_record:
                 return Response(f"No invoice found with refer: {refer_id}", content_type='text/plain', status=404)
+            reservation_data.pop('partner_id', None)
+
             invoice_record.sudo().write(reservation_data)
             self.update_invoice_lines(invoice_record, reservation_data)
             response_data.update({
-                "Nome Ospite": reservation_data['partner_id'],
+                # "Nome Ospite": reservation_data['partner_id'],
+                "Nome Ospite": invoice_record.partner_id.name,
                 "move_id": invoice_record.id,
                 "checkin": invoice_record.checkin.strftime('%Y-%m-%d') if isinstance(invoice_record.checkin, datetime.date) else invoice_record.checkin,
                 "checkout": invoice_record.checkout.strftime('%Y-%m-%d') if isinstance(invoice_record.checkout, datetime.date) else invoice_record.checkout,
@@ -618,6 +621,7 @@ class RoomBookingController(http.Controller):
         }
 
     def create_invoice(self, reservation_data, invoice_details):
+        tax_0_percent = None
         partner_name = reservation_data['partner_id']
         partner = request.env['res.partner'].sudo().search([('name', '=', partner_name)], limit=1)
         if not partner:
@@ -629,26 +633,25 @@ class RoomBookingController(http.Controller):
                 'name': 'Pernotto',
                 'type': 'service',
             })
-
-
         tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
         if not tassa_soggiorno_product:
-            # Cerca un'imposta con tasso 0%
-            tax_0_percent = request.env['account.tax'].sudo().search([('amount_type', '=', 'percent'), ('type_tax_use', '=', 'sale'), ('amount', '=', 0)], limit=1)
-            
-            # Se non trova un'imposta al 0%, solleva un'eccezione.
+            tax_0_percent = request.env['account.tax'].sudo().search(
+                [('amount_type', '=', 'percent'), ('type_tax_use', '=', 'sale'), ('amount', '=', 0)],
+                limit=1
+            )
             if not tax_0_percent:
                 raise ValueError("Non esiste un'imposta al 0% nel sistema. Creala o assegnala manualmente.")
             
             vals = {
                 'name': 'Tassa di Soggiorno',
-                'type': 'service'
+                'type': 'service',
             }
             
-            if tax_0_percent:
-                vals['taxes_id'] = [(6, 0, [tax_0_percent.id])] 
+            if tax_0_percent is not None:
+                vals['taxes_id'] = [(6, 0, [tax_0_percent.id])]
 
             tassa_soggiorno_product = request.env['product.product'].sudo().create(vals)
+
 
     
         # FINE RETTIFICA
@@ -661,6 +664,7 @@ class RoomBookingController(http.Controller):
             'journal_id': journal_id,
             'move_type': 'out_invoice',
             'partner_id': partner.id,
+            # 'partner_id': partner_name.id,
             'checkin': reservation_data['checkin'],
             'checkout': reservation_data['checkout'],
             'refer': reservation_data['refer'],
@@ -672,12 +676,26 @@ class RoomBookingController(http.Controller):
 
         invoice_record = request.env['account.move'].sudo().create(invoice_values)
 
+        # checkin_date = reservation_data['checkin']
+        # checkout_date = reservation_data['checkout']
+        # delta = checkout_date - checkin_date
+        # num_notti = delta.days
+        # num_ospiti = reservation_data['totalGuest']
+
+        # tourist_tax_quantity = num_notti * num_ospiti * 2
+        checkin_date = reservation_data['checkin']
+        checkout_date = reservation_data['checkout']
+        delta = checkout_date - checkin_date
+        num_notti = delta.days
+
+
         booking_line_values = {
             'move_id': invoice_record.id,
             'product_id': pernotto_product.id,
             'name': invoice_details['Identificativo della prenotazione'],
             'quantity': invoice_details['Numero stanze'],
             'price_unit': invoice_details['Costo stanza'],
+            # 'price_subtotal':tourist_tax_quantity,
             'account_id': account_id
         }
         request.env['account.move.line'].sudo().create(booking_line_values)
@@ -687,11 +705,13 @@ class RoomBookingController(http.Controller):
             'move_id': invoice_record.id,
             'product_id': tassa_soggiorno_product.id,
             'name': "Tassa soggiorno",
-            'quantity': reservation_data['totalGuest'],
+            'quantity': reservation_data['totalGuest'] * num_notti,
             'price_unit': 2,
             'account_id': account_id
             # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
+        
+        
         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
     def update_invoice_lines(self, invoice_record, reservation_data):
         for line in invoice_record.invoice_line_ids:

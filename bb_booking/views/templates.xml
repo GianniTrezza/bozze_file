@@ -1,6 +1,6 @@
-<!-- <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
+    <!-- <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Partner')]" position="replace">
             <th>Prodotto</th>
@@ -43,9 +43,22 @@
             </td>
         </xpath>
 
-    </template>
+    </template> -->
 
     <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
+        <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
+            <span id="line_tax_ids">Tax 22%</span>
+        </xpath>
+        
+        <xpath expr="//td[.//span[contains(text(), 'Tax 15%')]]/span" position="replace">
+            <span>Tax 22%</span>
+        </xpath>
+
+
+        
+    </template>
+
+    <!-- <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
 
         <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
             <span>Tax 22%</span>
@@ -58,7 +71,7 @@
             <span class="text-nowrap">Tax 22%</span>
         </xpath>
 
-    </template>
+    </template> -->
 
 </odoo>
- -->
+
