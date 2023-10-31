@@ -558,9 +558,8 @@ class RoomBookingController(http.Controller):
             invoice_record.sudo().write(reservation_data)
             self.update_invoice_lines(invoice_record, reservation_data)
             response_data.update({
-                "partner_id": invoice_record.partner_id,
+                "Nome Ospite": reservation_data['partner_id'],
                 "move_id": invoice_record.id,
-                "state": invoice_record.state,
                 "checkin": invoice_record.checkin.strftime('%Y-%m-%d') if isinstance(invoice_record.checkin, datetime.date) else invoice_record.checkin,
                 "checkout": invoice_record.checkout.strftime('%Y-%m-%d') if isinstance(invoice_record.checkout, datetime.date) else invoice_record.checkout,
                 "totalGuest": invoice_record.totalGuest,
@@ -631,12 +630,6 @@ class RoomBookingController(http.Controller):
                 'type': 'service',
             })
 
-        # tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
-        # if not tassa_soggiorno_product:
-        #     tassa_soggiorno_product = request.env['product.product'].sudo().create({
-        #         'name': 'Tassa di Soggiorno',
-        #         'type': 'service',
-        #     })
 
         tassa_soggiorno_product = request.env['product.product'].sudo().search([('name', '=', 'Tassa di Soggiorno')], limit=1)
         if not tassa_soggiorno_product:
@@ -653,7 +646,7 @@ class RoomBookingController(http.Controller):
             }
             
             if tax_0_percent:
-                vals['taxes_id'] = [(6, 0, [tax_0_percent.id])]  # Assegna l'imposta trovata al prodotto
+                vals['taxes_id'] = [(6, 0, [tax_0_percent.id])] 
 
             tassa_soggiorno_product = request.env['product.product'].sudo().create(vals)
 
@@ -668,21 +661,17 @@ class RoomBookingController(http.Controller):
             'journal_id': journal_id,
             'move_type': 'out_invoice',
             'partner_id': partner.id,
-            # 'partner_id': 1, # Example partner_id. In reality, this should be taken from reservation_data or elsewhere.
             'checkin': reservation_data['checkin'],
             'checkout': reservation_data['checkout'],
             'refer': reservation_data['refer'],
             'totalGuest': reservation_data['totalGuest'],
             'totalChildren': reservation_data['totalChildren'],
             'rooms': reservation_data['rooms'],
-            'roomGross': reservation_data['roomGross'],
-
-            
+            'roomGross': reservation_data['roomGross'],        
         }
 
         invoice_record = request.env['account.move'].sudo().create(invoice_values)
 
-        # Create booking detail line
         booking_line_values = {
             'move_id': invoice_record.id,
             'product_id': pernotto_product.id,
@@ -690,7 +679,6 @@ class RoomBookingController(http.Controller):
             'quantity': invoice_details['Numero stanze'],
             'price_unit': invoice_details['Costo stanza'],
             'account_id': account_id
-            # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
         }
         request.env['account.move.line'].sudo().create(booking_line_values)
 
@@ -712,7 +700,6 @@ class RoomBookingController(http.Controller):
                 line.write({'quantity': reservation_data['rooms']})
             elif line.product_id.name == 'Tassa di Soggiorno':
                 line.write({'quantity': reservation_data['totalGuest']})
-                # Aggiorna il campo "price_unit" se necessario.
                 pass
 # AGGIUNGERE IL PARTNER ID AL JSON DATO COME RISPOSTA
 # ********************************************NEW CODE: JWT GENERATION*************************************
