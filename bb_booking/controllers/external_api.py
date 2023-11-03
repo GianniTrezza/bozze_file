@@ -569,7 +569,7 @@ class RoomBookingController(http.Controller):
                 "totalChildren": invoice_record.totalChildren,
                 "totalInfants": invoice_record.totalInfants,
                 "rooms": invoice_record.rooms,
-                "roomGross": invoice_record.roomGross,
+                # "roomGross": invoice_record.roomGross,
                 "state": invoice_record.state, 
             })
         
@@ -705,7 +705,7 @@ class RoomBookingController(http.Controller):
             'move_id': invoice_record.id,
             'product_id': tassa_soggiorno_product.id,
             'name': "Tassa soggiorno",
-            'quantity': reservation_data['totalGuest'] * num_notti,
+            'quantity': reservation_data['totalGuest']*num_notti,
             'price_unit': 2,
             'account_id': account_id
             # 'account_id': 44  # Assumed account ID, you should replace with the actual account id for this transaction type
@@ -714,12 +714,17 @@ class RoomBookingController(http.Controller):
         
         request.env['account.move.line'].sudo().create(tourist_tax_line_values)
     def update_invoice_lines(self, invoice_record, reservation_data):
+        checkin_date = reservation_data['checkin']
+        checkout_date = reservation_data['checkout']
+        delta = checkout_date - checkin_date
+        num_notti = delta.days
         for line in invoice_record.invoice_line_ids:
             if line.product_id.name == 'Pernotto':
                 line.write({'price_unit': reservation_data['roomGross']})
                 line.write({'quantity': reservation_data['rooms']})
             elif line.product_id.name == 'Tassa di Soggiorno':
-                line.write({'quantity': reservation_data['totalGuest']})
+                line.write({'quantity': reservation_data['totalGuest'] * num_notti})
+                line.write({'price_unit': 2})
                 pass
 # AGGIUNGERE IL PARTNER ID AL JSON DATO COME RISPOSTA
 # ********************************************NEW CODE: JWT GENERATION*************************************

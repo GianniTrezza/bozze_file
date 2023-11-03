@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- SOSTITUZIONE INIZIALE FIELDS DI JOURNAL ENTRIES PER ADATTARLE ALLE ESIGENZE DI INVOICING -->
     <!-- <template id="report_journal_entries_inherit" inherit_id="accounting_pdf_reports.report_journal_entries">
 
         <xpath expr="//table/thead/tr/th[contains(text(), 'Partner')]" position="replace">
@@ -45,19 +46,7 @@
 
     </template> -->
 
-    <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
-        <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
-            <span id="line_tax_ids">Tax 22%</span>
-        </xpath>
-        
-        <xpath expr="//td[.//span[contains(text(), 'Tax 15%')]]/span" position="replace">
-            <span>Tax 22%</span>
-        </xpath>
-
-
-        
-    </template>
-
+    <!-- 1) CODICE STRAVECCHIO  -->
     <!-- <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
 
         <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
@@ -73,5 +62,42 @@
 
     </template> -->
 
+    <!-- 2) VECCHIO CODICE  -->
+
+    <!-- <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
+        <xpath expr="//span[@id='line_tax_ids'][contains(text(), 'Tax 15%')]" position="replace">
+            <span id="line_tax_ids">Tax 22%</span>
+        </xpath>
+        
+        <xpath expr="//td[.//span[contains(text(), 'Tax 15%')]]/span" position="replace">
+            <span>Tax 22%</span>
+        </xpath>
+        
+    </template> -->
+
+    <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview"> 
+        <xpath expr="//*[contains(text(), 'Tax 15%')]" position="replace">
+            <span>Tax 22%</span>
+        </xpath>
+    </template>
+
+
+
+    <!-- NEW CODE  -->
+
+    <!-- <template id="report_invoice_tax_string_change" inherit_id="web.report_invoice_wizard_preview">
+        <xpath expr="//span[@id='line_tax_ids' and contains(text(), 'Tax 15%')]" position="replace">
+            <span id="line_tax_ids">Tax 22%</span>
+        </xpath>
+
+        <xpath expr="//span[@id='line_tax_ids' and contains(text(), 'Tax 15%')]" position="replace">
+            <span id="line_tax_ids">Tax 22%</span>
+        </xpath>
+
+        <xpath expr="//td[.//span[contains(text(), 'Tax 15%')]]/span" position="replace">
+            <span>Tax 22%</span>
+        </xpath>
+    </template> -->
 </odoo>
+
 
