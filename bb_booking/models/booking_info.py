@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 class roombooking(models.Model):
     _inherit = "account.move"
-
+# _inherit = ['mail.thread', 'mail.activity.mixin']
     refer = fields.Char(string='ID')
 
     checkin = fields.Date(string='Data di Check-in')
@@ -24,8 +24,8 @@ class roombooking(models.Model):
     ], string='Stato', default='draft', readonly=True)
     partner_id = fields.Many2one('res.partner', string='Partner', store=True, readonly=False, required=False)
     partner_email = fields.Char(related='partner_id.email', string='Email Cliente', store=True, readonly=True)
-    
     seq_fatt = fields.Char("sequenza fattura")
+    channelNotes= fields.Char (string="Note aggiuntive")
 
     # @api.model
     # def create(self, vals):

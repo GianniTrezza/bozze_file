@@ -35,6 +35,9 @@
             <field name="rooms" position="after">
                 <field name="roomGross"/>
             </field>
+            <field name="roomGross" position="after">
+                <field name="channelNotes"/>
+            </field>
 
 
 

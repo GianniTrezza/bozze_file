@@ -394,6 +394,7 @@ class RoomBookingController(http.Controller):
             'roomName': content.get('roomName'),
             'checkin': checkin_date,
             'checkout': checkout_date,
+            'channelNotes': content.get("channelNotes"),
             'totalGuest': content.get("totalGuest"),
             'totalChildren': content.get("totalChildren"),
             'totalInfants': content.get("totalInfants"),
@@ -438,6 +439,7 @@ class RoomBookingController(http.Controller):
                 "totalInfants": invoice_record.totalInfants,
                 "rooms": invoice_record.rooms,
                 "product_id": invoice_record.roomName,
+                "note aggiuntive": invoice_record.channelNotes,
                 # "ref":invoice_record.roomNameGuest,
                 "ref":invoice_record.pmsProduct,
                 # "roomGross": invoice_record.roomGross,
@@ -496,11 +498,20 @@ class RoomBookingController(http.Controller):
             "Costo stanza": booking_price_unit,
             "Tipologia stanza": nome_stanza,
             "Numero identificativo Camera": reservation_data["ref"]
+            
         }
     def create_invoice(self, reservation_data, invoice_details):
         tax_0_percent = None
         partner_name = reservation_data['partner_id']
         nome_stanza = reservation_data['roomName']
+        checkin_date = reservation_data['checkin']
+        checkout_date = reservation_data['checkout']
+        # room_name = reservation_data['roomNameGuest']
+        delta = checkout_date - checkin_date
+        num_notti = delta.days
+        
+
+        
         
 
         # partner = request.env['res.partner'].sudo().search([('name', '=', partner_name)], limit=1)
@@ -586,8 +597,41 @@ class RoomBookingController(http.Controller):
                 'rooms': reservation_data['rooms'],
                 'roomGross': reservation_data['roomGross'],
                 'invoice_date': reservation_data['invoicedate'],
+                'channelNotes': reservation_data['channelNotes'],
             }
             invoice_record = request.env['account.move'].sudo().create(invoice_values)
+            invoice_record.message_post(
+                body=f"<p><b><font size='4' face='Arial'>Dati di fatturazione creati:</font></b><br>"
+                    f"Nome Cliente: {reservation_data['partner_id']}<br>"
+                    f"Refer: {reservation_data['refer']}<br>"
+                    f"Data Fattura: {reservation_data['invoicedate']}<br>"
+                    f"Checkin: {checkin_date}<br>"
+                    f"Checkout: {checkout_date}<br>"
+                    f"Nome stanza: {nome_stanza}<br></p>"
+                    f"Note stanza aggiuntive: {reservation_data['channelNotes']}<br>"
+                    f"Numero bambini: {reservation_data['totalChildren']}<br>"
+                    f"Ospiti: {reservation_data['totalGuest']}<br>"
+                    f"Prezzo totale: {reservation_data['roomGross']}<br>",
+                message_type='comment'
+            )
+        #     reservation_data = {
+        #     'partner_id': content.get("guestsList"),
+        #     'email': content.get("guestMailAddress"),
+        #     'refer': content.get("refer"),
+        #     # 'ref': content.get('roomNameGuest'),
+        #     'ref': content.get('pmsProduct'),
+        #     # potrebbe essere pmsProduct
+        #     'roomName': content.get('roomName'),
+        #     'checkin': checkin_date,
+        #     'checkout': checkout_date,
+        #     'totalGuest': content.get("totalGuest"),
+        #     'totalChildren': content.get("totalChildren"),
+        #     'totalInfants': content.get("totalInfants"),
+        #     'rooms': content.get("rooms"),
+        #     'roomGross': content.get("roomGross"),
+        #     'invoicedate': create_time,
+        #     # 'sistemazione': content.get("accommodation"),
+        # }
         except Exception as e:
             _logger.error("Impossibile creare la fattura: %s", str(e))
             return Response("Errore interno del server", content_type='text/plain', status=500)
@@ -653,10 +697,25 @@ class RoomBookingController(http.Controller):
             'totalChildren':total_children,
             'rooms': rooms,
             'roomGross': room_gross, 
-            'ref': room_name_guest
+            'ref': room_name_guest,
+            'channelNotes': reservation_data['channelNotes']
         }
         
         invoice_record.sudo().write(update_values)
+        invoice_record.message_post(
+                body=f"<p><b><font size='4' face='Arial'>Dati aggiornati:</font></b><br>"
+                    f"Nome Cliente: {reservation_data['partner_id']}<br>"
+                    f"Refer: {reservation_data['refer']}<br>"
+                    f"Data Fattura: {reservation_data['invoicedate']}<br>"
+                    f"Checkin: {checkin_date}<br>"
+                    f"Checkout: {checkout_date}<br>"
+                    f"Nome stanza: {reservation_data['roomName']}<br></p>"
+                    f"Note stanza aggiuntive: {reservation_data['channelNotes']}<br>"
+                    f"Numero bambini: {reservation_data['totalChildren']}<br>"
+                    f"Ospiti: {reservation_data['totalGuest']}<br>"
+                    f"Prezzo totale: {reservation_data['roomGross']}<br>",
+                message_type='comment'
+            )
         booking_name = f"Prenotazione {reservation_data['refer']} dal {reservation_data['checkin']} al {reservation_data['checkout']}"
         # invoice_record.write({'invoice_date': reservation_data['invoicedate'].strftime('%Y-%m-%d') if isinstance(reservation_data['invoicedate'], datetime.date) else reservation_data['invoicedate']})
         for line in invoice_record.invoice_line_ids:
