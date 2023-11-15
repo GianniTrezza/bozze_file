@@ -257,3 +257,23 @@ def fetch_webhooks(access_token_a):
 # for event_type in event_types:
 #     create_subscription(event_type, access_token_a)
 #     print("è andata")
+
+
+# body=f"<p><b><font size='4' face='Arial'>Dati aggiornati:</font></b><br>"
+#                          f"Refer: {refer_}<br>"
+#                          f"Prezzo totale: {roomGross_}<br>"
+#                          f"Ospiti: {totalGuest_}<br>"
+#                          f"Checkin: {checkin_}<br>"
+#                          f"Checkout: {checkout_}<br>"
+#                          f"Numero stanza: {numero_stanza_}<br>"
+#                          f"Numero notti: {n_notti}<br>"
+#                          f"Quantity soggiorno: {quantity_soggiorno}<br>"
+#                          f"Prezzo unitario: {prezzo_unitario_}<br>"
+#                          f"City utente: {city_}<br>"
+#                          f"Email: {email_}<br>"
+#                          f"Guests List: {guestsList_}<br>"
+#                          f"Telefono: {phone_}<br>"
+#                          f"Indirizzo: {address_}<br>"
+#                          f"Nome stanza: {nome_stanza}<br></p>",
+#                     message_type='comment'
+#                 )
