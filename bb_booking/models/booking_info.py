@@ -1,31 +1,41 @@
+#copyright © Simone Tullino 08/11
 from odoo import models, fields, api
 
 class roombooking(models.Model):
-    _inherit = "account.move"
-# _inherit = ['mail.thread', 'mail.activity.mixin']
-    refer = fields.Char(string='ID')
+    _inherit = ['account.move']
 
-    checkin = fields.Date(string='Data di Check-in')
-    checkout = fields.Date(string='Data di Check-out')
-    totalGuest = fields.Integer(string='Ospiti Totali')
-    totalChildren = fields.Integer(string='Totali Ragazzi')
-    totalInfants = fields.Integer(string='Totali Neonati')
+    refer = fields.Char(string='ID')
+    checkin = fields.Date(string='Data di Check-in', tracking=True)
+    checkout = fields.Date(string='Data di Check-out', tracking=True)
+    totalGuest = fields.Integer(string='Ospiti Totali', tracking=True)
+    totalChildren = fields.Integer(string='Totali Ragazzi', tracking=True)
+    totalInfants = fields.Integer(string='Totali Neonati', tracking=True)
+    totale_adulti = fields.Integer(string='totale adulti', tracking=True)
     soggiorno_input = fields.Html(string='Soggiorno', compute='_compute_soggiorno_input', sanitize=False, store=False)
-    rooms = fields.Float(string='Numero stanza')
-    roomGross = fields.Float(string='Costo stanza')
-    roomName= fields.Char(string="Tipologia stanza")
-    roomNameGuest= fields.Char(string="Nome specifico stanza")
-    pmsProduct= fields.Char(string="Identificativo numerico stanza")
-    data_creazione =fields.Char (string="Data creazione")
+    rooms = fields.Float(string='Numero stanza', tracking=True)
+    roomGross = fields.Float(string='Costo stanza', tracking=True)
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('posted', 'Posted'),
         ('cancel', 'Cancelled'),
-    ], string='Stato', default='draft', readonly=True)
+    ], string='Stato', default='draft', readonly=True, tracking=True)
     partner_id = fields.Many2one('res.partner', string='Partner', store=True, readonly=False, required=False)
-    partner_email = fields.Char(related='partner_id.email', string='Email Cliente', store=True, readonly=True)
     seq_fatt = fields.Char("sequenza fattura")
-    channelNotes= fields.Char (string="Note aggiuntive")
+    email_utente = fields.Char(string='Email', tracking=True)
+    telefono_utente = fields.Char(string='Telefono', tracking=True)
+    nome_stanza_utente = fields.Char(string='Nome Stanza', tracking=True)
+    nota_interna = fields.Text(string='Note interne', tracking=True)
+    checkin_effettuato = fields.Char(string="Check_in effettuato", tracking=True)
+    checkout_effettuato = fields.Char(string="Check_out effettuato", tracking=True)
+    stato_del_pagamento = fields.Char(string="Stato del pagamento", tracking=True)
+    tipo_di_pagamento = fields.Char(string="Tipo del pagamento", tracking=True)
+    pulizia_camera = fields.Char(string="Pulizia camera", tracking=True)
+    ultima_pulizia = fields.Char(string="Ultima pulizia", tracking=True)
+    tipologia_camera = fields.Char(string='Tipologia Camera', tracking=True)
+    nome_utente= fields.Char(string="Nome utente", tracking=True)
+
+
+
 
     # @api.model
     # def create(self, vals):

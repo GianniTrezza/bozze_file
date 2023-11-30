@@ -333,4 +333,54 @@ partendo da questa considerazione, nel mio modulo, io voglio che, ai campi di de
     </template>
 </odoo>
 
-
+<!-- <data>
+  <xpath expr="//field[@name='description']" position="replace">
+    <field name="x_studio_one2many_field_42r_1hfp575dc">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/group[1]/group[@name='opportunity_partner']/field[@name='partner_id']" position="attributes">
+    <attribute name="domain">[]</attribute>
+    <attribute name="required">True</attribute>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/group[1]/group[@name='opportunity_partner']/field[@name='partner_id']" position="after">
+    <field name="x_studio_regione" string="Regione" required="True"/>
+    <field name="x_studio_comune" string="Comune/Nome" required="True"/>
+    <field name="x_studio_progetto_relativo_a" string="Progetto relativo a "/>
+    <field name="x_studio_commessa" string="Commessa"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/group[1]/group[@name='opportunity_partner']/div[1]" position="after">
+    <field name="x_studio_e_mail_pec" string="Email PEC"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/group[1]/group[not(@name)][1]/field[@name='user_id']" position="before">
+  <!-- <field name="x_studio_accordo_quadro_3" domain="[&quot;&amp;&quot;, &quot;&amp;&quot;, (&quot;x_studio_valido_fino_a&quot;, &quot;&gt;=&quot;, &quot;2023-11-27&quot;), (&quot;x_studio_date&quot;, &quot;&lt;=&quot;, &quot;2023-11-27&quot;), (&quot;x_studio_partner_id&quot;, &quot;in&quot;, [13])]" widget="many2one"/> -->
+    <field name="x_studio_accordo_quadro_3" domain="[&quot;&amp;&quot;, &quot;&amp;&quot;, (&quot;x_studio_valido_fino_a&quot;, &quot;&gt;=&quot;, &quot;2023-11-27&quot;), (&quot;x_studio_date&quot;, &quot;&lt;=&quot;, &quot;2023-11-27&quot;), (&quot;x_studio_partner_id&quot;, &quot;=&quot;, partner_id)]" widget="many2one"/>
+    <field name="x_studio_cig" string="CIG" help="Viene pescato dall'accordo quadro"/>
+    <field name="x_studio_cup" string="CUP"/>
+    <field name="x_studio_tipologia_richiesta" string="Tipologia richiesta"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/group[1]/group[not(@name)][1]/div[1]" position="after">
+    <field name="x_studio_collaudo_congiunto" string="Collaudo congiunto"/>
+  </xpath>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+    <page string="CRM Lines" name="studio_page_17d_1hfu9kefu">
+      <field name="x_studio_html_field_1rr_1hfufjafu"/>
+      <field name="x_studio_one2many_field_85f_1hfufnnda">
+        <tree>
+          <field optional="show" name="x_studio_codice_tratta" string="Codice tratta"/>
+          <field optional="show" name="x_studio_lunghezza_tratta" string="Lunghezza tratta"/>
+          <field optional="show" name="x_studio_prodottoservizio" string="Prodotto/Servizio" help="Le opzioni sono i prodotti/servizi creati"/>
+          <field optional="show" name="x_studio_quantit" string="Quantità"/>
+          <field name="x_studio_sequence" widget="handle"/>
+          <field optional="show" name="x_studio_unit_di_misura" string="Unità di misura" help="Le opzioni sono le unità di misura create ed associate ai prodotti/servizi"/>
+          <field optional="show" name="x_studio_diametrofibre_cedute" string="Diametro/Fibre cedute" help="Le opzioni sono quelle configurate in anagrafica prodotto/servizio"/>
+          <field optional="show" name="x_studio_durata_iru" string="Durata IRU"/>
+          <field name="x_name" string="Note"/>
+        </tree>
+      </field>
+    </page>
+  </xpath>
+</data> -->
