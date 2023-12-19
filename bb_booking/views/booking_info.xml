@@ -1,42 +1,41 @@
-<!--copyright © Simone Tullino 08/11-->
+
 <odoo>
+    <record id="view_account_move_booking_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.booking.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
 
-        <record id="view_account_move_booking_form_inherit" model="ir.ui.view">
-            <field name="name">account.move.booking.form.inherit</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_form"/>
-            <field name="arch" type="xml">
 
-
-                <field name="partner_id" position="after">
-                    <field name="refer" invisible="1"/>
-                </field>
-
-                <field name="refer" position="after">
-                    <field name="checkin" invisible="1"/>
-                </field>
-
-                <field name="checkin" position="after">
-                    <field name="checkout" invisible="1"/>
-                </field>
-
-                 <field name="checkout" position="after">
-                    <field name="totalGuest" invisible="1"/>
-                </field>
-
-                <field name="payment_reference" position="after">
-                    <field name="rooms" invisible="1"/>
-                </field>
-
-                <field name="rooms" position="after">
-                    <field name="roomGross" invisible="1"/>
-                </field>
-                <!--modifica dei campi del model "account.move.line"-->
-                <xpath expr="//page[@name='invoice_tab']" position="attributes">
-                    <attribute name="string">Dettagli prenotazione</attribute>
-                </xpath>
+            <field name="partner_id" position="after">
+                <field name="refer" invisible="1"/>
             </field>
-        </record>
+
+            <field name="refer" position="after">
+                <field name="checkin" invisible="1"/>
+            </field>
+
+            <field name="checkin" position="after">
+                <field name="checkout" invisible="1"/>
+            </field>
+
+                <field name="checkout" position="after">
+                <field name="totalGuest" invisible="1"/>
+            </field>
+
+            <field name="payment_reference" position="after">
+                <field name="rooms" invisible="1"/>
+            </field>
+
+            <field name="rooms" position="after">
+                <field name="roomGross" invisible="1"/>
+            </field>
+            <!--modifica dei campi del model "account.move.line"-->
+            <xpath expr="//page[@name='invoice_tab']" position="attributes">
+                <attribute name="string">Dettagli prenotazione</attribute>
+            </xpath>
+        </field>
+    </record>
 
 <!--        <record id="view_invoice_tree_extension" model="ir.ui.view">-->
 <!--                <field name="name">view.invoice.tree.extension</field>-->
@@ -50,11 +49,7 @@
 <!--                </field>-->
 <!--        </record>-->
 
-
-
-
 </odoo>
-
 
 
 
