@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO plant.route ********************** -->
+        <!-- form view -->
+        <record id="plant_route_form_view" model="ir.ui.view">
+            <field name="name">plant.route.form.view</field>
+            <field name="model">plant.route</field>
+            <field name="arch" type="xml">
+                <form string="Plant route form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="a_point"/>
+                                <field name="z_point"/>
+                                <field name="node_code"/>
+                                <field name="tavola"/>
+                            </group>
+                            <group>
+                                <field name="route_length"/>
+                                <field name="from_street"/>
+                                <field name="to_street"/>
+                                <field name="lat_value"/>
+                                <field name="long_value"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="note_page" string="Note">
+                                <field name="note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="plant_route_tree_view" model="ir.ui.view">
+            <field name="name">plant.route.tree.view</field>
+            <field name="model">plant.route</field>
+            <field name="arch" type="xml">
+                <tree string="Plant route tree">
+                    <field name="name"/>
+                    <field name="a_point"/>
+                    <field name="z_point"/>
+                    <field name="node_code"/>
+                    <field name="tavola"/>
+                    <field name="route_length"/>
+                    <field name="lat_value" optional="hide"/>
+                    <field name="long_value" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

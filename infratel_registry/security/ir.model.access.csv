@@ -1,0 +1,8 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+access_framework_agreement_all,framework.agreement,model_framework_agreement,,1,1,1,1
+access_inf_sla_policy_all,inf.sla.policy,model_inf_sla_policy,,1,1,1,1
+access_inf_sla_policy_label_all,inf.sla.policy.label,model_inf_sla_policy_label,,1,1,1,1
+access_iru_duration_all,iru.duration,model_iru_duration,,1,1,1,1
+access_plant_route_all,plant.route,model_plant_route,,1,1,1,1
+access_project_request_all,project.request,model_project_request,,1,1,1,1

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO inf.sla.policy.label ********************** -->
+        <!-- form view -->
+        <record id="inf_sla_policy_label_form_view" model="ir.ui.view">
+            <field name="name">inf.sla.policy.label.form.view</field>
+            <field name="model">inf.sla.policy.label</field>
+            <field name="arch" type="xml">
+                <form string="Infratel SLA policy label form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="inf_sla_policy_label_tree_view" model="ir.ui.view">
+            <field name="name">inf.sla.policy.label.tree.view</field>
+            <field name="model">inf.sla.policy.label</field>
+            <field name="arch" type="xml">
+                <tree string="Infratel SLA policy label tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO inf.sla.policy ********************** -->
+        <!-- form view -->
+        <record id="inf_sla_policy_form_view" model="ir.ui.view">
+            <field name="name">inf.sla.policy.form.view</field>
+            <field name="model">inf.sla.policy</field>
+            <field name="arch" type="xml">
+                <form string="Infratel SLA policy form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <label for="sla_timing"/>
+                                <div name="sla_timing_div" class="o_row">
+                                    <field name="sla_timing"/>
+                                    <field name="unit" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="sla_label_ids" widget="many2many_tags"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="inf_sla_policy_tree_view" model="ir.ui.view">
+            <field name="name">inf.sla.policy.tree.view</field>
+            <field name="model">inf.sla.policy</field>
+            <field name="arch" type="xml">
+                <tree string="Infratel SLA policy tree">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="sla_timing"/>
+                    <field name="unit"/>
+                    <field name="sla_label_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
