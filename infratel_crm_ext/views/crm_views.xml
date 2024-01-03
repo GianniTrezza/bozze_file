@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO crm.lead ********************** -->
+        <!-- form view inherit -->
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.view.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group string="Dati richiesta">
+                        <group>
+                            <field name="region"/>
+                            <field name="municipality"/>
+                            <field name="project_request_id"/>
+                            <field name="infr_order"/>
+                            <field name="filtered_framework_agreement_ids" invisible="1"/>
+                            <field name="framework_agreement_id" options="{'no_create': True}" domain="[('id', 'in', filtered_framework_agreement_ids)]"/>
+                            <field name="cig"/>
+                            <field name="cup"/>
+                            <field name="request_type"/>
+                        </group>
+                        <group>
+                            <field name="contact_referent_id" domain="[('parent_id', '=', partner_id),('infr_contact_type', '=', 'operatore')]" options="{'no_create': True}"/>
+                            <field name="email_rel"/>
+                            <field name="pec_rel"/>
+                            <field name="phone_rel"/>
+                            <field name="joint_testing"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="before">
+                    <page name="crm_request_line_page" string="Dettaglio richiesta">
+                        <field name="crm_request_line_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- ********************** MODELLO crm.request.line ********************** -->
+        <!-- form view -->
+        <record id="crm_request_line_form_view" model="ir.ui.view">
+            <field name="name">crm.request.line.form.view</field>
+            <field name="model">crm.request.line</field>
+            <field name="arch" type="xml">
+                <form string="Crm request line form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="plant_route_id"/>
+                                <field name="route_length_rel"/>
+                                <field name="product_template_id" domain="[('available_portal_side', '=', True)]" options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="quantity"/>
+                                <field name="uom_id" options="{'no_create': True}"/>
+                                <field name="iru_duration_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- tree view -->
+        <record id="crm_request_line_tree_view" model="ir.ui.view">
+            <field name="name">crm.request.line.tree.view</field>
+            <field name="model">crm.request.line</field>
+            <field name="arch" type="xml">
+                <tree string="Crm request line form" editable="bottom">
+                    <field name="plant_route_id"/>
+                    <field name="route_length_rel"/>
+                    <field name="product_template_id" domain="[('available_portal_side', '=', True)]" options="{'no_create': True}"/>
+                    <field name="quantity"/>
+                    <field name="uom_id" options="{'no_create': True}"/>
+                    <field name="iru_duration_id"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
