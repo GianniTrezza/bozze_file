@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO purchase.order ********************** -->
+        <!-- form view inherit -->
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button string="Validazione" name="validation_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Approvazione" name="approval_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Firma" name="signature_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Sospendi" name="suspend_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Riattiva" name="reactivate_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Crea nuovo ordine" name="new_order_creation_action" class="oe_highlight" type="object" invisible="1"/>
+                </xpath>
+                <xpath expr="//group" position="after">
+                    <group string="Dati richiesta">
+                        <group>
+                            <field name="project_request_id"/>
+                            <field name="infr_order"/>
+                            <field name="filtered_framework_agreement_ids" invisible="1"/>
+                            <field name="framework_agreement_id" options="{'no_create': True}" domain="[('id', 'in', filtered_framework_agreement_ids)]"/>
+                            <field name="sla_policy_id_rel"/>
+                            <field name="cig"/>
+                            <field name="cup"/>
+                            <field name="request_type"/>
+                        </group>
+                        <group>
+                            <field name="contact_referent_id" domain="[('infr_contact_type', '=', 'operatore')]"/>
+                            <field name="email_rel"/>
+                            <field name="pec_rel"/>
+                            <field name="phone_rel"/>
+                            <field name="joint_testing"/>
+                            <field name="expiration_date"/>
+                            <field name="actual_delivery_date"/>
+                        </group>
+                        <group>
+                            <field name="delivery_employee_id" options="{'no_create': True}"/>
+                            <field name="works_director_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="execution_security_coordinator_id" options="{'no_create': True}"/>
+                            <field name="design_safety_coordinator_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <!-- order line embedded form view extension -->
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                    <field name="plant_route_id"/>
+                    <field name="route_length_rel"/>
+                </xpath>
+
+                <!-- order line embedded tree view extension -->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="plant_route_id"/>
+                    <field name="route_length_rel"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>
