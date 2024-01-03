@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    <!-- ******************************* ACTIONS ******************************* -->
+
+        <!-- plant route action -->
+        <record id="sale_plant_route_action" model="ir.actions.act_window">
+            <field name="name">Tratte</field>
+            <field name="res_model">plant.route</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    <!-- ******************************* MENU ******************************* -->
+
+        <!-- under sale menu -->
+        <menuitem id="sale_plant_route_menu"
+            name="Tratte"
+            parent="sale.sale_menu_root"
+            action="sale_plant_route_action"
+            sequence="35"/>
+
+    </data>
+</odoo>

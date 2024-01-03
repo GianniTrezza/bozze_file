@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO sale.order ********************** -->
+        <!-- form view inherit -->
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">view.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button string="Validazione" name="validation_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Approvazione" name="approval_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Firma" name="signature_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Informazioni" name="information_action" class="oe_highlight" type="object" invisible="1"/>
+                    <!-- <button string="Crea ordine di acquisto" name="create_purchase_order_action" class="oe_highlight" type="object" invisible="1"/> -->
+                    <button string="Crea Ordine d'Acquisto" name="create_purchase_order_action" class="oe_highlight" type="object"/>
+                    <button string="Rinnovo" name="renewal_action" class="oe_highlight" type="object" invisible="1"/>
+                    <button string="Dismissione" name="divestment_action" class="oe_highlight" type="object" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[@name='sale_header']" position="after">
+                    <group string="Dati richiesta">
+                        <group>
+                            <field name="project_request_id"/>
+                            <field name="infr_order"/>
+                            <field name="filtered_framework_agreement_ids" invisible="1"/>
+                            <field name="framework_agreement_id" options="{'no_create': True}" domain="[('id', 'in', filtered_framework_agreement_ids)]"/>
+                            <field name="cig"/>
+                            <field name="cup"/>
+                            <field name="request_type"/>
+                        </group>
+                        <group>
+                            <field name="contact_referent_id" domain="[('parent_id', '=', partner_id),('infr_contact_type', '=', 'operatore')]" options="{'no_create': True}"/>
+                            <field name="email_rel"/>
+                            <field name="pec_rel"/>
+                            <field name="phone_rel"/>
+                            <field name="joint_testing"/>
+                            <field name="is_quadrature_possible"/>
+                        </group>
+                        <group>
+                            <field name="business_developer_id" options="{'no_create': True}"/>
+                            <field name="delivery_employee_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <!-- order line embedded form view extension -->
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="after">
+                    <field name="plant_route_id"/>
+                    <field name="route_length_rel"/>
+                    <field name="iru_duration_id"/>
+                </xpath>
+
+                <!-- order line embedded tree view extension -->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="plant_route_id"/>
+                    <field name="route_length_rel"/>
+                    <field name="iru_duration_id"/>
+                </xpath>
+                
+            </field>
+        </record>
+        <record id="view_fornitore_wizard_form" model="ir.ui.view">
+            <field name="name">fornitore.wizard.form</field>
+            <field name="model">fornitori.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="fornitore_id" options="{'no_create': True}"/>
+                        <field name="accordo_quadro_id" domain="[('partner_id', '=', fornitore_id), ('is_state_valid', '=', True)]" options="{'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button string="Conferma" class="btn-primary" type="object" name="conferma_selezione_accordo_quadro"/>
+                        <button string="Annulla" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="view_prodotti_lista_form" model="ir.ui.view">
+            <field name="name">prodotti.lista.form</field>
+            <field name="model">prodotti.lista</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="product_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button string="Conferma" class="btn-primary" type="object" name="conferma_selezione_prodotti"/>
+                        <button string="Annulla" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
