@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************** MODELLO framework.agreement ********************** -->
+        <!-- form view inherit -->
+        <record id="framework_agreement_form_view" model="ir.ui.view">
+            <field name="name">framework.agreement.form.view</field>
+            <field name="model">framework.agreement</field>
+            <field name="inherit_id" ref="infratel_registry.framework_agreement_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="partner_id"/>
+                    <field name="contact_type_rel"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- tree view inherit -->
+        <record id="framework_agreement_tree_view" model="ir.ui.view">
+            <field name="name">framework.agreement.tree.view</field>
+            <field name="model">framework.agreement</field>
+            <field name="inherit_id" ref="infratel_registry.framework_agreement_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="partner_id"/>
+                    <field name="contact_type_rel"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

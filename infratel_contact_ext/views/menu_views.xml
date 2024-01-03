@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ******************************* ACTIONS ******************************* -->
+
+        <!-- framework agreement action -->
+        <record id="framework_agreement_action" model="ir.actions.act_window">
+            <field name="name">Accordi quadro</field>
+            <field name="res_model">framework.agreement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+            
+        <!-- ******************************* MENU ******************************* -->
+
+        <!-- under contact app -->
+        <menuitem id="framework_agreement_menu"
+            name="Accordi quadro"
+            parent="contacts.menu_contacts"
+            action="framework_agreement_action"
+            sequence="2"/>
+
+    </data>
+</odoo>
