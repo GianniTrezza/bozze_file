@@ -1,4 +1,3 @@
-
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import logging
@@ -7,7 +6,10 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+
     def create_purchase_order_action(self):
+        # available_product_ids = self.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+        
         if self.state != 'sale':
             raise UserError("L'ODV deve essere confermato per generare un ODA.")
         if not self.partner_id:
@@ -25,8 +27,7 @@ class SaleOrder(models.Model):
             'res_model': 'fornitori.wizard',  
             'view_mode': 'form',
             'target': 'new',
-            'context': {
-            },
+            'context': {'default_sale_order_id': self.id},
         }
 
 
@@ -56,20 +57,49 @@ class FornitoreWizard(models.TransientModel):
             'res_model': 'prodotti.lista',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_partner_id': self.fornitore_id.id},
+            'context': {'default_partner_id': self.fornitore_id.id,
+                        'default_sale_order_id': self.env.context.get('default_sale_order_id')}
         }
-#**********************Qui devo filtrare i prodotti sulla base del fatto che possano essere solo venduti e solo quelli presenti nell'ODV*****************
+#**********************Filtraggio dei soli prodotti presenti nell'ODV e che possono essere venduti*****************
 class ListaProdotti(models.TransientModel):
     _name = 'prodotti.lista'
     _description = 'Selezione dei prodotti per l\'ODA'
-    
-    product_ids = fields.Many2many('product.product', string='Prodotti disponibili (da filtrare)')
+
+    available_product_ids = fields.Many2many('product.product', compute='_compute_available_product_ids', string='Prodotti Disponibili')
+    product_ids = fields.Many2many('product.product', string='Prodotti Selezionati', domain="[('id', 'in', available_product_ids)]")
+
+
     fornitore_id = fields.Many2one('res.partner', string='Fornitore', domain=[('infr_contact_type', '=', 'fornitore')])
-    
+# FUNZIONE FILTRANTE I PRODOTTI SULLA BASE DEL FATTO CHE SIANO PRESENTI NELL'ODV E SULLA BASE DEL FATTO CHE SIANO VENDIBILI
+    @api.depends('fornitore_id')
+    def _compute_available_product_ids(self):
+        for record in self:
+            sale_order_id = self.env.context.get('default_sale_order_id')
+            _logger.info(f"Sale order ID: {sale_order_id}")
+
+            if sale_order_id:
+                sale_order = self.env['sale.order'].browse(sale_order_id)
+                # product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+                product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+                _logger.info(f"Product IDs: {product_ids}")
+
+                record.available_product_ids = [(6, 0, product_ids)]
+            else:
+                record.available_product_ids = [(6, 0, [])]
+    @api.model
+    def default_get(self, fields):
+        res = super(ListaProdotti, self).default_get(fields)
+        sale_order_id = self.env.context.get('default_sale_order_id')
+        if sale_order_id:
+            sale_order = self.env['sale.order'].browse(sale_order_id)
+            product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+            res['available_product_ids'] = [(6, 0, product_ids)]
+        return res
+
     def conferma_selezione_prodotti(self):
         self.ensure_one()
         if not self.product_ids:
-            raise UserError('Scegli almeno un prodotto.')
+            raise UserError('Scegli almeno un prodotto oppure verifica che la selezione dei prodotti sia attiva e funzionante.')
         if not self.env.context.get('default_partner_id'):
             raise UserError('ID del fornitore non trovato nel contesto.')
         
@@ -81,6 +111,7 @@ class ListaProdotti(models.TransientModel):
             'framework_agreement_id': self._context.get('framework_agreement_id')
 
         })
+
         for product in self.product_ids:
             self.env['purchase.order.line'].create({
                 'order_id': purchase_order.id,

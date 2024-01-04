@@ -39,7 +39,8 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="product_ids" widget="many2many_tags"/>
+                    <field name="available_product_ids" invisible="1"/>
+                    <field name="product_ids" widget="many2many_tags" domain="[('id', 'in', available_product_ids)]"/>
                 </group>
                 <footer>
                     <button string="Conferma" class="btn-primary" type="object" name="conferma_selezione_prodotti"/>
