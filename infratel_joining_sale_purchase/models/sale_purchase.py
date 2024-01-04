@@ -1,4 +1,3 @@
-# Copyright 2023 Raffaele Amalfitano, Unitiva
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError
@@ -59,7 +58,7 @@ class FornitoreWizard(models.TransientModel):
             'target': 'new',
             'context': {'default_partner_id': self.fornitore_id.id},
         }
-#**********************Filtraggio dei soli fornitori e degli accordi quadro ancora attivi ad essi correlati*****************
+#**********************Qui devo filtrare i prodotti sulla base del fatto che possano essere solo venduti e solo quelli presenti nell'ODV*****************
 class ListaProdotti(models.TransientModel):
     _name = 'prodotti.lista'
     _description = 'Selezione dei prodotti per l\'ODA'
