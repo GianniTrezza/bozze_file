@@ -7,7 +7,7 @@
     'depends': ['sale', 'purchase', 'infratel_sale_ext', 'infratel_purchase_ext'],
     'data': [
         'security/ir.model.access.csv',
-        'views/sale_purchase_views.xml'
+        'views/sale_purchase_views.xml',
     ],
     'installable': True,
     'application': False,

@@ -6,9 +6,16 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # purchase_order_created = fields.Boolean(string="Ordine d'Acquisto Creato", default=False)
+    # show_purchase_order_button = fields.Boolean(compute="_compute_show_purchase_order_button")
+
+    # def _compute_show_purchase_order_button(self):
+    #     for order in self:
+    #         order.show_purchase_order_button = not order.purchase_order_created
+
 
     def create_purchase_order_action(self):
-        # available_product_ids = self.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+        # available_product_ids = self.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
         
         if self.state != 'sale':
             raise UserError("L'ODV deve essere confermato per generare un ODA.")
@@ -20,7 +27,7 @@ class SaleOrder(models.Model):
         partner = self.env['res.partner'].browse(self.partner_id.id)
         if not partner.exists():
             raise UserError("Fornitore non valido o non esistente per l'ODV.")
-
+        
         return {
             'name': 'Seleziona Fornitore',
             'type': 'ir.actions.act_window',
@@ -79,8 +86,8 @@ class ListaProdotti(models.TransientModel):
 
             if sale_order_id:
                 sale_order = self.env['sale.order'].browse(sale_order_id)
-                # product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
-                product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+                # product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
+                product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
                 _logger.info(f"Product IDs: {product_ids}")
 
                 record.available_product_ids = [(6, 0, product_ids)]
@@ -92,7 +99,7 @@ class ListaProdotti(models.TransientModel):
         sale_order_id = self.env.context.get('default_sale_order_id')
         if sale_order_id:
             sale_order = self.env['sale.order'].browse(sale_order_id)
-            product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.sale_ok).ids
+            product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
             res['available_product_ids'] = [(6, 0, product_ids)]
         return res
 
