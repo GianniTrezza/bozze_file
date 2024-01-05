@@ -10,11 +10,15 @@
                         type="object" 
                         name="create_purchase_order_action"
                         class="oe_highlight"/>
+                <!-- <button class="oe_stat_button" type="object" name="action_view_related_purchase_order"
+                    icon="fa-shopping-cart" attrs="{'invisible': [('related_purchase_order_id', '=', False)]}">
+                    <field string="Ordine di Acquisto" name="related_purchase_order_id" widget="statinfo"/>
+                </button> -->
             </xpath>
         </field>
     </record>
 
-    <!-- Vista per il wizard di selezione del fornitore -->
+    <!-- Vista per il wizard di selezione del fornitore e dei prodotti -->
     <record id="view_fornitore_wizard_form" model="ir.ui.view">
         <field name="name">fornitore.wizard.form</field>
         <field name="model">fornitori.wizard</field>
@@ -23,24 +27,8 @@
                 <group>
                     <field name="fornitore_id" options="{'no_create': True}"/>
                     <field name="accordo_quadro_id" domain="[('partner_id', '=', fornitore_id), ('is_state_valid', '=', 'True')]" options="{'no_create': True}"/>
-                </group>
-                <footer>
-                    <button string="Conferma" class="btn-primary" type="object" name="conferma_selezione_accordo_quadro"/>
-                    <button string="Annulla" class="btn-secondary" special="cancel"/>
-                </footer>
-            </form>
-        </field>
-    </record>
-
-    <!-- Vista per il wizard di selezione dei prodotti -->
-    <record id="view_prodotti_lista_form" model="ir.ui.view">
-        <field name="name">prodotti.lista.form</field>
-        <field name="model">prodotti.lista</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
                     <field name="available_product_ids" invisible="1"/>
-                    <field name="product_ids" widget="many2many_tags" domain="[('id', 'in', available_product_ids)]"/>
+                    <field name="product_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('id', 'in', available_product_ids)]"/>
                 </group>
                 <footer>
                     <button string="Conferma" class="btn-primary" type="object" name="conferma_selezione_prodotti"/>
@@ -50,5 +38,6 @@
         </field>
     </record>
 </odoo>
+
 
 

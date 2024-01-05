@@ -1,0 +1,6 @@
+<!-- <odoo>
+    <record id="group_show_purchase_order_button" model="res.groups">
+        <field name="name">Mostra Pulsante Ordine d'Acquisto</field>
+        <field name="category_id" ref="infratel_joining_sale_purchase"/>
+    </record>
+</odoo> -->

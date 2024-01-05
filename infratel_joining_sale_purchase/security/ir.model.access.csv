@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 infratel_joining_sale_purchase.access_fornitori_wizard,access_fornitori_wizard,infratel_joining_sale_purchase.model_fornitori_wizard,base.group_user,1,1,1,1
-infratel_joining_sale_purchase.access_prodotti_lista,access_prodotti_lista,infratel_joining_sale_purchase.model_prodotti_lista,base.group_user,1,1,1,1
