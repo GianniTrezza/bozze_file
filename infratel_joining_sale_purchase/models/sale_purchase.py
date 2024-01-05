@@ -1,23 +1,17 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import logging
+
+
 _logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    # related_sale_order_id = fields.Many2one('sale.order', string='Ordine di Vendita Correlato')
-    def action_view_related_sale_order(self):
-        self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Ordine di Vendita Correlato',
-            'res_model': 'sale.order',
-            'view_mode': 'form',
-            'res_id': self.related_sale_order_id.id,
-            'target': 'current',
-        }
-
+    related_purchase_order_id = fields.Many2one(
+        'purchase.order', string='Ordine di Acquisto Correlato',
+        readonly=True, ondelete='set null'
+    )
 
     def create_purchase_order_action(self):
         if self.state != 'sale':
@@ -38,6 +32,10 @@ class SaleOrder(models.Model):
             'target': 'new',
             'context': {'default_sale_order_id': self.id},
         }
+
+    # Metodo per collegare un ordine di acquisto all'ordine di vendita
+    def link_purchase_order(self, purchase_order_id):
+        self.related_purchase_order_id = purchase_order_id
 
 class FornitoreWizard(models.TransientModel):
     _name = 'fornitori.wizard'
@@ -84,15 +82,13 @@ class FornitoreWizard(models.TransientModel):
 
     def conferma_selezione_prodotti(self):
         self.ensure_one()
-        partner_id = self.fornitore_id.id
-        
         if not self.product_ids:
             raise UserError('Scegli almeno un prodotto oppure verifica che la selezione dei prodotti sia attiva e funzionante.')
-        if not partner_id:
+        if not self.fornitore_id:
             raise UserError('ID del fornitore non trovato nel contesto.')
         
         purchase_order = self.env['purchase.order'].create({
-            'partner_id': partner_id,
+            'partner_id': self.fornitore_id.id,
             'origin': self._context.get('origin'),
             'project_request_id': self._context.get('project_request_id'),
             'infr_order': self._context.get('infr_order'),
@@ -106,6 +102,15 @@ class FornitoreWizard(models.TransientModel):
                 'date_planned': fields.Datetime.now(),
             })
 
+        # Collegamento dell'ODA con l'ODV
+        sale_order_id = self.env.context.get('default_sale_order_id')
+        if sale_order_id:
+            sale_order = self.env['sale.order'].browse(sale_order_id)
+            sale_order.link_purchase_order(purchase_order.id)
+
+            purchase_order.link_sale_order(sale_order_id)
+
+
         return {
             'type': 'ir.actions.act_window',
             'name': 'Ordine di Acquisto Creato',
@@ -113,87 +118,14 @@ class FornitoreWizard(models.TransientModel):
             'res_id': purchase_order.id,
             'view_mode': 'form',
         }
-    
-# class SmartODV(models.Model):
-#     _inherit = "sale.order"
-#     related_purchase_order_id = fields.Many2one('purchase.order', string='Ordine di Acquisto Correlato')
+class PurchaseOrder(models.Model):
+    _inherit = "purchase.order"
 
-#     def action_view_related_purchase_order(self):
-#         self.ensure_one()
-#         return {
-#             'type': 'ir.actions.act_window',
-#             'name': 'Ordine di Acquisto Correlato',
-#             'res_model': 'purchase.order',
-#             'view_mode': 'form',
-#             'res_id': self.related_purchase_order_id.id,
-#             'target': 'current',
-#         }
-
-#**********************Filtraggio dei soli prodotti presenti nell'ODV e che possono essere venduti*****************
-# class ListaProdotti(models.TransientModel):
-#     _name = 'prodotti.lista'
-#     _description = 'Selezione dei prodotti per l\'ODA'
-
-#     available_product_ids = fields.Many2many('product.product', compute='_compute_available_product_ids', string='Prodotti Disponibili')
-#     product_ids = fields.Many2many('product.product', string='Prodotti Selezionati', domain="[('id', 'in', available_product_ids)]")
+    related_sale_order_id = fields.Many2one(
+        'sale.order', string='Ordine di Vendita Correlato',
+        readonly=True, ondelete='set null'
+    )
 
 
-#     fornitore_id = fields.Many2one('res.partner', string='Fornitore', domain=[('infr_contact_type', '=', 'fornitore')])
-# # FUNZIONE FILTRANTE I PRODOTTI SULLA BASE DEL FATTO CHE SIANO PRESENTI NELL'ODV E SULLA BASE DEL FATTO CHE SIANO VENDIBILI
-#     @api.depends('fornitore_id')
-#     def _compute_available_product_ids(self):
-#         for record in self:
-#             sale_order_id = self.env.context.get('default_sale_order_id')
-#             _logger.info(f"Sale order ID: {sale_order_id}")
-
-#             if sale_order_id:
-#                 sale_order = self.env['sale.order'].browse(sale_order_id)
-#                 # product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
-#                 product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
-#                 _logger.info(f"Product IDs: {product_ids}")
-
-#                 record.available_product_ids = [(6, 0, product_ids)]
-#             else:
-#                 record.available_product_ids = [(6, 0, [])]
-#     @api.model
-#     def default_get(self, fields):
-#         res = super(ListaProdotti, self).default_get(fields)
-#         sale_order_id = self.env.context.get('default_sale_order_id')
-#         if sale_order_id:
-#             sale_order = self.env['sale.order'].browse(sale_order_id)
-#             product_ids = sale_order.order_line.mapped('product_id').filtered(lambda p: p.purchase_ok).ids
-#             res['available_product_ids'] = [(6, 0, product_ids)]
-#         return res
-
-#     def conferma_selezione_prodotti(self):
-#         self.ensure_one()
-#         if not self.product_ids:
-#             raise UserError('Scegli almeno un prodotto oppure verifica che la selezione dei prodotti sia attiva e funzionante.')
-#         if not self.env.context.get('default_partner_id'):
-#             raise UserError('ID del fornitore non trovato nel contesto.')
-        
-#         purchase_order = self.env['purchase.order'].create({
-#             'partner_id': self.env.context['default_partner_id'],
-#             'origin': self._context.get('origin'),
-#             'project_request_id': self._context.get('project_request_id'),
-#             'infr_order': self._context.get('infr_order'),
-#             'framework_agreement_id': self._context.get('framework_agreement_id')
-
-#         })
-
-#         for product in self.product_ids:
-#             self.env['purchase.order.line'].create({
-#                 'order_id': purchase_order.id,
-#                 'product_id': product.id,
-#                 'date_planned': fields.Datetime.now(),
-#             })
-
-#         return {
-#             'type': 'ir.actions.act_window',
-#             'name': 'Ordine di Acquisto Creato',
-#             'res_model': 'purchase.order',
-#             'res_id': purchase_order.id,
-#             'view_mode': 'form',
-#         }
-    
-# infratel_joining_sale_purchase.access_prodotti_lista,access_prodotti_lista,infratel_joining_sale_purchase.model_prodotti_lista,base.group_user,1,1,1,1
+    def link_sale_order(self, sale_order_id):
+        self.related_sale_order_id = sale_order_id

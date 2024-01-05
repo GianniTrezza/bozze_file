@@ -5,10 +5,12 @@
         <field name="inherit_id" ref="infratel_sale_ext.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="before">
-                <field name="display_purchase_order_button"/>
-                <button class="oe_stat_button" type="object" name="action_view_related_purchase_order"
+                <!-- Aggiungi il campo calcolato per la visibilità -->
+                <field name="display_purchase_order_button" invisible="1"/>
+                <button class="oe_stat_button" type="object" 
+                        name="action_view_related_purchase_order" 
                         icon="fa-shopping-cart">
-                    <field name="related_purchase_order_id" widget="statinfo" string="Ordini di Acquisto"/>
+                    <field name="related_purchase_order_id" widget="statinfo"/>
                 </button>
             </xpath>
         </field>
@@ -20,44 +22,14 @@
         <field name="inherit_id" ref="infratel_purchase_ext.purchase_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="before">
-                <field name="display_sale_order_button"/>
-                <button class="oe_stat_button" type="object" name="action_view_related_sale_order"
+                <!-- Aggiungi il campo calcolato per la visibilità -->
+                <field name="display_sale_order_button" invisible="1"/>
+                <button class="oe_stat_button" type="object" 
+                        name="action_view_related_sale_order" 
                         icon="fa-truck">
-                    <field name="related_sale_order_id" widget="statinfo" string="Ordini di Vendita"/>
+                    <field name="related_sale_order_id" widget="statinfo"/>
                 </button>
             </xpath>
         </field>
     </record>
 </odoo>
-
-<!-- <odoo>
-    <record id="view_order_form_inherit_smart_button" model="ir.ui.view">
-        <field name="name">sale.order.form.inherit.smart.button</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <field name="display_purchase_order_button"/>
-                <button class="oe_stat_button" type="object" name="action_view_related_purchase_order"
-                        icon="fa-shopping-cart" invisible="not display_purchase_order_button">
-                    <field string="Ordine di Acquisto" name="related_purchase_order_id" widget="statinfo"/>
-                </button>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="view_purchase_order_form_inherit_smart_button" model="ir.ui.view">
-        <field name="name">purchase.order.form.inherit.smart.button</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <field name="display_sale_order_button"/>
-                <button class="oe_stat_button" type="object" name="action_view_related_sale_order"
-                        icon="fa-truck" invisible="not display_sale_order_button">
-                    <field string="Ordine di Vendita" name="related_sale_order_id" widget="statinfo"/>
-                </button>
-            </xpath>
-        </field>
-    </record>
-</odoo> -->
