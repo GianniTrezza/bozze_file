@@ -6,6 +6,19 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # related_sale_order_id = fields.Many2one('sale.order', string='Ordine di Vendita Correlato')
+    def action_view_related_sale_order(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Ordine di Vendita Correlato',
+            'res_model': 'sale.order',
+            'view_mode': 'form',
+            'res_id': self.related_sale_order_id.id,
+            'target': 'current',
+        }
+
+
     def create_purchase_order_action(self):
         if self.state != 'sale':
             raise UserError("L'ODV deve essere confermato per generare un ODA.")
@@ -100,6 +113,21 @@ class FornitoreWizard(models.TransientModel):
             'res_id': purchase_order.id,
             'view_mode': 'form',
         }
+    
+# class SmartODV(models.Model):
+#     _inherit = "sale.order"
+#     related_purchase_order_id = fields.Many2one('purchase.order', string='Ordine di Acquisto Correlato')
+
+#     def action_view_related_purchase_order(self):
+#         self.ensure_one()
+#         return {
+#             'type': 'ir.actions.act_window',
+#             'name': 'Ordine di Acquisto Correlato',
+#             'res_model': 'purchase.order',
+#             'view_mode': 'form',
+#             'res_id': self.related_purchase_order_id.id,
+#             'target': 'current',
+#         }
 
 #**********************Filtraggio dei soli prodotti presenti nell'ODV e che possono essere venduti*****************
 # class ListaProdotti(models.TransientModel):

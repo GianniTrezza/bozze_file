@@ -10,10 +10,7 @@
                         type="object" 
                         name="create_purchase_order_action"
                         class="oe_highlight"/>
-                <!-- <button class="oe_stat_button" type="object" name="action_view_related_purchase_order"
-                    icon="fa-shopping-cart" attrs="{'invisible': [('related_purchase_order_id', '=', False)]}">
-                    <field string="Ordine di Acquisto" name="related_purchase_order_id" widget="statinfo"/>
-                </button> -->
+                <!-- Aggiungere qui lo smart button se necessario -->
             </xpath>
         </field>
     </record>
@@ -38,6 +35,3 @@
         </field>
     </record>
 </odoo>
-
-
-

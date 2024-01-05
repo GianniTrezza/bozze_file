@@ -8,6 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/sale_purchase_views.xml',
+        'views/smart_button_sale_purchase.xml',
     ],
     'installable': True,
     'application': False,
