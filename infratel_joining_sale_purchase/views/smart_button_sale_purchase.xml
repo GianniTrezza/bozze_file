@@ -4,9 +4,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="infratel_sale_ext.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="before">
-                <!-- Aggiungi il campo calcolato per la visibilità -->
-                <field name="display_purchase_order_button" invisible="1"/>
+            <xpath expr="//sheet/div[@class='oe_button_box']" position="inside">
                 <button class="oe_stat_button" type="object" 
                         name="action_view_related_purchase_order" 
                         icon="fa-shopping-cart">
@@ -21,9 +19,7 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="infratel_purchase_ext.purchase_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="before">
-                <!-- Aggiungi il campo calcolato per la visibilità -->
-                <field name="display_sale_order_button" invisible="1"/>
+            <xpath expr="//sheet/div[@class='oe_button_box']" position="inside">
                 <button class="oe_stat_button" type="object" 
                         name="action_view_related_sale_order" 
                         icon="fa-truck">
@@ -33,3 +29,4 @@
         </field>
     </record>
 </odoo>
+
