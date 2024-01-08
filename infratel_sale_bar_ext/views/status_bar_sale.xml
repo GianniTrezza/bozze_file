@@ -27,7 +27,7 @@
                         invisible="context.get('button_approval_visible', False)"
                         class="oe_highlight"/>
                 <button string="Firma" type="object" name="action_sign"
-                        invisible="context.get('button_sign_visible', True)"
+                        invisible="context.get('button_sign_visible', False)"
                         class="oe_highlight"/>
             </xpath>
         </field>

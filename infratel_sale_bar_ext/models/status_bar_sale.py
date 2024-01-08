@@ -12,37 +12,34 @@ class SaleOrder(models.Model):
     button_approval_visible = fields.Boolean(compute='_compute_button_visibility')
     button_sign_visible = fields.Boolean(compute='_compute_button_visibility')
 
+    # Logiche per la visibilità dei bottoni
     @api.depends('state', 'user_id')
     def _compute_button_visibility(self):
         for record in self:
-            # user_in_group = self.env.user.has_group('infratel_sale_bar_ext.business_developer_id')
-            # record.button_validation_visible = (record.state == 'draft')
-            # record.button_approval_visible = (record.state == 'sent_for_validation')
-            # record.button_sign_visible = (record.state == 'sent_for_approval')
-            record.button_validation_visible = record.state == ['draft', 'sent_for_validation','sent_for_approval' ]
-            record.button_approval_visible = record.state == ['sent_for_validation', 'sent_for_approval']
-            record.button_sign_visible = record.state == 'sent_for_approval'
+            user = self.env.user
+            # Qui inserisci la logica per definire se l'utente è un Business Developer o DDI
+            is_business_developer = user.has_group('infratel_sale_bar_ext.group_business_developer_id')
+            # is_ddi = user.has_group('your_module.group_ddi')
 
-# *****************************Pulsante "Invia per validazione e stato "In attesa di validazione"********************************+
+            record.button_validation_visible = record.state == 'draft'
+            record.button_approval_visible = record.state == 'sent_for_validation' and is_business_developer
+            record.button_sign_visible = record.state == 'sent_for_approval' 
+            # Aggiungere a questo livello il is_ddi
 
-    
+    # Azione "Invia per validazione"
     def action_send_for_validation(self):
-        # if self.state == 'draft':
-        #     self.state = 'sent_for_validation'
         self.ensure_one()
         if self.state != 'draft':
-            raise UserError("Il preventivo non è in stato bozza.")
-        self.write({'state': 'sent_for_validation'})
+            raise UserError("Il preventivo è in attesa d'approvazione da parte del Business Developer.")
+        self.state = 'sent_for_validation'
+        
 
-#***************************** Pulsante "Invia per approvazione" e stato "In attesa di approvazione"*************************
-    
+    # Azione "Invia per approvazione"
     def action_send_for_approval(self):
-        # if self.state == 'sent_for_validation':
-        #     self.state = 'sent_for_approval'
         self.ensure_one()
         if self.state != 'sent_for_validation':
-            raise UserError("Il preventivo non è in attesa di validazione.")
-        self.write({'state': 'sent_for_approval'})
+            raise UserError("Il preventivo è stato approvato: si attenda la firma e l'invio da parte del DDI.")
+        self.state = 'sent_for_approval'
 
 #***************************** Pulsante "Invia per approvazione" e stato "Firma"*************************
 
@@ -51,7 +48,7 @@ class SaleOrder(models.Model):
         #     self.state = 'signed'
         self.ensure_one()
         if self.state != 'sent_for_approval':
-            raise UserError("Il preventivo non è in attesa di approvazione.")
+            raise UserError("Preventivo firmato ed inviato correttamente da parte del DDI.")
         self.write({'state': 'signed'})
 
 # ********************************* ACCESSO UTENTI*************************************************
