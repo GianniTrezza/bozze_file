@@ -2,7 +2,6 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 import logging
 
-
 _logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
@@ -30,7 +29,8 @@ class SaleOrder(models.Model):
             'res_model': 'fornitori.wizard',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_sale_order_id': self.id},
+            'context': {'default_sale_order_id': self.id,
+                        'default_name': self.name, },
         }
 
     # Metodo per collegare un ordine di acquisto all'ordine di vendita
@@ -89,7 +89,7 @@ class FornitoreWizard(models.TransientModel):
         
         purchase_order = self.env['purchase.order'].create({
             'partner_id': self.fornitore_id.id,
-            'origin': self._context.get('origin'),
+            'origin': self._context.get('default_name'),
             'project_request_id': self._context.get('project_request_id'),
             'infr_order': self._context.get('infr_order'),
             'framework_agreement_id': self._context.get('framework_agreement_id')

@@ -21,7 +21,8 @@ class SaleOrder(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Ordine di Acquisto Correlato',
+            # 'name': 'Ordine di Acquisto Correlato',
+            'name': 'Richiesta/Ordine d\'Acquisto Correlati',
             'res_model': 'purchase.order',
             'view_mode': 'form',
             'res_id': self.related_purchase_order_id.id,
@@ -44,7 +45,6 @@ class PurchaseOrder(models.Model):
             order.display_sale_order_button = bool(order.related_sale_order_id)
 
     
-
     def action_view_related_sale_order(self):
         self.ensure_one()
         return {
