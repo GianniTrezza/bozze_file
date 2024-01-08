@@ -1,0 +1,59 @@
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="sent_for_validation,sent_for_approval,signed"/>
+            </xpath> -->
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent_for_validation,sent_for_approval,sent,signed,sale"/>
+            </xpath>
+            <!-- USARE QUESTO SNIPPET PER GESTIRE LA VISIBILITà DA PARTE DEI DIVERSI GRUPPI -->
+            <!-- <xpath expr="//header" position="inside">
+                <button string="Invia per validazione" type="object" name="action_send_for_validation"
+                        groups="show_validation_button"/>
+                <button string="Invia per approvazione" type="object" name="action_send_for_approval"
+                        groups="show_approval_button"/>
+                <button string="Firma" type="object" name="action_sign"
+                        groups="show_sign_button"/>
+            </xpath> -->
+            <xpath expr="//header" position="inside">
+                <button string="Invia per validazione" type="object" name="action_send_for_validation"
+                        invisible="context.get('button_validation_visible', False)"
+                        class="oe_highlight"/>
+                <button string="Invia per approvazione" type="object" name="action_send_for_approval"
+                        invisible="context.get('button_approval_visible', False)"
+                        class="oe_highlight"/>
+                <button string="Firma" type="object" name="action_sign"
+                        invisible="context.get('button_sign_visible', True)"
+                        class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+<!-- 
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="sent_for_validation,sent_for_approval,signed"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button string="Invia per validazione" type="object" name="action_send_for_validation"
+                        t-if="record.show_validation_button" class="oe_highlight"/>
+                <button string="Invia per approvazione" type="object" name="action_send_for_approval"
+                        t-if="record.show_approval_button" class="oe_highlight"/>
+                <button string="Firma" type="object" name="action_sign"
+                        t-if="record.show_sign_button" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+ -->
