@@ -19,15 +19,22 @@
                 <button string="Firma" type="object" name="action_sign"
                         groups="show_sign_button"/>
             </xpath> -->
+            <!-- Aggiungi i campi calcolati come campi invisibili -->
+            <xpath expr="//form" position="inside">
+                <field name="show_button_validation" invisible="1"/>
+                <field name="show_button_approval" invisible="1"/>
+                <field name="show_button_sign" invisible="1"/>
+            </xpath>
+
             <xpath expr="//header" position="inside">
                 <button string="Invia per validazione" type="object" name="action_send_for_validation"
-                        invisible="context.get('button_validation_visible', False)"
+                        invisible="not show_button_validation"
                         class="oe_highlight"/>
                 <button string="Invia per approvazione" type="object" name="action_send_for_approval"
-                        invisible="context.get('button_approval_visible', False)"
+                        invisible="not show_button_approval"
                         class="oe_highlight"/>
                 <button string="Firma" type="object" name="action_sign"
-                        invisible="context.get('button_sign_visible', False)"
+                        invisible="not show_button_sign"
                         class="oe_highlight"/>
             </xpath>
         </field>
